@@ -1,0 +1,387 @@
+/* -------------------------------------------------------
+   NoDaysOff — Mockup Styles
+   Matches 1280px desktop comp one-to-one
+------------------------------------------------------- */
+
+/* ----- Fonts (swap if you have brand fonts) ----- */
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600;700;800;900&display=swap");
+
+/* ----- Design Tokens ----- */
+:root{
+  --ink: #0a0a0a;
+  --muted-ink:#1b1b1b;
+  --bg:#ffffff;
+  --panel:#f3f4ff;            /* light lavender panels */
+  --accent:#7C82FF;           /* primary purple from comp */
+  --accent-ink:#5C63FF;
+  --border:#e6e6e6;
+  --soft:#f7f7f7;
+  --radius:14px;
+  --maxw:1280px;
+}
+
+/* ----- CSS Reset (light) ----- */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  color:var(--ink);
+  background:var(--bg);
+  font:400 16px/1.45 "Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+
+/* ----- Layout helpers ----- */
+.container{
+  width:100%;
+  max-width:var(--maxw);
+  margin-inline:auto;
+  padding-inline:24px;
+}
+
+/* -----------------------------------------------
+   HEADER / NAV — Fixed & Responsive
+------------------------------------------------ */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  header .bar {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  
+  .logo {
+    font-family: "Anton", sans-serif;
+    letter-spacing: 0.5px;
+    font-size: 28px;
+  }
+  
+  /* Mobile toggle (hidden on desktop) */
+  .nav-toggle {
+    display: none;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border);
+    background: #fff;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: #111;
+    margin: 3px auto;
+    transition: 0.2s ease;
+  }
+  .nav-toggle.is-open span:nth-child(1) {
+    transform: translateY(5px) rotate(45deg);
+  }
+  .nav-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggle.is-open span:nth-child(3) {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+  
+  .nav {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+  
+  nav a {
+    font-weight: 600;
+  }
+  
+  .cta {
+    padding: 10px 16px;
+    background: var(--accent);
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+  }
+  .cta:hover {
+    transform: translateY(-1px);
+    background: var(--accent-ink);
+  }
+  
+  /* Mobile styles */
+  @media (max-width: 992px) {
+    .nav-toggle {
+      display: inline-flex;
+    }
+  
+    .nav {
+      justify-content: flex-end;
+    }
+  
+    .nav-links {
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      flex-direction: column;
+      padding: 20px 24px;
+      transform: translateY(-100%);
+      transition: transform 0.2s ease;
+      border-top: 1px solid var(--border);
+      gap: 18px;
+    }
+  
+    .nav.is-open .nav-links {
+      transform: translateY(0);
+    }
+  
+    nav ul {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+  
+    .cta {
+      margin-top: 10px;
+    }
+  }
+
+/* -----------------------------------------------
+   HERO
+------------------------------------------------ */
+.hero{
+  padding-block:38px 18px;
+}
+.hero h1{
+  margin:0 0 22px 0;
+  font-family:"Anton",sans-serif;
+  font-size:clamp(44px,7vw,96px);
+  line-height:1.02;
+  letter-spacing:.2px;
+  text-transform:uppercase;
+  text-align: center;
+}
+.hero h1 span{ color:#000; }
+.hero h1 strong{ color:var(--accent); font-weight:900; }
+.hero .hero-img{
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+}
+
+/* -----------------------------------------------
+   FEATURES GRID (two rows)
+------------------------------------------------ */
+.features{
+  margin-block:28px 10px;
+  display:grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto auto;
+  gap:1px;                /* divider hairlines like the comp */
+  background:var(--border);
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+}
+
+/* Row 1: big image (left) + purpose text (right) */
+.features .image-box{
+  grid-column:1 / 2; grid-row:1 / 2;
+  background:#000;
+}
+.features .image-box img{ width:100%; height:100%; object-fit:cover }
+
+.features .purpose{
+  grid-column:2 / 3; grid-row:1 / 2;
+  background:#fff; padding:32px 28px 36px 28px;
+}
+
+/* Row 2: two info tiles (left) + portrait (right) */
+.features .tile{
+  background:var(--panel);
+  padding:28px;
+}
+.features .tile--fuel{ grid-column:1 / 2; grid-row:2 / 3; }
+.features .tile--recover{ grid-column:1 / 2; grid-row:2 / 3; border-left:1px solid var(--border); }
+.features .tile-wrap{
+  display:grid; grid-template-columns:1fr 1fr;
+}
+.features .portrait{
+  grid-column:2 / 3; grid-row:2 / 3;
+  background:#ddd;
+}
+.features .portrait img{ width:100%; height:100%; object-fit:cover }
+
+/* Tile/content typography */
+.section-kicker{
+  font-weight:800; letter-spacing:.2px; text-transform:uppercase;
+  font-size:13px; opacity:.6; margin:0 0 8px 0;
+}
+.h2{
+  font-family:"Anton",sans-serif;
+  font-size:36px; line-height:1.08; letter-spacing:.15px;
+  margin:0 0 16px 0; text-transform:uppercase;
+}
+.copy{ margin:0; color:#333; font-size:15.5px; max-width:60ch }
+
+/* Purpose block specifics */
+.purpose .h2{ margin-top:6px }
+.button{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:10px 16px; border-radius:10px;
+  background:#EEF0FF; color:#2b2f80; font-weight:700;
+  margin-top:14px; border:1px solid #D9DBFF;
+}
+.button:hover{ filter:brightness(.97) }
+
+/* Fuel / Recover two-tile layout */
+.tile-wrap .tile{ min-height:220px }
+.tile-wrap .tile + .tile{ border-left:1px solid var(--border) }
+
+/* -----------------------------------------------
+   "JOIN THE COMMUNITY" STRIPE
+------------------------------------------------ */
+.stripe{
+  margin:46px 0 22px;
+  padding:28px 0;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.stripe h2{
+  margin:0;
+  font-family:"Anton",sans-serif;
+  font-size:clamp(44px,8vw,96px);
+  line-height:1.02; text-transform:uppercase;
+  letter-spacing:.2px;
+  text-align: center;
+}
+.stripe .highlight{ color:var(--accent) }
+
+/* -----------------------------------------------
+   COMMUNITY SPLIT
+------------------------------------------------ */
+.community{
+  display:grid;
+  grid-template-columns: 1.1fr 1.35fr;
+  gap:1px; background:var(--border);
+  border:1px solid var(--border);
+  border-radius:12px; overflow:hidden;
+}
+.community .panel{ background:#fff; padding:28px }
+.community .photo{ background:#000 }
+.community .photo img{ width:100%; height:100%; object-fit:cover }
+
+.list{
+  display:grid; gap:14px; margin:18px 0 22px 0; padding:0;
+}
+.list li{ list-style:none; }
+.list strong{ font-weight:800 }
+
+/* -----------------------------------------------
+   CTA BANNER
+------------------------------------------------ */
+.cta-banner{
+  margin:46px 0;
+  padding:62px 0 72px;
+  background:var(--accent);
+  border-radius:12px; color:#fff; text-align:center;
+}
+.cta-banner p{
+  margin:0 0 8px 0; opacity:.9; text-transform:uppercase; font-weight:700
+}
+.cta-banner h2{
+  margin:0 0 16px 0;
+  font-family:"Anton",sans-serif; text-transform:uppercase;
+  font-size:clamp(28px,4.5vw,44px); letter-spacing:.2px;
+}
+.cta-banner .cta{ background:#fff; color:#2b2f80; font-weight:800 }
+.cta-banner .cta:hover{ background:#F2F2FF }
+
+/* -----------------------------------------------
+   FOOTER
+------------------------------------------------ */
+footer{
+  padding:40px 0 52px;
+  border-top:1px solid var(--border);
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns: 1.1fr 1fr 1fr;
+  gap:24px; align-items:start;
+}
+.logo-bubbles{
+  display:flex; align-items:center; gap:10px; margin-bottom:12px;
+}
+.bubble{ background:#000; border-radius:50% }
+.b1{ width:44px; height:44px }
+.b2{ width:32px; height:32px }
+.b3{ width:22px; height:22px }
+
+.footer-col h4{
+  margin:0 0 10px 0; font-weight:900; letter-spacing:.2px; text-transform:uppercase
+}
+.footer-col p{ margin:4px 0; color:#333 }
+.footer-col ul{ list-style:none; padding:0; margin:6px 0 0 0; display:grid; gap:6px }
+.footer-col a{ text-decoration:underline }
+
+/* -----------------------------------------------
+   PAGE SPACING (sections using .container)
+------------------------------------------------ */
+section > .container, header .bar, footer > .container{ }
+
+/* -----------------------------------------------
+   RESPONSIVE (keeps desktop as reference)
+------------------------------------------------ */
+@media (max-width: 1200px){
+  .features{ grid-template-columns: 1.8fr 1fr }
+  .community{ grid-template-columns: 1fr 1fr }
+}
+@media (max-width: 992px){
+  nav ul{ gap:18px }
+  .features{ grid-template-columns:1fr; grid-template-rows:auto; }
+  .purpose{ border-top:1px solid var(--border) }
+  .tile-wrap{ grid-template-columns:1fr; }
+  .tile-wrap .tile + .tile{ border-left:none; border-top:1px solid var(--border) }
+  .community{ grid-template-columns:1fr }
+}
+@media (max-width: 768px){
+  .hero h1{ font-size: clamp(38px,8vw,64px) }
+  .stripe h2{ font-size: clamp(38px,9vw,72px) }
+  .footer-grid{ grid-template-columns:1fr; }
+}
+@media (max-width: 576px){
+  .cta{ margin-left:16px }
+  .hero{ padding-top:26px }
+}
