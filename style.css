@@ -329,6 +329,12 @@ header {
 .cta-banner .cta{ background:#fff; color:#2b2f80; font-weight:800 }
 .cta-banner .cta:hover{ background:#F2F2FF }
 
+.cta-banner .container {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
 /* -----------------------------------------------
    FOOTER
 ------------------------------------------------ */
