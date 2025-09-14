@@ -122,7 +122,14 @@ header {
   nav a {
     font-weight: 600;
   }
-  
+
+  /* Active link highlight */
+  nav a.active {
+    color: var(--accent);
+    font-weight: 800;
+    text-decoration: underline;
+  }
+
   .cta {
     padding: 10px 16px;
     background: var(--accent);
