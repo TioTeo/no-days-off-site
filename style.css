@@ -74,7 +74,7 @@ header {
     width: 42px;
     height: 42px;
     border: 1px solid var(--border);
-    background: #fff;
+    background: #000;
     border-radius: 10px;
     align-items: center;
     justify-content: center;
@@ -83,7 +83,7 @@ header {
     display: block;
     width: 20px;
     height: 2px;
-    background: #111;
+    background: #000;
     margin: 3px auto;
     transition: 0.2s ease;
   }
@@ -398,3 +398,99 @@ section > .container, header .bar, footer > .container{ }
   .cta{ margin-left:16px }
   .hero{ padding-top:26px }
 }
+/* ======= NAV: Desktop baseline ======= */
+header{
+  position: sticky; top: 0; z-index: 1200;
+  background:#fff; border-bottom:1px solid var(--border);
+}
+header .bar{ height:72px; display:flex; align-items:center; justify-content:space-between; }
+.logo{ font-family:"Anton",sans-serif; letter-spacing:.5px; font-size:28px; }
+
+.nav-toggle{             /* hidden by default (desktop) */
+  display:none; width:42px; height:36px;
+  border:1px solid var(--border); border-radius:10px; background:#fff;
+  align-items:center; justify-content:center; gap:5px; cursor:pointer;
+}
+.nav-toggle span{ display:block; width:20px; height:2px; background:#111; border-radius:2px; }
+.nav-toggle.is-open span:nth-child(2){ opacity:0 }
+.nav-toggle.is-open span:first-child{ transform:translateY(6px) rotate(45deg) }
+.nav-toggle.is-open span:last-child{  transform:translateY(-6px) rotate(-45deg) }
+
+nav ul{ list-style:none; margin:0; padding:0; display:flex; gap:28px; align-items:center; }
+nav a{ font-weight:600; text-decoration:none; color:inherit; }
+nav a.active{ color:var(--accent); font-weight:800; text-decoration:underline; }
+
+.cta{
+  margin-left:28px; padding:10px 16px; border-radius:10px;
+  background:var(--accent); color:#fff; font-weight:800;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+
+/* ======= NAV: Mobile/Tablet behavior ======= */
+@media (max-width: 1024px){
+  .nav-toggle{ display:inline-flex; }
+  /* Turn the link block into a slide-down overlay under the header */
+  .nav .nav-links{
+    position: fixed; inset: 72px 0 0 0;   /* below header */
+    background:#fff; border-top:1px solid var(--border);
+    transform: translateY(-100%);
+    transition: transform .22s ease;
+    pointer-events: none;                  /* do not intercept clicks while closed */
+    z-index: 1100;
+    display:flex; flex-direction:column; padding:18px 24px; gap:18px;
+  }
+  .nav .nav-links ul{
+    flex-direction:column; gap:14px; align-items:flex-start;
+  }
+  .nav .nav-links .cta{ margin:6px 0 0 0 } /* button on its own row */
+
+  /* open state */
+  .nav.is-open .nav-links{
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+/* ======= Core responsive layout fixes ======= */
+/* Headings scale */
+.hero h1, .stripe h2{
+  font-size:clamp(36px, 8vw, 96px); line-height:1.05;
+}
+
+/* Split sections stack on small screens */
+.content-split.container,
+.community{
+  display:grid; grid-template-columns: 1.05fr 1.05fr; gap:24px;
+}
+@media (max-width: 1024px){
+  .content-split.container{ grid-template-columns:1fr; }
+  /* keep visuals tidy */
+  .content-split .image img{ width:100%; height:auto; display:block; }
+}
+
+/* Feature grid stacks */
+@media (max-width: 992px){
+  .features{ grid-template-columns:1fr; grid-template-rows:auto; }
+  .tile-wrap{ grid-template-columns:1fr; }
+  .tile-wrap .tile + .tile{ border-left:none; border-top:1px solid var(--border) }
+}
+
+/* Footer stacks */
+@media (max-width: 768px){
+  .footer-grid{ display:grid; grid-template-columns:1fr; gap:20px; }
+}
+
+/* CTA banner content centered but full-bleed background */
+.cta-banner{ margin:46px 0; padding:62px 0 72px; background:var(--accent); color:#fff; text-align:center; border-radius:12px; }
+.cta-banner .container{ max-width:var(--maxw); margin-inline:auto; padding-inline:24px; }
+/* Button container and color */
+.nav-toggle{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:42px; height:36px; border:1px solid var(--border); border-radius:10px;
+  background:#111; color:#111;                 /* set your icon color here or use var(--accent) */
+}
+
+/* Only show one icon at a time */
+.nav-toggle .icon-close{ display:none; }
+.nav-toggle.is-open .icon-menu{ display:none; }
+.nav-toggle.is-open .icon-close{ display:block; }

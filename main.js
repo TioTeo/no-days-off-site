@@ -4,20 +4,20 @@
   const nav = document.querySelector(".nav");
   const toggle = document.getElementById("navToggle");
 
-  // Add subtle header shadow on scroll
+  // subtle header shadow on scroll
   const onScroll = () => {
-    header.style.boxShadow =
-      window.scrollY > 6 ? "0 4px 14px rgba(0,0,0,.06)" : "none";
+    header.style.boxShadow = window.scrollY > 6 ? "0 4px 14px rgba(0,0,0,.06)" : "none";
   };
   onScroll();
   window.addEventListener("scroll", onScroll);
 
-  // Toggle mobile menu
+  // lock/unlock page scroll when menu opens
   const lockScroll = (locked) => {
     document.documentElement.style.overflow = locked ? "hidden" : "";
     document.body.style.overflow = locked ? "hidden" : "";
   };
 
+  // toggle mobile menu
   toggle?.addEventListener("click", () => {
     const open = nav.classList.toggle("is-open");
     toggle.classList.toggle("is-open", open);
@@ -25,34 +25,25 @@
     lockScroll(open);
   });
 
-  // Auto-close on nav link click & smooth scroll for hash links
+  // close menu on any link click; allow normal navigation except for hash links
   nav?.addEventListener("click", (e) => {
-    const link = e.target.closest("a");
-    if (!link) return;
-
-    // only intercept same-page hash links
-    if (link.getAttribute("href").startsWith("#")) {
+    const a = e.target.closest("a");
+    if (!a) return;
+    const href = a.getAttribute("href") || "";
+    if (href.startsWith("#")) {
       e.preventDefault();
-      const target = document.querySelector(link.getAttribute("href"));
-      if (target) target.scrollIntoView({ behavior: "smooth" });
+      const target = document.querySelector(href);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-
-    // always close mobile nav after click
     nav.classList.remove("is-open");
-    toggle.classList.remove("is-open");
-    toggle.setAttribute("aria-expanded", "false");
+    toggle?.classList.remove("is-open");
+    toggle?.setAttribute("aria-expanded", "false");
     lockScroll(false);
   });
 
-  // ✅ Highlight current page link
-  const currentPage = window.location.pathname.split("/").pop();
+  // highlight the current page link
+  const current = window.location.pathname.split("/").pop() || "index.html";
   document.querySelectorAll("nav a").forEach((link) => {
-    if (link.getAttribute("href") === currentPage) {
-      link.classList.add("active");
-    }
-    // highlight index.html when you're on root domain
-    if (!currentPage && link.getAttribute("href") === "index.html") {
-      link.classList.add("active");
-    }
+    if (link.getAttribute("href") === current) link.classList.add("active");
   });
 })();
