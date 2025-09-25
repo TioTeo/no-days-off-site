@@ -407,7 +407,7 @@ header .bar{ height:72px; display:flex; align-items:center; justify-content:spac
 .logo{ font-family:"Anton",sans-serif; letter-spacing:.5px; font-size:28px; }
 
 .nav-toggle{             /* hidden by default (desktop) */
-  display:block; width:42px; height:36px;
+  display:inline; width:42px; height:36px;
   border:1px solid var(--border); border-radius:10px; background:#fff;
   align-items:center; justify-content:center; gap:5px; cursor:pointer;
 }
