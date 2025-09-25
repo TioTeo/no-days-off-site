@@ -406,6 +406,10 @@ header{
 header .bar{ height:72px; display:flex; align-items:center; justify-content:space-between; }
 .logo{ font-family:"Anton",sans-serif; letter-spacing:.5px; font-size:28px; }
 
+.icon-menu{
+
+
+}
 .nav-toggle{             /* hidden by default (desktop) */
   display:none; width:42px; height:36px;
   border:1px solid var(--border); border-radius:10px; background:#fff;
@@ -433,7 +437,7 @@ nav a.active{ color:var(--accent); font-weight:800; text-decoration:underline; }
   /* Turn the link block into a slide-down overlay under the header */
   .nav .nav-links{
     position: fixed; inset: 72px 0 0 0;   /* below header */
-    background:#5C63FF; border-top:1px solid var(--border);
+    background:#fff; opacity: 0.0;; border-top:1px solid var(--border);
     transform: translateY(-100%);
     transition: transform .22s ease;
     pointer-events: none;                  /* do not intercept clicks while closed */
