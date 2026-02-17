@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NDO Fitness - Health is Wealth</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Archivo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Archivo', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .brand-font {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+            color: #0a0a0a;
+            font-weight: 700;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 14px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .btn-secondary:hover {
+            border-color: #00ff88;
+            color: #00ff88;
+        }
+
+        .input-field {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #ffffff;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-family: 'Archivo', sans-serif;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #00ff88;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 204, 255, 0.1) 100%);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            border-color: #00ff88;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 8px 0;
+            transition: color 0.3s ease;
+            font-weight: 500;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #00ff88;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .checkbox-custom {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-custom:checked {
+            background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+            border-color: #00ff88;
+        }
+
+        .checkbox-custom:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #0a0a0a;
+            font-weight: bold;
+        }
+
+        textarea.input-field {
+            resize: vertical;
+            min-height: 100px;
+            font-family: 'Archivo', sans-serif;
+        }
+
+        select.input-field {
+            cursor: pointer;
+        }
+
+        .tab-button {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 12px 24px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 13px;
+        }
+
+        .tab-button:hover {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .tab-button.active {
+            color: #00ff88;
+            border-bottom-color: #00ff88;
+        }
+
+        .message-bubble {
+            border-radius: 12px;
+            padding: 12px 16px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .message-sent {
+            background: linear-gradient(135deg, #00ff88 0%, #00ccff 100%);
+            color: #0a0a0a;
+            margin-left: auto;
+        }
+
+        .message-received {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+        }
+
+        .exercise-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 255, 136, 0.3);
+        }
+
+        .notification-badge {
+            background: #ff3366;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // Storage utility
+        const storage = {
+            get: async (key, shared = false) => {
+                try {
+                    const result = await window.storage.get(key, shared);
+                    return result ? JSON.parse(result.value) : null;
+                } catch (e) {
+                    return null;
+                }
+            },
+            set: async (key, value, shared = false) => {
+                try {
+                    await window.storage.set(key, JSON.stringify(value), shared);
+                    return true;
+                } catch (e) {
+                    return false;
+                }
+            },
+            delete: async (key, shared = false) => {
+                try {
+                    await window.storage.delete(key, shared);
+                    return true;
+                } catch (e) {
+                    return false;
+                }
+            }
+        };
+
+        // Main App Component
+        function App() {
+            const [currentUser, setCurrentUser] = useState(null);
+            const [view, setView] = useState('login');
+            const [loading, setLoading] = useState(true);
+
+            useEffect(() => {
+                // Check for stored session
+                const initAuth = async () => {
+                    const user = await storage.get('current-user');
+                    if (user) {
+                        setCurrentUser(user);
+                        setView(user.role === 'trainer' ? 'trainer-dashboard' : 'client-dashboard');
+                    }
+                    setLoading(false);
+                };
+                initAuth();
+            }, []);
+
+            const handleLogin = async (userData) => {
+                await storage.set('current-user', userData);
+                setCurrentUser(userData);
+                setView(userData.role === 'trainer' ? 'trainer-dashboard' : 'client-dashboard');
+            };
+
+            const handleLogout = async () => {
+                await storage.delete('current-user');
+                setCurrentUser(null);
+                setView('login');
+            };
+
+            if (loading) {
+                return (
+                    <div className="flex items-center justify-center min-h-screen">
+                        <div className="text-center">
+                            <h1 className="brand-font text-6xl gradient-text mb-4">NDO</h1>
+                            <p className="text-gray-400">Loading...</p>
+                        </div>
+                    </div>
+                );
+            }
+
+            if (view === 'login') {
+                return <LoginScreen onLogin={handleLogin} setView={setView} />;
+            }
+
+            if (currentUser?.role === 'trainer') {
+                return <TrainerDashboard user={currentUser} onLogout={handleLogout} />;
+            }
+
+            return <ClientDashboard user={currentUser} onLogout={handleLogout} />;
+        }
+
+        // Login Screen
+        function LoginScreen({ onLogin, setView }) {
+            const [mode, setMode] = useState('login');
+            const [email, setEmail] = useState('');
+            const [password, setPassword] = useState('');
+            const [name, setName] = useState('');
+            const [role, setRole] = useState('client');
+
+            const handleSubmit = async (e) => {
+                e.preventDefault();
+                if (mode === 'signup') {
+                    const userData = {
+                        id: Date.now().toString(),
+                        email,
+                        name,
+                        role,
+                        createdAt: new Date().toISOString()
+                    };
+                    await onLogin(userData);
+                } else {
+                    // Demo login
+                    const demoUser = {
+                        id: 'demo-' + Date.now(),
+                        email,
+                        name: email.includes('trainer') ? 'Demo Trainer' : 'Demo Client',
+                        role: email.includes('trainer') ? 'trainer' : 'client',
+                        createdAt: new Date().toISOString()
+                    };
+                    await onLogin(demoUser);
+                }
+            };
+
+            return (
+                <div className="min-h-screen flex items-center justify-center p-4">
+                    <div className="w-full max-w-md">
+                        <div className="text-center mb-8 animate-in">
+                            <h1 className="brand-font text-7xl gradient-text mb-2">NDO</h1>
+                            <p className="text-gray-400 text-sm uppercase tracking-wider">Health is Wealth. Invest Daily.</p>
+                        </div>
+
+                        <div className="glass-card p-8 animate-in" style={{animationDelay: '0.1s'}}>
+                            <div className="flex gap-4 mb-6">
+                                <button 
+                                    onClick={() => setMode('login')}
+                                    className={`tab-button flex-1 ${mode === 'login' ? 'active' : ''}`}
+                                >
+                                    Login
+                                </button>
+                                <button 
+                                    onClick={() => setMode('signup')}
+                                    className={`tab-button flex-1 ${mode === 'signup' ? 'active' : ''}`}
+                                >
+                                    Sign Up
+                                </button>
+                            </div>
+
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                {mode === 'signup' && (
+                                    <>
+                                        <div>
+                                            <label className="block text-sm text-gray-400 mb-2">Full Name</label>
+                                            <input
+                                                type="text"
+                                                value={name}
+                                                onChange={(e) => setName(e.target.value)}
+                                                className="input-field"
+                                                required
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-sm text-gray-400 mb-2">Account Type</label>
+                                            <select 
+                                                value={role}
+                                                onChange={(e) => setRole(e.target.value)}
+                                                className="input-field"
+                                            >
+                                                <option value="client">Self-Guided Client</option>
+                                                <option value="trainer">Personal Trainer</option>
+                                            </select>
+                                        </div>
+                                    </>
+                                )}
+
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">Email</label>
+                                    <input
+                                        type="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        className="input-field"
+                                        placeholder="you@example.com"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm text-gray-400 mb-2">Password</label>
+                                    <input
+                                        type="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className="input-field"
+                                        placeholder="••••••••"
+                                        required
+                                    />
+                                </div>
+
+                                <button type="submit" className="btn-primary w-full mt-6">
+                                    {mode === 'login' ? 'Login' : 'Create Account'}
+                                </button>
+                            </form>
+
+                            <div className="mt-6 pt-6 border-t border-gray-800">
+                                <p className="text-center text-sm text-gray-500">
+                                    Demo: Use any email (include "trainer" for trainer view)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Trainer Dashboard
+        function TrainerDashboard({ user, onLogout }) {
+            const [activeTab, setActiveTab] = useState('clients');
+            const [clients, setClients] = useState([]);
+
+            useEffect(() => {
+                loadClients();
+            }, []);
+
+            const loadClients = async () => {
+                const stored = await storage.get('trainer-clients', true);
+                setClients(stored || [
+                    { id: '1', name: 'Sarah Johnson', email: 'sarah@example.com', plan: 'coached', lastCheckIn: '2024-02-10' },
+                    { id: '2', name: 'Mike Chen', email: 'mike@example.com', plan: 'self-guided', lastCheckIn: '2024-02-12' },
+                    { id: '3', name: 'Emily Rodriguez', email: 'emily@example.com', plan: 'coached', lastCheckIn: '2024-02-14' }
+                ]);
+            };
+
+            return (
+                <div className="min-h-screen">
+                    {/* Header */}
+                    <header className="border-b border-gray-800 bg-black/50 backdrop-blur-lg sticky top-0 z-50">
+                        <div className="max-w-7xl mx-auto px-4 py-4">
+                            <div className="flex items-center justify-between">
+                                <h1 className="brand-font text-4xl gradient-text">NDO</h1>
+                                <div className="flex items-center gap-6">
+                                    <span className="text-sm text-gray-400">Trainer: {user.name}</span>
+                                    <button onClick={onLogout} className="btn-secondary">Logout</button>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* Navigation */}
+                    <nav className="border-b border-gray-800 bg-black/30">
+                        <div className="max-w-7xl mx-auto px-4">
+                            <div className="flex gap-8">
+                                <button onClick={() => setActiveTab('clients')} className={`tab-button ${activeTab === 'clients' ? 'active' : ''}`}>
+                                    Clients
+                                </button>
+                                <button onClick={() => setActiveTab('messages')} className={`tab-button ${activeTab === 'messages' ? 'active' : ''}`}>
+                                    Messages
+                                    <span className="notification-badge">3</span>
+                                </button>
+                                <button onClick={() => setActiveTab('programs')} className={`tab-button ${activeTab === 'programs' ? 'active' : ''}`}>
+                                    Programs
+                                </button>
+                                <button onClick={() => setActiveTab('library')} className={`tab-button ${activeTab === 'library' ? 'active' : ''}`}>
+                                    Exercise Library
+                                </button>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* Content */}
+                    <main className="max-w-7xl mx-auto px-4 py-8">
+                        {activeTab === 'clients' && <TrainerClientsView clients={clients} />}
+                        {activeTab === 'messages' && <MessagingView userRole="trainer" />}
+                        {activeTab === 'programs' && <ProgramsView />}
+                        {activeTab === 'library' && <ExerciseLibraryView />}
+                    </main>
+                </div>
+            );
+        }
+
+        // Trainer Clients View
+        function TrainerClientsView({ clients }) {
+            const [selectedClient, setSelectedClient] = useState(null);
+
+            if (selectedClient) {
+                return (
+                    <div>
+                        <button 
+                            onClick={() => setSelectedClient(null)}
+                            className="btn-secondary mb-6"
+                        >
+                            ← Back to Clients
+                        </button>
+                        <ClientDetailView client={selectedClient} />
+                    </div>
+                );
+            }
+
+            return (
+                <div>
+                    <div className="flex justify-between items-center mb-8">
+                        <h2 className="text-3xl font-bold">Your Clients</h2>
+                        <button className="btn-primary">+ Add Client</button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {clients.map(client => (
+                            <div key={client.id} className="glass-card p-6 cursor-pointer hover:border-green-500/50 transition-all"
+                                 onClick={() => setSelectedClient(client)}>
+                                <div className="flex items-start justify-between mb-4">
+                                    <div>
+                                        <h3 className="text-xl font-bold mb-1">{client.name}</h3>
+                                        <p className="text-sm text-gray-400">{client.email}</p>
+                                    </div>
+                                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                                        client.plan === 'coached' 
+                                            ? 'bg-green-500/20 text-green-400' 
+                                            : 'bg-blue-500/20 text-blue-400'
+                                    }`}>
+                                        {client.plan === 'coached' ? 'Coached' : 'Self-Guided'}
+                                    </span>
+                                </div>
+                                <div className="pt-4 border-t border-gray-800">
+                                    <p className="text-sm text-gray-400">Last Check-in: {client.lastCheckIn}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        // Client Detail View
+        function ClientDetailView({ client }) {
+            const [activeTab, setActiveTab] = useState('overview');
+
+            return (
+                <div>
+                    <div className="glass-card p-6 mb-6">
+                        <h2 className="text-3xl font-bold mb-2">{client.name}</h2>
+                        <p className="text-gray-400">{client.email}</p>
+                    </div>
+
+                    <div className="border-b border-gray-800 mb-6">
+                        <div className="flex gap-6">
+                            <button onClick={() => setActiveTab('overview')} className={`tab-button ${activeTab === 'overview' ? 'active' : ''}`}>
+                                Overview
+                            </button>
+                            <button onClick={() => setActiveTab('nutrition')} className={`tab-button ${activeTab === 'nutrition' ? 'active' : ''}`}>
+                                Nutrition
+                            </button>
+                            <button onClick={() => setActiveTab('workouts')} className={`tab-button ${activeTab === 'workouts' ? 'active' : ''}`}>
+                                Workouts
+                            </button>
+                            <button onClick={() => setActiveTab('progress')} className={`tab-button ${activeTab === 'progress' ? 'active' : ''}`}>
+                                Progress
+                            </button>
+                        </div>
+                    </div>
+
+                    {activeTab === 'overview' && (
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div className="stat-card">
+                                <p className="text-sm text-gray-400 mb-2">Current Weight</p>
+                                <p className="text-3xl font-bold">165 lbs</p>
+                            </div>
+                            <div className="stat-card">
+                                <p className="text-sm text-gray-400 mb-2">Goal Weight</p>
+                                <p className="text-3xl font-bold">155 lbs</p>
+                            </div>
+                            <div className="stat-card">
+                                <p className="text-sm text-gray-400 mb-2">Progress</p>
+                                <p className="text-3xl font-bold">-8 lbs</p>
+                            </div>
+                        </div>
+                    )}
+
+                    {activeTab === 'nutrition' && <div className="text-gray-400">Nutrition tracking data...</div>}
+                    {activeTab === 'workouts' && <div className="text-gray-400">Workout history...</div>}
+                    {activeTab === 'progress' && <div className="text-gray-400">Progress photos and charts...</div>}
+                </div>
+            );
+        }
+
+        // Client Dashboard
+        function ClientDashboard({ user, onLogout }) {
+            const [activeTab, setActiveTab] = useState('dashboard');
+
+            return (
+                <div className="min-h-screen">
+                    {/* Header */}
+                    <header className="border-b border-gray-800 bg-black/50 backdrop-blur-lg sticky top-0 z-50">
+                        <div className="max-w-7xl mx-auto px-4 py-4">
+                            <div className="flex items-center justify-between">
+                                <h1 className="brand-font text-4xl gradient-text">NDO</h1>
+                                <div className="flex items-center gap-6">
+                                    <span className="text-sm text-gray-400">Welcome, {user.name}</span>
+                                    <button onClick={onLogout} className="btn-secondary">Logout</button>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    {/* Navigation */}
+                    <nav className="border-b border-gray-800 bg-black/30">
+                        <div className="max-w-7xl mx-auto px-4 overflow-x-auto">
+                            <div className="flex gap-6">
+                                <button onClick={() => setActiveTab('dashboard')} className={`tab-button whitespace-nowrap ${activeTab === 'dashboard' ? 'active' : ''}`}>
+                                    Dashboard
+                                </button>
+                                <button onClick={() => setActiveTab('nutrition')} className={`tab-button whitespace-nowrap ${activeTab === 'nutrition' ? 'active' : ''}`}>
+                                    Nutrition
+                                </button>
+                                <button onClick={() => setActiveTab('workouts')} className={`tab-button whitespace-nowrap ${activeTab === 'workouts' ? 'active' : ''}`}>
+                                    Workouts
+                                </button>
+                                <button onClick={() => setActiveTab('progress')} className={`tab-button whitespace-nowrap ${activeTab === 'progress' ? 'active' : ''}`}>
+                                    Progress
+                                </button>
+                                <button onClick={() => setActiveTab('habits')} className={`tab-button whitespace-nowrap ${activeTab === 'habits' ? 'active' : ''}`}>
+                                    Habits
+                                </button>
+                                <button onClick={() => setActiveTab('messages')} className={`tab-button whitespace-nowrap ${activeTab === 'messages' ? 'active' : ''}`}>
+                                    Messages
+                                </button>
+                                <button onClick={() => setActiveTab('library')} className={`tab-button whitespace-nowrap ${activeTab === 'library' ? 'active' : ''}`}>
+                                    Library
+                                </button>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* Content */}
+                    <main className="max-w-7xl mx-auto px-4 py-8">
+                        {activeTab === 'dashboard' && <DashboardView user={user} />}
+                        {activeTab === 'nutrition' && <NutritionView />}
+                        {activeTab === 'workouts' && <WorkoutsView />}
+                        {activeTab === 'progress' && <ProgressView />}
+                        {activeTab === 'habits' && <HabitsView />}
+                        {activeTab === 'messages' && <MessagingView userRole="client" />}
+                        {activeTab === 'library' && <ExerciseLibraryView />}
+                    </main>
+                </div>
+            );
+        }
+
+        // Dashboard View
+        function DashboardView({ user }) {
+            return (
+                <div className="space-y-8">
+                    <div>
+                        <h2 className="text-3xl font-bold mb-6">Today's Overview</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <MacroCard title="Calories" current={1450} goal={2000} unit="kcal" />
+                            <MacroCard title="Protein" current={120} goal={150} unit="g" />
+                            <MacroCard title="Carbs" current={145} goal={200} unit="g" />
+                            <MacroCard title="Fat" current={48} goal={65} unit="g" />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="glass-card p-6">
+                            <h3 className="text-xl font-bold mb-4">Today's Workouts</h3>
+                            <div className="space-y-3">
+                                <div className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
+                                    <span>Upper Body Strength</span>
+                                    <button className="btn-primary text-xs py-2 px-4">Start</button>
+                                </div>
+                                <div className="flex items-center justify-between p-3 bg-white/5 rounded-lg opacity-50">
+                                    <span>30min Cardio</span>
+                                    <span className="text-xs text-gray-500">Completed ✓</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="glass-card p-6">
+                            <h3 className="text-xl font-bold mb-4">Habit Streak</h3>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="text-center">
+                                    <p className="text-4xl font-bold gradient-text">12</p>
+                                    <p className="text-sm text-gray-400 mt-1">Day Streak</p>
+                                </div>
+                                <div className="text-center">
+                                    <p className="text-4xl font-bold gradient-text">94%</p>
+                                    <p className="text-sm text-gray-400 mt-1">This Week</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="glass-card p-6">
+                        <h3 className="text-xl font-bold mb-4">Recent Activity</h3>
+                        <div className="space-y-3">
+                            <ActivityItem type="nutrition" text="Logged lunch - Grilled chicken salad" time="2 hours ago" />
+                            <ActivityItem type="workout" text="Completed Upper Body workout" time="Yesterday" />
+                            <ActivityItem type="progress" text="Uploaded progress photo" time="2 days ago" />
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Macro Card Component
+        function MacroCard({ title, current, goal, unit }) {
+            const percentage = Math.min((current / goal) * 100, 100);
+            const remaining = Math.max(goal - current, 0);
+            
+            return (
+                <div className="stat-card">
+                    <div className="flex justify-between items-start mb-4">
+                        <div>
+                            <p className="text-sm text-gray-400 mb-1">{title}</p>
+                            <p className="text-2xl font-bold">{current}/{goal}</p>
+                            <p className="text-xs text-gray-500">{unit}</p>
+                        </div>
+                        <CircularProgress percentage={percentage} />
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-gray-700">
+                        <p className="text-sm text-gray-400">
+                            {remaining > 0 ? `${remaining} ${unit} remaining` : 'Goal reached!'}
+                        </p>
+                    </div>
+                </div>
+            );
+        }
+
+        // Circular Progress Component
+        function CircularProgress({ percentage }) {
+            const radius = 20;
+            const circumference = 2 * Math.PI * radius;
+            const offset = circumference - (percentage / 100) * circumference;
+
+            return (
+                <svg width="50" height="50" className="progress-ring">
+                    <circle
+                        cx="25"
+                        cy="25"
+                        r={radius}
+                        stroke="rgba(255,255,255,0.1)"
+                        strokeWidth="4"
+                        fill="none"
+                    />
+                    <circle
+                        className="progress-ring-circle"
+                        cx="25"
+                        cy="25"
+                        r={radius}
+                        stroke="url(#gradient)"
+                        strokeWidth="4"
+                        fill="none"
+                        strokeDasharray={circumference}
+                        strokeDashoffset={offset}
+                        strokeLinecap="round"
+                    />
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#00ff88" />
+                            <stop offset="100%" stopColor="#00ccff" />
+                        </linearGradient>
+                    </defs>
+                    <text x="25" y="29" textAnchor="middle" fontSize="10" fill="#ffffff" fontWeight="bold">
+                        {Math.round(percentage)}%
+                    </text>
+                </svg>
+            );
+        }
+
+        // Activity Item Component
+        function ActivityItem({ type, text, time }) {
+            const icons = {
+                nutrition: '🍽️',
+                workout: '💪',
+                progress: '📸'
+            };
+
+            return (
+                <div className="flex items-center gap-3 p-3 bg-white/5 rounded-lg">
+                    <span className="text-2xl">{icons[type]}</span>
+                    <div className="flex-1">
+                        <p className="text-sm">{text}</p>
+                        <p className="text-xs text-gray-500">{time}</p>
+                    </div>
+                </div>
+            );
+        }
+
+        // Nutrition View
+        function NutritionView() {
+            const [meals, setMeals] = useState([]);
+            const [showAddMeal, setShowAddMeal] = useState(false);
+
+            useEffect(() => {
+                loadMeals();
+            }, []);
+
+            const loadMeals = async () => {
+                const stored = await storage.get('nutrition-meals');
+                setMeals(stored || [
+                    { id: '1', type: 'Breakfast', name: 'Oatmeal with berries', calories: 350, protein: 12, carbs: 58, fat: 8, time: '7:30 AM' },
+                    { id: '2', type: 'Lunch', name: 'Grilled chicken salad', calories: 450, protein: 45, carbs: 32, fat: 18, time: '12:30 PM' },
+                    { id: '3', type: 'Snack', name: 'Protein shake', calories: 200, protein: 30, carbs: 15, fat: 3, time: '3:00 PM' }
+                ]);
+            };
+
+            const addMeal = async (meal) => {
+                const newMeals = [...meals, { ...meal, id: Date.now().toString() }];
+                setMeals(newMeals);
+                await storage.set('nutrition-meals', newMeals);
+                setShowAddMeal(false);
+            };
+
+            return (
+                <div className="space-y-6">
+                    <div className="flex justify-between items-center">
+                        <h2 className="text-3xl font-bold">Nutrition Tracking</h2>
+                        <button onClick={() => setShowAddMeal(true)} className="btn-primary">
+                            + Log Meal
+                        </button>
+                    </div>
+
+                    {showAddMeal && (
+                        <AddMealForm onSave={addMeal} onCancel={() => setShowAddMeal(false)} />
+                    )}
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <MacroCard title="Calories" current={1000} goal={2000} unit="kcal" />
+                        <MacroCard title="Protein" current={87} goal={150} unit="g" />
+                        <MacroCard title="Carbs" current={105} goal={200} unit="g" />
+                        <MacroCard title="Fat" current={29} goal={65} unit="g" />
+                    </div>
+
+                    <div className="glass-card p-6">
+                        <h3 className="text-xl font-bold mb-4">Today's Meals</h3>
+                        <div className="space-y-3">
+                            {meals.map(meal => (
+                                <div key={meal.id} className="p-4 bg-white/5 rounded-lg">
+                                    <div className="flex justify-between items-start mb-2">
+                                        <div>
+                                            <p className="font-bold">{meal.name}</p>
+                                            <p className="text-sm text-gray-400">{meal.type} • {meal.time}</p>
+                                        </div>
+                                        <button className="text-red-400 text-sm">Delete</button>
+                                    </div>
+                                    <div className="flex gap-4 text-sm mt-3">
+                                        <span>{meal.calories} cal</span>
+                                        <span>P: {meal.protein}g</span>
+                                        <span>C: {meal.carbs}g</span>
+                                        <span>F: {meal.fat}g</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Add Meal Form
+        function AddMealForm({ onSave, onCancel }) {
+            const [formData, setFormData] = useState({
+                type: 'Breakfast',
+                name: '',
+                calories: '',
+                protein: '',
+                carbs: '',
+                fat: '',
+                time: ''
+            });
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                onSave(formData);
+            };
+
+            return (
+                <div className="glass-card p-6">
+                    <h3 className="text-xl font-bold mb-4">Log Meal</h3>
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm text-gray-400 mb-2">Meal Type</label>
+                                <select 
+                                    value={formData.type}
+                                    onChange={(e) => setFormData({...formData, type: e.target.value})}
+                                    className="input-field"
+                                >
+                                    <option>Breakfast</option>
+                                    <option>Lunch</option>
+                                    <option>Dinner</option>
+                                    <option>Snack</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label className="block text-sm text-gray-400 mb-2">Time</label>
+                                <input
+                                    type="time"
+                                    value={formData.time}
+                                    onChange={(e) => setFormData({...formData, time: e.target.value})}
+                                    className="input-field"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm text-gray-400 mb-2">Food Name</label>
+                            <input
+                                type="text"
+                                value={formData.name}
+                                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                className="input-field"
+                                placeholder="e.g., Grilled chicken breast"
+                                required
+                            />
+                        </div>
+
+                        <div className="grid grid-cols-4 gap-4">
+                            <div>
+                                <label className="block text-sm text-gray-400 mb-2">Calories</label>
+                                <input
+                                    type="number"
+                                    value={formData.calories}
+                                    onChange={(e) => setFormData({...formData, calories: e.target.value})}
+                                    className="input-field"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-gray-400 mb-2">Protein (g)</label>
+                                <input
+                                    type="number"
+                                    value={formData.protein}
+                                    onChange={(e) => setFormData({...formData, protein: e.target.value})}
+                                    className="input-field"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-gray-400 mb-2">Carbs (g)</label>
+                                <input
+                                    type="number"
+                                    value={formData.carbs}
+                                    onChange={(e) => setFormData({...formData, carbs: e.target.value})}
+                                    className="input-field"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm text-gray-400 mb-2">Fat (g)</label>
+                                <input
+                                    type="number"
+                                    value={formData.fat}
+                                    onChange={(e) => setFormData({...formData, fat: e.target.value})}
+                                    className="input-field"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex gap-3">
+                            <button type="submit" className="btn-primary flex-1">Save Meal</button>
+                            <button type="button" onClick={onCancel} className="btn-secondary flex-1">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            );
+        }
+
+        // Workouts View
+        function WorkoutsView() {
+            const [activeWorkout, setActiveWorkout] = useState(null);
+            const [workoutHistory, setWorkoutHistory] = useState([]);
+
+            useEffect(() => {
+                loadWorkouts();
+            }, []);
+
+            const loadWorkouts = async () => {
+                const stored = await storage.get('workout-history');
+                setWorkoutHistory(stored || [
+                    { id: '1', name: 'Upper Body Push', date: '2024-02-14', duration: 45, exercises: 6 },
+                    { id: '2', name: 'Lower Body', date: '2024-02-12', duration: 50, exercises: 7 },
+                    { id: '3', name: 'Cardio HIIT', date: '2024-02-11', duration: 30, exercises: 5 }
+                ]);
+            };
+
+            if (activeWorkout) {
+                return <WorkoutTracker workout={activeWorkout} onComplete={() => setActiveWorkout(null)} />;
+            }
+
+            return (
+                <div className="space-y-6">
+                    <div className="flex justify-between items-center">
+                        <h2 className="text-3xl font-bold">Workouts</h2>
+                        <button onClick={() => setActiveWorkout({name: 'New Workout', exercises: []})} className="btn-primary">
+                            + Start Workout
+                        </button>
+                    </div>
+
+                    <div className="glass-card p-6">
+                        <h3 className="text-xl font-bold mb-4">Today's Plan</h3>
+                        <div className="space-y-3">
+                            <div className="p-4 bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/30 rounded-lg">
+                                <div className="flex justify-between items-center">
+                                    <div>
+                                        <p className="font-bold text-lg">Full Body Strength</p>
+                                        <p className="text-sm text-gray-400">45 min • 8 exercises</p>
+                                    </div>
+                                    <button 
+                                        onClick={() => setActiveWorkout({name: 'Full Body Strength', exercises: []})}
+                                        className="btn-primary"
+                                    >
+                                        Start
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="glass-card p-6">
+                        <h3 className="text-xl font-bold mb-4">Workout History</h3>
+                        <div className="space-y-3">
+                            {workoutHistory.map(workout => (
+                                <div key={workout.id} className="p-4 bg-white/5 rounded-lg flex justify-between items-center">
+                                    <div>
+                                        <p className="font-bold">{workout.name}</p>
+                                        <p className="text-sm text-gray-400">{workout.date} • {workout.duration} min • {workout.exercises} exercises</p>
+                                    </div>
+                                    <button className="text-green-400 text-sm">View Details</button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Workout Tracker
+        function WorkoutTracker({ workout, onComplete }) {
+            const [exercises, setExercises] = useState([
+                { id: '1', name: 'Bench Press', sets: [{ weight: 135, reps: 10, completed: false }] },
+                { id: '2', name: 'Squats', sets: [{ weight: 185, reps: 8, completed: false }] }
+            ]);
+            const [restTimer, setRestTimer] = useState(0);
+            const [isResting, setIsResting] = useState(false);
+
+            useEffect(() => {
+                let interval;
+                if (isResting && restTimer > 0) {
+                    interval = setInterval(() => {
+                        setRestTimer(t => t - 1);
+                    }, 1000);
+                } else if (restTimer === 0) {
+                    setIsResting(false);
+                }
+                return () => clearInterval(interval);
+            }, [isResting, restTimer]);
+
+            const startRest = (seconds) => {
+                setRestTimer(seconds);
+                setIsResting(true);
+            };
+
+            return (
+                <div className="space-y-6">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h2 className="text-3xl font-bold">{workout.name}</h2>
+                            <p className="text-gray-400">In Progress</p>
+                        </div>
+                        <button onClick={onComplete} className="btn-secondary">End Workout</button>
+                    </div>
+
+                    {isResting && (
+                        <div className="glass-card p-8 text-center">
+                            <p className="text-gray-400 mb-2">Rest Timer</p>
+                            <p className="text-6xl font-bold gradient-text">{restTimer}s</p>
+                        </div>
+                    )}
+
+                    <div className="space-y-4">
+                        {exercises.map((exercise, idx) => (
+                            <div key={exercise.id} className="glass-card p-6">
+                                <h3 className="text-xl font-bold mb-4">{exercise.name}</h3>
+                                <div className="space-y-3">
+                                    {exercise.sets.map((set, setIdx) => (
+                                        <div key={setIdx} className="flex items-center gap-4 p-3 bg-white/5 rounded-lg">
+                                            <span className="text-gray-400">Set {setIdx + 1}</span>
+                                            <input 
+                                                type="number" 
+                                                value={set.weight} 
+                                                className="input-field w-20 text-center"
+                                                placeholder="lbs"
+                                            />
+                                            <span className="text-gray-400">×</span>
+                                            <input 
+                                                type="number" 
+                                                value={set.reps} 
+                                                className="input-field w-20 text-center"
+                                                placeholder="reps"
+                                            />
+                                            <button 
+                                                onClick={() => startRest(90)}
+                                                className={`btn-primary ml-auto ${set.completed ? 'opacity-50' : ''}`}
+                                            >
+                                                {set.completed ? '✓' : 'Complete'}
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                                <button className="btn-secondary w-full mt-3">+ Add Set</button>
+                            </div>
+                        ))}
+                    </div>
+
+                    <button className="btn-primary w-full">+ Add Exercise</button>
+                </div>
+            );
+        }
+
+        // Progress View
+        function ProgressView() {
+            const [photos, setPhotos] = useState([]);
+            const [measurements, setMeasurements] = useState({
+                weight: [{ date: '2024-01-01', value: 180 }, { date: '2024-02-01', value: 175 }],
+                bodyFat: [{ date: '2024-01-01', value: 22 }, { date: '2024-02-01', value: 20 }]
+            });
+
+            return (
+                <div className="space-y-6">
+                    <div className="flex justify-between items-center">
+                        <h2 className="text-3xl font-bold">Progress Tracking</h2>
+                        <button className="btn-primary">+ Add Photo</button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="glass-card p-6">
+                            <h3 className="text-xl font-bold mb-4">Weight Progress</h3>
+                            <div className="text-center">
+                                <p className="text-5xl font-bold gradient-text mb-2">175 lbs</p>
+                                <p className="text-gray-400">-5 lbs this month</p>
+                            </div>
+                            <div className="mt-6 pt-6 border-t border-gray-800">
+                                <div className="space-y-2">
+                                    {measurements.weight.map((m, idx) => (
+                                        <div key={idx} className="flex justify-between text-sm">
+                                            <span className="text-gray-400">{m.date}</span>
+                                            <span className="font-bold">{m.value} lbs</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="glass-card p-6">
+                            <h3 className="text-xl font-bold mb-4">Body Fat %</h3>
+                            <div className="text-center">
+                                <p className="text-5xl font-bold gradient-text mb-2">20%</p>
+                                <p className="text-gray-400">-2% this month</p>
+                            </div>
+                            <div className="mt-6 pt-6 border-t border-gray-800">
+                                <div className="space-y-2">
+                                    {measurements.bodyFat.map((m, idx) => (
+                                        <div key={idx} className="flex justify-between text-sm">
+                                            <span className="text-gray-400">{m.date}</span>
+                                            <span className="font-bold">{m.value}%</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="glass-card p-6">
+                        <h3 className="text-xl font-bold mb-4">Progress Photos</h3>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div className="aspect-square bg-white/5 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-700 cursor-pointer hover:border-green-500 transition-colors">
+                                <span className="text-4xl">+</span>
+                            </div>
+                            <div className="aspect-square bg-gradient-to-br from-green-500/20 to-blue-500/20 rounded-lg"></div>
+                            <div className="aspect-square bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg"></div>
+                            <div className="aspect-square bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg"></div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Habits View
+        function HabitsView() {
+            const [habits, setHabits] = useState([
+                { id: '1', name: 'Log all meals', completed: true, streak: 12 },
+                { id: '2', name: 'Drink 8 glasses of water', completed: true, streak: 8 },
+                { id: '3', name: 'Complete workout', completed: false, streak: 5 },
+                { id: '4', name: '8 hours of sleep', completed: false, streak: 3 }
+            ]);
+
+            const toggleHabit = async (id) => {
+                const updated = habits.map(h => 
+                    h.id === id ? { ...h, completed: !h.completed } : h
+                );
+                setHabits(updated);
+                await storage.set('habits', updated);
+            };
+
+            return (
+                <div className="space-y-6">
+                    <div className="flex justify-between items-center">
+                        <h2 className="text-3xl font-bold">Daily Habits</h2>
+                        <button className="btn-primary">+ Add Habit</button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="stat-card">
+                            <p className="text-sm text-gray-400 mb-2">Current Streak</p>
+                            <p className="text-5xl font-bold gradient-text">12 Days</p>
+                        </div>
+                        <div className="stat-card">
+                            <p className="text-sm text-gray-400 mb-2">Weekly Completion</p>
+                            <p className="text-5xl font-bold gradient-text">94%</p>
+                        </div>
+                    </div>
+
+                    <div className="glass-card p-6">
+                        <h3 className="text-xl font-bold mb-4">Today's Habits</h3>
+                        <div className="space-y-3">
+                            {habits.map(habit => (
+                                <div key={habit.id} className="flex items-center justify-between p-4 bg-white/5 rounded-lg">
+                                    <div className="flex items-center gap-4 flex-1">
+                                        <input
+                                            type="checkbox"
+                                            checked={habit.completed}
+                                            onChange={() => toggleHabit(habit.id)}
+                                            className="checkbox-custom"
+                                        />
+                                        <div>
+                                            <p className={`font-bold ${habit.completed ? 'line-through opacity-50' : ''}`}>
+                                                {habit.name}
+                                            </p>
+                                            <p className="text-sm text-gray-400">🔥 {habit.streak} day streak</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Messaging View
+        function MessagingView({ userRole }) {
+            const [messages, setMessages] = useState([
+                { id: '1', sender: 'trainer', text: 'Great progress this week! Keep it up!', time: '10:30 AM' },
+                { id: '2', sender: 'client', text: 'Thanks! Feeling stronger already.', time: '10:45 AM' },
+                { id: '3', sender: 'trainer', text: "Let's increase the weight on squats next session.", time: '11:00 AM' }
+            ]);
+            const [newMessage, setNewMessage] = useState('');
+
+            const sendMessage = async () => {
+                if (!newMessage.trim()) return;
+                
+                const message = {
+                    id: Date.now().toString(),
+                    sender: userRole,
+                    text: newMessage,
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                };
+                
+                const updated = [...messages, message];
+                setMessages(updated);
+                await storage.set('messages', updated);
+                setNewMessage('');
+            };
+
+            return (
+                <div className="space-y-6">
+                    <h2 className="text-3xl font-bold">Messages</h2>
+
+                    <div className="glass-card p-6" style={{ height: '500px', display: 'flex', flexDirection: 'column' }}>
+                        <div className="flex-1 overflow-y-auto space-y-3 mb-4">
+                            {messages.map(msg => (
+                                <div key={msg.id} className="flex" style={{ justifyContent: msg.sender === userRole ? 'flex-end' : 'flex-start' }}>
+                                    <div className={`message-bubble ${msg.sender === userRole ? 'message-sent' : 'message-received'}`}>
+                                        <p>{msg.text}</p>
+                                        <p className={`text-xs mt-1 ${msg.sender === userRole ? 'text-black/50' : 'text-gray-500'}`}>
+                                            {msg.time}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="flex gap-3">
+                            <input
+                                type="text"
+                                value={newMessage}
+                                onChange={(e) => setNewMessage(e.target.value)}
+                                onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                                className="input-field flex-1"
+                                placeholder="Type a message..."
+                            />
+                            <button onClick={sendMessage} className="btn-primary">Send</button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Exercise Library View
+        function ExerciseLibraryView() {
+            const [exercises] = useState([
+                { id: '1', name: 'Barbell Bench Press', category: 'Chest', difficulty: 'Intermediate', videoUrl: 'https://www.youtube.com/watch?v=rT7DgCr-3pg' },
+                { id: '2', name: 'Barbell Squat', category: 'Legs', difficulty: 'Intermediate', videoUrl: 'https://www.youtube.com/watch?v=ultWZbUMPL8' },
+                { id: '3', name: 'Deadlift', category: 'Back', difficulty: 'Advanced', videoUrl: 'https://www.youtube.com/watch?v=op9kVnSso6Q' },
+                { id: '4', name: 'Pull-ups', category: 'Back', difficulty: 'Intermediate', videoUrl: 'https://www.youtube.com/watch?v=eGo4IYlbE5g' }
+            ]);
+            const [searchTerm, setSearchTerm] = useState('');
+            const [selectedCategory, setSelectedCategory] = useState('All');
+
+            const filteredExercises = exercises.filter(ex => {
+                const matchesSearch = ex.name.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesCategory = selectedCategory === 'All' || ex.category === selectedCategory;
+                return matchesSearch && matchesCategory;
+            });
+
+            return (
+                <div className="space-y-6">
+                    <h2 className="text-3xl font-bold">Exercise Library</h2>
+
+                    <div className="glass-card p-6">
+                        <div className="flex gap-4 mb-6">
+                            <input
+                                type="text"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="input-field flex-1"
+                                placeholder="Search exercises..."
+                            />
+                            <select 
+                                value={selectedCategory}
+                                onChange={(e) => setSelectedCategory(e.target.value)}
+                                className="input-field"
+                                style={{ width: '200px' }}
+                            >
+                                <option>All</option>
+                                <option>Chest</option>
+                                <option>Back</option>
+                                <option>Legs</option>
+                                <option>Shoulders</option>
+                                <option>Arms</option>
+                            </select>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {filteredExercises.map(exercise => (
+                                <div key={exercise.id} className="exercise-card">
+                                    <div className="aspect-video bg-gradient-to-br from-green-500/10 to-blue-500/10 flex items-center justify-center">
+                                        <span className="text-4xl">🎥</span>
+                                    </div>
+                                    <div className="p-4">
+                                        <h3 className="font-bold mb-2">{exercise.name}</h3>
+                                        <div className="flex gap-2 text-xs">
+                                            <span className="px-2 py-1 bg-green-500/20 text-green-400 rounded">
+                                                {exercise.category}
+                                            </span>
+                                            <span className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded">
+                                                {exercise.difficulty}
+                                            </span>
+                                        </div>
+                                        <button className="btn-secondary w-full mt-3 text-xs py-2">
+                                            View Details
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Programs View
+        function ProgramsView() {
+            const programs = [
+                { id: '1', name: 'Beginner Full Body', duration: '8 weeks', clients: 12 },
+                { id: '2', name: 'Advanced Hypertrophy', duration: '12 weeks', clients: 8 },
+                { id: '3', name: 'Fat Loss Protocol', duration: '6 weeks', clients: 15 }
+            ];
+
+            return (
+                <div className="space-y-6">
+                    <div className="flex justify-between items-center">
+                        <h2 className="text-3xl font-bold">Training Programs</h2>
+                        <button className="btn-primary">+ Create Program</button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {programs.map(program => (
+                            <div key={program.id} className="glass-card p-6">
+                                <h3 className="text-xl font-bold mb-2">{program.name}</h3>
+                                <p className="text-gray-400 text-sm mb-4">{program.duration}</p>
+                                <div className="pt-4 border-t border-gray-800">
+                                    <p className="text-sm text-gray-400">{program.clients} clients enrolled</p>
+                                </div>
+                                <button className="btn-secondary w-full mt-4">Edit Program</button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        // Render App
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
