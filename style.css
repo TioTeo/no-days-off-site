@@ -44,148 +44,6 @@ button{font:inherit}
 }
 
 /* -----------------------------------------------
-   HEADER / NAV — Fixed & Responsive
------------------------------------------------- */
-header {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    background: #fff;
-    border-bottom: 1px solid var(--border);
-  }
-  
-  header .bar {
-    height: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-  
-  .logo {
-    font-family: "Anton", sans-serif;
-    letter-spacing: 0.5px;
-    font-size: 28px;
-  }
-  
-  /* Mobile toggle (hidden on desktop) */
-  .nav-toggle {
-    display: none;
-    width: 42px;
-    height: 42px;
-    border: 1px solid var(--border);
-    background: #000;
-    border-radius: 10px;
-    align-items: center;
-    justify-content: center;
-  }
-  .nav-toggle span {
-    display: block;
-    width: 20px;
-    height: 2px;
-    background: #000;
-    margin: 3px auto;
-    transition: 0.2s ease;
-  }
-  .nav-toggle.is-open span:nth-child(1) {
-    transform: translateY(5px) rotate(45deg);
-  }
-  .nav-toggle.is-open span:nth-child(2) {
-    opacity: 0;
-  }
-  .nav-toggle.is-open span:nth-child(3) {
-    transform: translateY(-5px) rotate(-45deg);
-  }
-  
-  .nav {
-    flex-grow: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-  
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-  }
-  
-  nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 28px;
-    align-items: center;
-  }
-  
-  nav a {
-    font-weight: 600;
-  }
-
-  /* Active link highlight */
-  nav a.active {
-    color: var(--accent);
-    font-weight: 800;
-    text-decoration: underline;
-  }
-
-  .cta {
-    padding: 10px 16px;
-    background: var(--accent);
-    border-radius: 10px;
-    color: #fff;
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-  }
-  .cta:hover {
-    transform: translateY(-1px);
-    background: var(--accent-ink);
-  }
-  
-  /* Mobile styles */
-  @media (max-width: 992px) {
-    .nav-toggle {
-      display: inline-flex;
-    }
-  
-    .nav {
-      justify-content: flex-end;
-    }
-  
-    .nav-links {
-      position: fixed;
-      top: 72px;
-      left: 0;
-      right: 0;
-      background: #fff;
-      flex-direction: column;
-      padding: 20px 24px;
-      transform: translateY(-100%);
-      transition: transform 0.2s ease;
-      border-top: 1px solid var(--border);
-      gap: 18px;
-    }
-  
-    .nav.is-open .nav-links {
-      transform: translateY(0);
-    }
-  
-    nav ul {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 16px;
-    }
-  
-    .cta {
-      margin-top: 10px;
-    }
-  }
-
-/* -----------------------------------------------
    HERO
 ------------------------------------------------ */
 .hero{
@@ -203,10 +61,21 @@ header {
 .hero h1 span{ color:#000; }
 .hero h1 strong{ color:var(--accent); font-weight:900; }
 .hero .hero-img{
+  width:100%;
+  aspect-ratio:16 / 9;   /* makes image responsive */
+  overflow:hidden;
   border:1px solid var(--border);
   border-radius:12px;
-  overflow:hidden;
 }
+
+.hero .hero-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position: center;
+  display:block;
+}
+
 
 /* -----------------------------------------------
    FEATURES GRID (two rows)
@@ -406,10 +275,6 @@ header{
 header .bar{ height:72px; display:flex; align-items:center; justify-content:space-between; }
 .logo{ font-family:"Anton",sans-serif; letter-spacing:.5px; font-size:28px; }
 
-.icon-menu{
-
-
-}
 .nav-toggle{             /* hidden by default (desktop) */
   display:none; width:42px; height:36px;
   border:1px solid var(--border); border-radius:10px; background:#fff;
@@ -437,7 +302,7 @@ nav a.active{ color:var(--accent); font-weight:800; text-decoration:underline; }
   /* Turn the link block into a slide-down overlay under the header */
   .nav .nav-links{
     position: fixed; inset: 72px 0 0 0;   /* below header */
-    background:#fff; opacity: 0.0;; border-top:1px solid var(--border);
+    background:#fff; opacity: 1.0;; border-top:1px solid var(--border);
     transform: translateY(-100%);
     transition: transform .22s ease;
     pointer-events: none;                  /* do not intercept clicks while closed */
@@ -488,14 +353,9 @@ nav a.active{ color:var(--accent); font-weight:800; text-decoration:underline; }
 /* CTA banner content centered but full-bleed background */
 .cta-banner{ margin:46px 0; padding:62px 0 72px; background:var(--accent); color:#fff; text-align:center; border-radius:12px; }
 .cta-banner .container{ max-width:var(--maxw); margin-inline:auto; padding-inline:24px; }
-/* Button container and color */
-.nav-toggle{
-  display:inline-flex; align-items:center; justify-content:center;
-  width:42px; height:36px; border:1px solid var(--border); border-radius:10px;
-  background:#111; color:#111;                 /* set your icon color here or use var(--accent) */
-}
 
-/* Only show one icon at a time */
-.nav-toggle .icon-close{ display:none; }
-.nav-toggle.is-open .icon-menu{ display:none; }
-.nav-toggle.is-open .icon-close{ display:block; }
+@media (max-width: 768px) {
+  .hero-img {
+    aspect-ratio: 4 / 5;   /* taller mobile framing */
+  }
+}
