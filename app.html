@@ -264,32 +264,51 @@
         const { useState, useEffect, useRef } = React;
 
         // Storage utility
-        const storage = {
-            get: async (key, shared = false) => {
-                try {
-                    const result = await window.storage.get(key, shared);
-                    return result ? JSON.parse(result.value) : null;
-                } catch (e) {
-                    return null;
-                }
-            },
-            set: async (key, value, shared = false) => {
-                try {
-                    await window.storage.set(key, JSON.stringify(value), shared);
-                    return true;
-                } catch (e) {
-                    return false;
-                }
-            },
-            delete: async (key, shared = false) => {
-                try {
-                    await window.storage.delete(key, shared);
-                    return true;
-                } catch (e) {
-                    return false;
-                }
+        // Storage utility - fallback to localStorage
+const storage = {
+    get: async (key, shared = false) => {
+        try {
+            if (window.storage) {
+                const result = await window.storage.get(key, shared);
+                return result ? JSON.parse(result.value) : null;
+            } else {
+                // Fallback to localStorage
+                const item = localStorage.getItem(key);
+                return item ? JSON.parse(item) : null;
             }
-        };
+        } catch (e) {
+            return null;
+        }
+    },
+    set: async (key, value, shared = false) => {
+        try {
+            if (window.storage) {
+                await window.storage.set(key, JSON.stringify(value), shared);
+                return true;
+            } else {
+                // Fallback to localStorage
+                localStorage.setItem(key, JSON.stringify(value));
+                return true;
+            }
+        } catch (e) {
+            return false;
+        }
+    },
+    delete: async (key, shared = false) => {
+        try {
+            if (window.storage) {
+                await window.storage.delete(key, shared);
+                return true;
+            } else {
+                // Fallback to localStorage
+                localStorage.removeItem(key);
+                return true;
+            }
+        } catch (e) {
+            return false;
+        }
+    }
+};
 
         // Main App Component
         function App() {
