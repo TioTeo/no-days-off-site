@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NDO Fitness App — Track, Train, Transform</title>
+    <meta name="description" content="Your complete fitness platform. Track nutrition, log workouts, monitor progress, and stay connected with your trainer — all in one powerful app.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Archivo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green: #00ff88;
+            --cyan: #00ccff;
+            --dark: #0a0a0a;
+            --dark2: #111111;
+            --dark3: #1a1a1a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Archivo', sans-serif;
+            background: var(--dark);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, #0a0a0a 0%, #0d1f14 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0, 255, 136, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 20% 80%, rgba(0, 204, 255, 0.08) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.02) 2px, rgba(255,255,255,0.02) 4px);
+            animation: scan 8s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-50%); }
+            100% { transform: translateY(0%); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 120px;
+            letter-spacing: 8px;
+            background: linear-gradient(135deg, var(--green) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 16px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tagline {
+            font-size: 20px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 48px;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease 0.3s backwards;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--green) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto 48px;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.5s backwards;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--green) 0%, var(--cyan) 100%);
+            color: #0a0a0a;
+            font-weight: 800;
+            font-size: 16px;
+            padding: 18px 48px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 16px 48px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        /* FEATURES SECTION */
+        .section {
+            padding: 120px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 56px;
+            letter-spacing: 2px;
+            line-height: 1;
+            margin-bottom: 24px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 40px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--green), var(--cyan));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 255, 136, 0.3);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.8;
+        }
+
+        /* PRICING SECTION */
+        .pricing {
+            background: linear-gradient(180deg, var(--dark) 0%, var(--dark2) 100%);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .pricing-card {
+            background: var(--dark3);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 48px;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--green);
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.08) 0%, rgba(0, 204, 255, 0.08) 100%);
+            transform: scale(1.05);
+        }
+
+        .pricing-card:hover {
+            transform: scale(1.08);
+            border-color: var(--cyan);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.1);
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--green), var(--cyan));
+            color: #0a0a0a;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 6px 16px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        .pricing-card h3 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .price {
+            font-size: 56px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--green), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .price-period {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 32px;
+        }
+
+        .features-list {
+            text-align: left;
+            margin-bottom: 40px;
+        }
+
+        .features-list li {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 16px;
+            padding-left: 32px;
+            position: relative;
+            font-size: 15px;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* TESTIMONIALS */
+        .testimonials {
+            background: var(--dark);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .testimonial {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .testimonial-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .author-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--green), var(--cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .author-info h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .author-info p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* CTA SECTION */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 204, 255, 0.1) 100%);
+            border-top: 1px solid rgba(0, 255, 136, 0.2);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+            padding: 100px 24px;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 64px;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 48px;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 60px 24px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, var(--green), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 14px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 72px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .section {
+                padding: 80px 24px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .features-grid,
+            .pricing-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .cta-section h2 {
+                font-size: 36px;
+            }
+        }
+
+        /* SCROLL ANIMATIONS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo">NDO</div>
+            <div class="tagline">Fitness App</div>
+            <h1>Your Fitness Journey,<br><span>Now Digital</span></h1>
+            <p>Track nutrition, log workouts, monitor progress, and stay connected with your trainer — all in one powerful platform.</p>
+            <div class="cta-buttons">
+                <a href="https://app.ndohealth.com" class="btn-primary">Launch App →</a>
+                <a href="#pricing" class="btn-secondary">View Pricing</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="section">
+        <div class="section-header fade-in">
+            <div class="section-label">Everything You Need</div>
+            <h2 class="section-title">Built for Results</h2>
+            <p class="section-subtitle">Track every aspect of your fitness journey with tools designed by trainers, for athletes.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <span class="feature-icon">🍽️</span>
+                <h3>Nutrition Tracking</h3>
+                <p>Log meals, track macros, and monitor your daily calorie intake. See exactly what's left to hit your goals in real-time.</p>
+            </div>
+
+            <div class="feature-card fade-in">
+                <span class="feature-icon">💪</span>
+                <h3>Workout Logging</h3>
+                <p>Track sets, reps, and weight for every exercise. Built-in rest timers and automatic PR tracking keep you motivated.</p>
+            </div>
+
+            <div class="feature-card fade-in">
+                <span class="feature-icon">📸</span>
+                <h3>Progress Photos</h3>
+                <p>Upload weekly photos and watch your transformation unfold. Track body measurements and weight over time.</p>
+            </div>
+
+            <div class="feature-card fade-in">
+                <span class="feature-icon">🎯</span>
+                <h3>Habit Tracking</h3>
+                <p>Build daily habits that compound. Water intake, sleep, meal prep — track it all and build unstoppable streaks.</p>
+            </div>
+
+            <div class="feature-card fade-in">
+                <span class="feature-icon">💬</span>
+                <h3>Direct Messaging</h3>
+                <p>Chat directly with your trainer inside the app. Get guidance when you need it most, without switching platforms.</p>
+            </div>
+
+            <div class="feature-card fade-in">
+                <span class="feature-icon">📚</span>
+                <h3>Exercise Library</h3>
+                <p>Searchable video library of every exercise. Perfect form, proper technique, no guesswork.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="section pricing" id="pricing">
+        <div class="section-header fade-in">
+            <div class="section-label">Flexible Plans</div>
+            <h2 class="section-title">Choose Your Path</h2>
+            <p class="section-subtitle">Whether you're self-guided or want hands-on coaching, we've got you covered.</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card fade-in">
+                <h3>Self-Guided</h3>
+                <div class="price">$19</div>
+                <div class="price-period">per month</div>
+                <ul class="features-list">
+                    <li>Full nutrition tracking</li>
+                    <li>Workout logging</li>
+                    <li>Progress photos & measurements</li>
+                    <li>Habit tracker</li>
+                    <li>Exercise library access</li>
+                    <li>Mobile-friendly app</li>
+                </ul>
+                <a href="https://app.ndohealth.com" class="btn-secondary" style="width: 100%;">Get Started</a>
+            </div>
+
+            <div class="pricing-card featured fade-in">
+                <div class="badge">Most Popular</div>
+                <h3>Coached</h3>
+                <div class="price">$97</div>
+                <div class="price-period">per month</div>
+                <ul class="features-list">
+                    <li><strong>Everything in Self-Guided, plus:</strong></li>
+                    <li>Direct trainer messaging</li>
+                    <li>Custom workout programs</li>
+                    <li>Weekly check-ins</li>
+                    <li>Form checks & feedback</li>
+                    <li>Personalized nutrition plans</li>
+                    <li>Priority support</li>
+                </ul>
+                <a href="https://app.ndohealth.com" class="btn-primary" style="width: 100%;">Start Coaching</a>
+            </div>
+
+            <div class="pricing-card fade-in">
+                <h3>VIP 1-on-1</h3>
+                <div class="price">$197</div>
+                <div class="price-period">per month</div>
+                <ul class="features-list">
+                    <li><strong>Everything in Coached, plus:</strong></li>
+                    <li>Weekly video coaching calls</li>
+                    <li>In-person training sessions</li>
+                    <li>Session booking & scheduling</li>
+                    <li>24/7 text support</li>
+                    <li>Fully customized programming</li>
+                    <li>Quarterly goal setting</li>
+                </ul>
+                <a href="https://app.ndohealth.com" class="btn-secondary" style="width: 100%;">Go VIP</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="section testimonials">
+        <div class="section-header fade-in">
+            <div class="section-label">Success Stories</div>
+            <h2 class="section-title">Real Results</h2>
+            <p class="section-subtitle">Hear from clients transforming their lives with NDO.</p>
+        </div>
+
+        <div class="testimonial-grid">
+            <div class="testimonial fade-in">
+                <p class="testimonial-text">"Having everything in one app changed the game for me. I can see exactly what I need to eat, log my workouts in seconds, and check in with my trainer without jumping between apps."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SJ</div>
+                    <div class="author-info">
+                        <h4>Sarah J.</h4>
+                        <p>Coached Client • 6 months</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial fade-in">
+                <p class="testimonial-text">"The progress photos feature keeps me accountable. Seeing my transformation side-by-side is incredibly motivating. Best investment I've made in myself this year."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MC</div>
+                    <div class="author-info">
+                        <h4>Mike C.</h4>
+                        <p>Self-Guided • 4 months</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial fade-in">
+                <p class="testimonial-text">"As a busy professional, I needed something simple that just works. The habit tracker alone is worth the price. I'm finally consistent for the first time in years."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">ER</div>
+                    <div class="author-info">
+                        <h4>Emily R.</h4>
+                        <p>VIP Client • 8 months</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA SECTION -->
+    <section class="cta-section">
+        <h2>Health is Wealth.<br>Invest Daily.</h2>
+        <p>Join the NDO community and start building the body you deserve.</p>
+        <a href="https://app.ndohealth.com" class="btn-primary" style="font-size: 18px; padding: 20px 60px;">Launch App Now →</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">NDO</div>
+        <p>© 2025 NDO Health. All rights reserved.</p>
+        <p style="margin-top: 8px;">
+            <a href="/" style="color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 12px;">Home</a>
+            <a href="/personal-training" style="color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 12px;">Personal Training</a>
+            <a href="/nutrition" style="color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 12px;">Nutrition</a>
+            <a href="/about" style="color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 12px;">About</a>
+        </p>
+    </footer>
+
+    <!-- SCROLL ANIMATION SCRIPT -->
+    <script>
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.fade-in').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
