@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NDO Health | For Trainers — Earn Recurring Revenue</title>
+  <meta name="description" content="Join the NDO Partner Program. Bring your clients onto a professional coaching platform and earn 40% recurring revenue on every active subscription." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Trainer Partner Page ── */
+
+    .partner-hero {
+      padding: 80px 24px 72px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .partner-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--accent);
+    }
+    .partner-hero .section-kicker { margin-bottom: 16px; }
+    .partner-hero h1 {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: clamp(38px, 6.5vw, 72px);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.05;
+      margin: 0 0 20px;
+    }
+    .partner-hero h1 strong { color: var(--accent); }
+    .partner-hero p {
+      color: var(--text-muted);
+      font-size: 18px;
+      max-width: 52ch;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .hero-cta-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 16px 44px;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      font-family: 'Lexend', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 15px 44px;
+      border: 1px solid var(--border-mid);
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Section base */
+    .pt-section {
+      padding: 96px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .pt-section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: clamp(32px, 5vw, 52px);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.05;
+      margin: 0 0 16px;
+    }
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 52ch;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* How it works */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .step-card:hover { border-color: var(--border-mid); }
+    .step-num {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: 56px;
+      color: var(--accent);
+      opacity: 0.18;
+      line-height: 1;
+      position: absolute;
+      top: 20px; right: 24px;
+    }
+    .step-card h3 {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.03em;
+      margin: 0 0 12px;
+    }
+    .step-card p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Earnings table */
+    .earnings-section {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .earnings-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 96px 24px;
+    }
+    .earnings-split {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .earnings-copy h2 {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: clamp(30px, 4vw, 46px);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      margin: 0 0 20px;
+    }
+    .earnings-copy h2 strong { color: var(--accent); }
+    .earnings-copy p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .earnings-note {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 24px;
+    }
+
+    .earnings-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .earnings-table thead th {
+      text-align: left;
+      padding: 10px 16px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      border-bottom: 1px solid var(--border);
+    }
+    .earnings-table tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .earnings-table tbody tr:hover { background: rgba(57,255,20,0.04); }
+    .earnings-table tbody tr:last-child { border-bottom: none; }
+    .earnings-table td {
+      padding: 14px 16px;
+      color: var(--text-muted);
+      vertical-align: middle;
+    }
+    .earnings-table td:first-child { font-weight: 600; color: var(--text); }
+    .earnings-table td.earn {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      color: var(--accent);
+    }
+    .tier-badge {
+      display: inline-block;
+      background: rgba(57,255,20,0.1);
+      border: 1px solid rgba(57,255,20,0.25);
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .tier-badge.concierge {
+      background: rgba(255,255,255,0.05);
+      border-color: var(--border-mid);
+      color: var(--text-muted);
+    }
+
+    /* What you get — feature cards */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .feature-card:hover { border-color: var(--border-mid); }
+    .feature-card:hover::before { transform: scaleX(1); }
+    .feature-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+    .feature-card h3 {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: 0.03em;
+      margin: 0 0 10px;
+    }
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Testimonials */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .testimonial {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+    .testimonial-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 14px; }
+    .author-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(57,255,20,0.1);
+      border: 1px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .author-info h4 { font-size: 13px; font-weight: 700; margin: 0 0 3px; }
+    .author-info p  { font-size: 11px; color: var(--text-dim); margin: 0; }
+
+    /* Comparison — Trainer vs. Traditional */
+    .compare-section {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 96px 24px;
+    }
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .compare-col {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px;
+    }
+    .compare-col.ndo { border-color: var(--accent); }
+    .compare-col-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+    .compare-col.ndo .compare-col-label { color: var(--accent); }
+    .compare-list {
+      list-style: none;
+      padding: 0; margin: 0;
+    }
+    .compare-list li {
+      font-size: 14px;
+      color: var(--text-muted);
+      padding: 8px 0 8px 24px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.5;
+    }
+    .compare-list li:last-child { border-bottom: none; }
+    .compare-list li::before {
+      position: absolute; left: 0;
+      font-weight: 700;
+    }
+    .compare-col .compare-list li::before { content: '✕'; color: #666; }
+    .compare-col.ndo .compare-list li::before { content: '✓'; color: var(--accent); }
+
+    /* Application form */
+    .apply-section {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 96px 24px;
+    }
+    .apply-section .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .apply-section input[type="text"],
+    .apply-section input[type="email"],
+    .apply-section input[type="url"],
+    .apply-section textarea,
+    .apply-section select {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      color: var(--text);
+      font: 400 15px/1.5 'Lexend', sans-serif;
+      transition: border-color 0.2s;
+      resize: vertical;
+      appearance: none;
+    }
+    .apply-section input[type="text"]:focus,
+    .apply-section input[type="email"]:focus,
+    .apply-section input[type="url"]:focus,
+    .apply-section textarea:focus,
+    .apply-section select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .apply-section input::placeholder,
+    .apply-section textarea::placeholder { color: var(--text-dim); }
+    .form-group { margin-bottom: 32px; }
+
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pill-group input[type="radio"],
+    .pill-group input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+    .pill-group label {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 18px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+      user-select: none;
+    }
+    .pill-group label:hover { border-color: var(--accent); color: var(--text); }
+    .pill-group input[type="radio"]:checked + label,
+    .pill-group input[type="checkbox"]:checked + label {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #000;
+      font-weight: 700;
+    }
+    .submit-row {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .btn-submit {
+      background: var(--accent);
+      color: #000;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 16px 48px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-submit:hover { opacity: 0.85; }
+    .submit-note { font-size: 12px; color: var(--text-dim); }
+
+    /* Gym partner CTA banner */
+    .gym-cta-banner {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      padding: 72px 24px;
+    }
+    .gym-cta-banner h2 {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: clamp(28px, 4vw, 44px);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0 0 12px;
+    }
+    .gym-cta-banner h2 strong { color: var(--accent); }
+    .gym-cta-banner p {
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 50ch;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+
+    /* Fade-in */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .steps-grid,
+      .features-grid,
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .earnings-split { grid-template-columns: 1fr; gap: 40px; }
+      .compare-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .hero-cta-row { flex-direction: column; align-items: center; }
+      .earnings-table { font-size: 12px; }
+      .earnings-table td { padding: 12px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header>
+    <div class="container bar">
+      <div class="logo">NDO</div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav">
+        <div class="nav-links">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="app-landing-page.html">Pricing</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="trainers.html">For Trainers</a></li>
+          </ul>
+          <a href="#apply" class="cta">Apply Now</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="partner-hero">
+      <p class="section-kicker">NDO Partner Program — For Trainers</p>
+      <h1>Your Clients. Your Brand.<br><strong>Your Revenue.</strong></h1>
+      <p>You already build their results every single day. NDO gives you the platform — and a recurring income stream — to match the work you put in.</p>
+      <div class="hero-cta-row">
+        <a href="#apply" class="btn-primary">Apply as a Partner</a>
+        <a href="gym-partners.html" class="btn-outline">Own a Gym? →</a>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="pt-section">
+      <div class="pt-section-header fade-in">
+        <div class="section-label">How It Works</div>
+        <h2 class="section-title">Simple. Clean. Recurring.</h2>
+        <p class="section-subtitle">Three steps to turning your existing coaching into a platform business.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card fade-in">
+          <div class="step-num">01</div>
+          <h3>Apply &amp; Get Approved</h3>
+          <p>Fill out the short application below. We review it personally — no automated gatekeeping. Approved trainers get onboarded within 48 hours.</p>
+        </div>
+        <div class="step-card fade-in">
+          <div class="step-num">02</div>
+          <h3>Onboard Your Clients</h3>
+          <p>Move existing clients onto NDO or grow your roster using your personal referral link. Every client you bring in is tracked to your account.</p>
+        </div>
+        <div class="step-card fade-in">
+          <div class="step-num">03</div>
+          <h3>Earn Every Month</h3>
+          <p>You earn 40% of every active client subscription — automatically, every billing cycle. No invoices. No chasing. Just recurring revenue.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EARNINGS SECTION -->
+    <section class="earnings-section">
+      <div class="earnings-inner">
+        <div class="earnings-split">
+          <div class="earnings-copy fade-in">
+            <div class="section-label">Revenue Share</div>
+            <h2>What Does <strong>40%</strong> Actually Look Like?</h2>
+            <p>10 clients at the 1:1 tier is $788 per month — before you coach a single extra session. 15 Concierge clients is over $3,300 monthly. It compounds as your client base grows.</p>
+            <p>There's no cap. No tiers you have to reach first. You earn on every subscription from day one.</p>
+            <p class="earnings-note">Revenue share paid monthly. Percentages based on the partner program standard rate. Full terms provided upon approval.</p>
+          </div>
+
+          <div class="fade-in" style="overflow-x:auto;">
+            <table class="earnings-table">
+              <thead>
+                <tr>
+                  <th>Clients</th>
+                  <th>Tier</th>
+                  <th>Sub Price</th>
+                  <th>Your Cut</th>
+                  <th>Monthly</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>5</td>
+                  <td><span class="tier-badge">1:1</span></td>
+                  <td>$197/mo</td>
+                  <td>$78.80/client</td>
+                  <td class="earn">$394</td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td><span class="tier-badge">1:1</span></td>
+                  <td>$197/mo</td>
+                  <td>$78.80/client</td>
+                  <td class="earn">$788</td>
+                </tr>
+                <tr>
+                  <td>20</td>
+                  <td><span class="tier-badge">1:1</span></td>
+                  <td>$197/mo</td>
+                  <td>$78.80/client</td>
+                  <td class="earn">$1,576</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td><span class="tier-badge concierge">Concierge</span></td>
+                  <td>$555/mo</td>
+                  <td>$222/client</td>
+                  <td class="earn">$1,110</td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td><span class="tier-badge concierge">Concierge</span></td>
+                  <td>$555/mo</td>
+                  <td>$222/client</td>
+                  <td class="earn">$2,220</td>
+                </tr>
+                <tr>
+                  <td>15</td>
+                  <td><span class="tier-badge concierge">Concierge</span></td>
+                  <td>$555/mo</td>
+                  <td>$222/client</td>
+                  <td class="earn">$3,330</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT YOU GET -->
+    <section class="pt-section">
+      <div class="pt-section-header fade-in">
+        <div class="section-label">Platform Benefits</div>
+        <h2 class="section-title">Built for Coaches</h2>
+        <p class="section-subtitle">NDO isn't just a tracking app for your clients. It's a full business operating system for you.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <span class="feature-icon">👥</span>
+          <h3>Client Dashboard</h3>
+          <p>See every client in one place — their check-ins, nutrition logs, workout data, and progress photos. No more chasing updates via DM.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">📋</span>
+          <h3>Program Builder</h3>
+          <p>Build and assign custom training programs directly in the platform. Templates, periodization, exercise swaps — all wired to your clients' logs.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">📊</span>
+          <h3>Progress Tracking</h3>
+          <p>Weight trends, body measurements, and weekly progress photos — all visible from your trainer view so every adjustment is data-driven.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">💬</span>
+          <h3>Direct Messaging</h3>
+          <p>In-app messaging keeps all coaching communication in one thread. No switching between Instagram DMs, email, and text to support your clients.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">🔗</span>
+          <h3>Your Referral Link</h3>
+          <p>Every partner gets a personal referral link. Share it on social media, your website, or directly with prospects — all sign-ups track to you.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">📚</span>
+          <h3>Exercise Library</h3>
+          <p>Full searchable library for programming reference. Filter by muscle group, equipment, or movement pattern. No more building from scratch.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARISON -->
+    <section class="compare-section">
+      <div class="compare-inner">
+        <div class="pt-section-header fade-in">
+          <div class="section-label">Why NDO</div>
+          <h2 class="section-title">Traditional Coaching vs. NDO</h2>
+          <p class="section-subtitle">You're already doing the work. The difference is how you get compensated for it.</p>
+        </div>
+
+        <div class="compare-grid">
+          <div class="compare-col fade-in">
+            <div class="compare-col-label">Traditional Coaching</div>
+            <ul class="compare-list">
+              <li>Revenue stops if you stop working</li>
+              <li>Spreadsheets, WhatsApp, email — scattered tools</li>
+              <li>No passive income from your client base</li>
+              <li>Client check-ins happen on their timeline</li>
+              <li>You own the relationship, not a platform asset</li>
+              <li>Hard to scale beyond 1:1 hours</li>
+            </ul>
+          </div>
+          <div class="compare-col ndo fade-in">
+            <div class="compare-col-label">NDO Partner Program</div>
+            <ul class="compare-list">
+              <li>40% monthly revenue while clients stay active</li>
+              <li>Everything in one platform — coach and client</li>
+              <li>Recurring income that grows with your roster</li>
+              <li>Structured check-ins built into the app</li>
+              <li>Platform handles billing, tracking, messaging</li>
+              <li>Scale by referring clients, not adding hours</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="pt-section">
+      <div class="pt-section-header fade-in">
+        <div class="section-label">Partner Stories</div>
+        <h2 class="section-title">Coaches Who Made the Move</h2>
+      </div>
+
+      <div class="testimonial-grid">
+        <div class="testimonial fade-in">
+          <p class="testimonial-text">"I was managing 14 clients across three different apps and a spreadsheet. Moving them all to NDO took two weeks. Now I earn from the platform whether I'm coaching or not."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">JT</div>
+            <div class="author-info">
+              <h4>James T.</h4>
+              <p>NDO Partner · 18 clients</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial fade-in">
+          <p class="testimonial-text">"The referral link alone changed everything for me. I post my client results on Instagram, people sign up through my link, and I earn on every subscription. It's the model I didn't know I needed."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MR</div>
+            <div class="author-info">
+              <h4>Maya R.</h4>
+              <p>NDO Partner · 11 clients</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial fade-in">
+          <p class="testimonial-text">"I was skeptical about moving clients to a new platform. Zero pushback. They actually love that their workout and nutrition data is in one place. My coaching quality went up because I have better data."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">DL</div>
+            <div class="author-info">
+              <h4>Devon L.</h4>
+              <p>NDO Partner · 22 clients</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GYM PARTNER CALLOUT -->
+    <section class="gym-cta-banner">
+      <p class="section-label">Also Available</p>
+      <h2>Own a Gym or Studio?<br><strong>There's a Tier for That.</strong></h2>
+      <p>Gym owners can earn on every trainer in their facility — not just their own clients. One gym. Multiple trainers. Compounding revenue.</p>
+      <a href="gym-partners.html" class="btn-primary">See Gym Partner Program →</a>
+    </section>
+
+    <!-- APPLICATION FORM -->
+    <div id="apply" class="apply-section">
+      <div style="text-align:center; margin-bottom:56px;">
+        <div class="section-label">Apply Now</div>
+        <h2 class="section-title">Become an NDO Partner</h2>
+        <p class="section-subtitle" style="margin:0 auto;">Takes 3 minutes. We review every application personally and respond within 48 hours.</p>
+      </div>
+
+      <form name="trainer-partner-application" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="trainer-partner-application" />
+
+        <div class="form-group">
+          <label class="form-label" for="name">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Your full name" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="social">Instagram or Social Handle <span style="color:var(--text-dim);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <input type="text" id="social" name="social" placeholder="@yourhandle" />
+        </div>
+
+        <div class="form-group">
+          <span class="form-label">Do you hold a fitness certification?</span>
+          <div class="pill-group">
+            <input type="radio" id="cert-yes" name="certified" value="Yes — NASM, ACE, NSCA, or equivalent" required />
+            <label for="cert-yes">Yes — NASM, ACE, NSCA, or equivalent</label>
+
+            <input type="radio" id="cert-other" name="certified" value="Yes — other certification" />
+            <label for="cert-other">Yes — other certification</label>
+
+            <input type="radio" id="cert-no" name="certified" value="No formal cert, but training experience" />
+            <label for="cert-no">No formal cert, but experienced</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="form-label">How many active clients do you currently have?</span>
+          <div class="pill-group">
+            <input type="radio" id="clients-new" name="client_count" value="Just starting (0–5)" required />
+            <label for="clients-new">Just starting (0–5)</label>
+
+            <input type="radio" id="clients-mid" name="client_count" value="Growing (6–15)" />
+            <label for="clients-mid">Growing (6–15)</label>
+
+            <input type="radio" id="clients-est" name="client_count" value="Established (16–30)" />
+            <label for="clients-est">Established (16–30)</label>
+
+            <input type="radio" id="clients-large" name="client_count" value="Full roster (30+)" />
+            <label for="clients-large">Full roster (30+)</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="form-label">How do you currently manage clients?</span>
+          <div class="pill-group">
+            <input type="radio" id="manage-nothing" name="current_tools" value="Spreadsheets + messaging apps" required />
+            <label for="manage-nothing">Spreadsheets + messaging apps</label>
+
+            <input type="radio" id="manage-app" name="current_tools" value="Another coaching app" />
+            <label for="manage-app">Another coaching app</label>
+
+            <input type="radio" id="manage-in-person" name="current_tools" value="Mostly in-person, no digital tools" />
+            <label for="manage-in-person">Mostly in-person, no digital</label>
+
+            <input type="radio" id="manage-mix" name="current_tools" value="Mix of everything" />
+            <label for="manage-mix">Mix of everything</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="form-label">What are you most interested in? <span style="color:var(--text-dim);font-weight:400;text-transform:none;letter-spacing:0">(select all that apply)</span></span>
+          <div class="pill-group">
+            <input type="checkbox" id="interest-revenue" name="interest_revenue" value="Recurring revenue from my clients" />
+            <label for="interest-revenue">Recurring revenue</label>
+
+            <input type="checkbox" id="interest-tools" name="interest_tools" value="Better client management tools" />
+            <label for="interest-tools">Better client tools</label>
+
+            <input type="checkbox" id="interest-referral" name="interest_referral" value="Referral / affiliate income from social" />
+            <label for="interest-referral">Referral &amp; affiliate income</label>
+
+            <input type="checkbox" id="interest-clients" name="interest_clients" value="Growing my client base" />
+            <label for="interest-clients">Growing my client base</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="notes">Anything else you want us to know? <span style="color:var(--text-dim);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <textarea id="notes" name="notes" rows="4" placeholder="Your coaching style, niche, what you've built, questions about the program..."></textarea>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="btn-submit">Submit Application</button>
+          <p class="submit-note">No spam. We review every application and reply within 48 hours.</p>
+        </div>
+      </form>
+    </div>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="logo-bubbles">
+          <div class="bubble b1"></div>
+          <div class="bubble b2"></div>
+          <div class="bubble b3"></div>
+        </div>
+        <p>Email: partners@ndohealth.com</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="app-landing-page.html">Pricing</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="gym-partners.html">Gym Partner Program</a></li>
+          <li><a href="reserve.html">Book a Concierge Call</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">X</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Spotify</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

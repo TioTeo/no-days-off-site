@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NDO Health | Gym Partner Program — Earn on Every Trainer</title>
+  <meta name="description" content="Bring your gym onto NDO Health. Your trainers earn on their clients. You earn on your trainers. One platform. Compounding revenue." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Gym Partner Page ── */
+
+    .gym-hero {
+      padding: 80px 24px 72px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .gym-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--accent);
+    }
+    .gym-hero .section-kicker { margin-bottom: 16px; }
+    .gym-hero h1 {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: clamp(36px, 6vw, 70px);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.05;
+      margin: 0 0 20px;
+    }
+    .gym-hero h1 strong { color: var(--accent); }
+    .gym-hero p {
+      color: var(--text-muted);
+      font-size: 18px;
+      max-width: 54ch;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .hero-cta-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 16px 44px;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      font-family: 'Lexend', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 15px 44px;
+      border: 1px solid var(--border-mid);
+      border-radius: 10px;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Section */
+    .gp-section {
+      padding: 96px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .gp-section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: clamp(32px, 5vw, 52px);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.05;
+      margin: 0 0 16px;
+    }
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 52ch;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Tier diagram */
+    .tier-diagram {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .tier-col {
+      padding: 40px 32px;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+    .tier-col:last-child { border-right: none; }
+    .tier-col.gym-col { background: rgba(57,255,20,0.04); }
+    .tier-arrow {
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px;
+      color: var(--accent);
+      z-index: 2;
+    }
+    .tier-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+    .tier-col.gym-col .tier-label { color: var(--accent); }
+    .tier-name {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: 0.03em;
+      margin: 0 0 12px;
+    }
+    .tier-earn {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: 36px;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .tier-earn-label {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+    .tier-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Steps */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .step-card:hover { border-color: var(--border-mid); }
+    .step-num {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: 48px;
+      color: var(--accent);
+      opacity: 0.15;
+      line-height: 1;
+      position: absolute;
+      top: 16px; right: 20px;
+    }
+    .step-card h3 {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.03em;
+      margin: 0 0 10px;
+    }
+    .step-card p {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Revenue model */
+    .revenue-section {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .revenue-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 96px 24px;
+    }
+    .revenue-split {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .revenue-copy h2 {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: clamp(28px, 4vw, 44px);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      margin: 0 0 20px;
+    }
+    .revenue-copy h2 strong { color: var(--accent); }
+    .revenue-copy p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .revenue-note {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 24px;
+    }
+
+    .scenario-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 20px;
+    }
+    .scenario-card:last-child { margin-bottom: 0; }
+    .scenario-title {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .scenario-math {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .math-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .math-row:last-child { border-bottom: none; }
+    .math-row .label { color: var(--text-muted); }
+    .math-row .value { font-weight: 600; color: var(--text); }
+    .scenario-total {
+      background: rgba(57,255,20,0.06);
+      border: 1px solid rgba(57,255,20,0.2);
+      border-radius: 8px;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .scenario-total .total-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+    .scenario-total .total-value {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      color: var(--accent);
+    }
+
+    /* Feature cards */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .feature-card:hover { border-color: var(--border-mid); }
+    .feature-card:hover::before { transform: scaleX(1); }
+    .feature-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+    .feature-card h3 {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: 0.03em;
+      margin: 0 0 10px;
+    }
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Testimonial */
+    .testimonial-single {
+      background: var(--bg-card);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 48px;
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .testimonial-single p.quote {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 32px;
+    }
+    .testimonial-single .author { display: flex; align-items: center; gap: 16px; justify-content: center; }
+    .author-avatar {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: rgba(57,255,20,0.1);
+      border: 1px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; font-weight: 800;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .author-info h4 { font-size: 14px; font-weight: 700; margin: 0 0 3px; text-align: left; }
+    .author-info p  { font-size: 12px; color: var(--text-dim); margin: 0; text-align: left; }
+
+    /* Trainer CTA banner */
+    .trainer-cta-banner {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      padding: 72px 24px;
+    }
+    .trainer-cta-banner h2 {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: clamp(26px, 4vw, 42px);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0 0 12px;
+    }
+    .trainer-cta-banner h2 strong { color: var(--accent); }
+    .trainer-cta-banner p {
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 48ch;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+
+    /* Application form */
+    .apply-section {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 96px 24px;
+    }
+    .apply-section .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .apply-section input[type="text"],
+    .apply-section input[type="email"],
+    .apply-section input[type="url"],
+    .apply-section textarea {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      color: var(--text);
+      font: 400 15px/1.5 'Lexend', sans-serif;
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .apply-section input[type="text"]:focus,
+    .apply-section input[type="email"]:focus,
+    .apply-section input[type="url"]:focus,
+    .apply-section textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .apply-section input::placeholder,
+    .apply-section textarea::placeholder { color: var(--text-dim); }
+    .form-group { margin-bottom: 32px; }
+
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pill-group input[type="radio"],
+    .pill-group input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+    .pill-group label {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 18px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+      user-select: none;
+    }
+    .pill-group label:hover { border-color: var(--accent); color: var(--text); }
+    .pill-group input[type="radio"]:checked + label,
+    .pill-group input[type="checkbox"]:checked + label {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #000;
+      font-weight: 700;
+    }
+    .submit-row {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .btn-submit {
+      background: var(--accent);
+      color: #000;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 16px 48px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-submit:hover { opacity: 0.85; }
+    .submit-note { font-size: 12px; color: var(--text-dim); }
+
+    /* Fade-in */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1000px) {
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .tier-diagram { grid-template-columns: 1fr; }
+      .tier-col { border-right: none; border-bottom: 1px solid var(--border); }
+      .tier-col:last-child { border-bottom: none; }
+      .tier-arrow { display: none; }
+      .revenue-split { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 640px) {
+      .steps-grid,
+      .features-grid { grid-template-columns: 1fr; }
+      .hero-cta-row { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header>
+    <div class="container bar">
+      <div class="logo">NDO</div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav">
+        <div class="nav-links">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="app-landing-page.html">Pricing</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="trainers.html">For Trainers</a></li>
+          </ul>
+          <a href="#apply" class="cta">Apply Now</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="gym-hero">
+      <p class="section-kicker">NDO Partner Program — For Gym Owners</p>
+      <h1>Every Trainer. Every Client.<br><strong>One Roof.</strong></h1>
+      <p>Your trainers are already earning. With the NDO Gym Partner Program, so does the gym — automatically, on every subscription your trainers bring in.</p>
+      <div class="hero-cta-row">
+        <a href="#apply" class="btn-primary">Apply as a Gym Partner</a>
+        <a href="trainers.html" class="btn-outline">Individual Trainer? →</a>
+      </div>
+    </section>
+
+    <!-- THE TIER STRUCTURE -->
+    <section class="gp-section">
+      <div class="gp-section-header fade-in">
+        <div class="section-label">How the Revenue Flows</div>
+        <h2 class="section-title">Three Tiers. One Platform.</h2>
+        <p class="section-subtitle">Clients pay for coaching. Trainers earn on their clients. Gym owners earn on their trainers. It's a clean, transparent revenue stack with no conflicts of interest.</p>
+      </div>
+
+      <div class="tier-diagram fade-in">
+        <div class="tier-col">
+          <div class="tier-arrow">→</div>
+          <div class="tier-label">Tier 1</div>
+          <div class="tier-name">Client</div>
+          <div class="tier-earn">$197–$555</div>
+          <div class="tier-earn-label">per month, per subscription</div>
+          <p class="tier-desc">Pays for 1:1 or Concierge coaching. Gets the full NDO platform — tracking, programming, messaging, progress monitoring.</p>
+        </div>
+        <div class="tier-col">
+          <div class="tier-arrow">→</div>
+          <div class="tier-label">Tier 2</div>
+          <div class="tier-name">Trainer</div>
+          <div class="tier-earn">40%</div>
+          <div class="tier-earn-label">of each client subscription</div>
+          <p class="tier-desc">Earns recurring revenue on every active client. Also gets the full coaching dashboard, program builder, messaging, and exercise library.</p>
+        </div>
+        <div class="tier-col gym-col">
+          <div class="tier-label">Tier 3 — Your Cut</div>
+          <div class="tier-name">Gym Owner</div>
+          <div class="tier-earn">10%</div>
+          <div class="tier-earn-label">of all trainer revenue in your gym</div>
+          <p class="tier-desc">You earn a percentage of every trainer's monthly revenue share — automatically, on every subscription across your entire staff. Zero additional overhead.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section style="background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+      <div class="gp-section">
+        <div class="gp-section-header fade-in">
+          <div class="section-label">Getting Started</div>
+          <h2 class="section-title">Four Steps to Live</h2>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card fade-in">
+            <div class="step-num">01</div>
+            <h3>Apply Your Gym</h3>
+            <p>Fill out the application below with your gym's details. We partner with independent gyms, boutique studios, and multi-location facilities.</p>
+          </div>
+          <div class="step-card fade-in">
+            <div class="step-num">02</div>
+            <h3>Onboard Your Trainers</h3>
+            <p>Each trainer on your floor gets their own NDO partner account, linked to your gym. They apply through a streamlined flow tied to your facility.</p>
+          </div>
+          <div class="step-card fade-in">
+            <div class="step-num">03</div>
+            <h3>Trainers Bring Clients</h3>
+            <p>Trainers onboard their existing clients or grow their roster through their personal referral links. All subscriptions flow into the gym's revenue dashboard.</p>
+          </div>
+          <div class="step-card fade-in">
+            <div class="step-num">04</div>
+            <h3>Gym Earns Monthly</h3>
+            <p>Your gym automatically earns 10% of every trainer's revenue share — monthly, tracked to the cent, with full visibility across your team.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVENUE MODEL -->
+    <section class="revenue-section">
+      <div class="revenue-inner">
+        <div class="revenue-split">
+          <div class="revenue-copy fade-in">
+            <div class="section-label">Revenue Model</div>
+            <h2>What a <strong>Real Gym</strong> Could Earn</h2>
+            <p>The math is straightforward: more trainers, more clients, more revenue. A gym with 5 trainers averaging 10 clients each — all on 1:1 — generates over $985/month in passive gym revenue.</p>
+            <p>That's not counting Concierge clients, which pay out significantly more per subscription.</p>
+            <p>There's no cap on trainers, no cap on clients, and no monthly fees to be a gym partner.</p>
+            <p class="revenue-note">Revenue percentages based on standard partner terms. Full terms provided upon approval. Gym revenue is calculated as 10% of each trainer's 40% revenue share.</p>
+          </div>
+
+          <div class="fade-in">
+            <div class="scenario-card">
+              <div class="scenario-title">Small Studio — 3 Trainers</div>
+              <div class="scenario-math">
+                <div class="math-row">
+                  <span class="label">Trainers in program</span>
+                  <span class="value">3</span>
+                </div>
+                <div class="math-row">
+                  <span class="label">Avg clients per trainer (1:1)</span>
+                  <span class="value">8</span>
+                </div>
+                <div class="math-row">
+                  <span class="label">Total client subscriptions</span>
+                  <span class="value">24 × $197</span>
+                </div>
+                <div class="math-row">
+                  <span class="label">Trainer revenue (40%)</span>
+                  <span class="value">$1,894/mo</span>
+                </div>
+              </div>
+              <div class="scenario-total">
+                <span class="total-label">Gym earns (10%)</span>
+                <span class="total-value">$189/mo</span>
+              </div>
+            </div>
+
+            <div class="scenario-card">
+              <div class="scenario-title">Mid-Size Gym — 8 Trainers</div>
+              <div class="scenario-math">
+                <div class="math-row">
+                  <span class="label">Trainers in program</span>
+                  <span class="value">8</span>
+                </div>
+                <div class="math-row">
+                  <span class="label">Avg clients per trainer (1:1)</span>
+                  <span class="value">12</span>
+                </div>
+                <div class="math-row">
+                  <span class="label">Total client subscriptions</span>
+                  <span class="value">96 × $197</span>
+                </div>
+                <div class="math-row">
+                  <span class="label">Trainer revenue (40%)</span>
+                  <span class="value">$7,574/mo</span>
+                </div>
+              </div>
+              <div class="scenario-total">
+                <span class="total-label">Gym earns (10%)</span>
+                <span class="total-value">$757/mo</span>
+              </div>
+            </div>
+
+            <div class="scenario-card">
+              <div class="scenario-title">Established Gym — Mixed Tiers</div>
+              <div class="scenario-math">
+                <div class="math-row">
+                  <span class="label">Trainers in program</span>
+                  <span class="value">10</span>
+                </div>
+                <div class="math-row">
+                  <span class="label">Avg clients (8 × 1:1 + 4 × Concierge)</span>
+                  <span class="value">120 subs</span>
+                </div>
+                <div class="math-row">
+                  <span class="label">Blended client revenue</span>
+                  <span class="value">~$23,940/mo</span>
+                </div>
+                <div class="math-row">
+                  <span class="label">Trainer revenue (40%)</span>
+                  <span class="value">$9,576/mo</span>
+                </div>
+              </div>
+              <div class="scenario-total">
+                <span class="total-label">Gym earns (10%)</span>
+                <span class="total-value">$957/mo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT GYM PARTNERS GET -->
+    <section class="gp-section">
+      <div class="gp-section-header fade-in">
+        <div class="section-label">Gym Partner Benefits</div>
+        <h2 class="section-title">More Than a Revenue Share</h2>
+        <p class="section-subtitle">The Gym Partner program comes with tools built for managing multi-trainer operations — not just a check at the end of the month.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <span class="feature-icon">🏢</span>
+          <h3>Gym Dashboard</h3>
+          <p>See every trainer in your facility, their active client count, subscription tiers, and revenue contribution — all in one view.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">💰</span>
+          <h3>Automated Payouts</h3>
+          <p>Your gym's revenue share is calculated and disbursed automatically every billing cycle. No manual reconciliation. No invoices to chase.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">📈</span>
+          <h3>Revenue Analytics</h3>
+          <p>Track monthly revenue trends, trainer performance, and client growth over time. Data that helps you understand what's working.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">🤝</span>
+          <h3>Trainer Onboarding</h3>
+          <p>Streamlined onboarding flow gets your trainers set up quickly. New hires can be added to your gym's NDO account from day one.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">🔖</span>
+          <h3>Gym Referral Link</h3>
+          <p>Your gym gets its own referral link for marketing. Any client who signs up through the gym link — regardless of trainer — is tracked to you.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">🛡️</span>
+          <h3>Priority Support</h3>
+          <p>Gym Partners get dedicated account support. Questions about onboarding, billing, or platform features get answered fast.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIAL -->
+    <section style="padding: 0 24px 96px; background: var(--bg);">
+      <div class="testimonial-single fade-in">
+        <p class="quote">"I had 6 trainers who were all managing clients with their own mix of apps and spreadsheets. Bringing everyone onto NDO standardized the whole operation — and now the gym earns on every client subscription without us lifting a finger. It's the cleanest new revenue stream we've added in years."</p>
+        <div class="author">
+          <div class="author-avatar">KP</div>
+          <div class="author-info">
+            <h4>Kevin P.</h4>
+            <p>Owner, Pinnacle Strength &amp; Conditioning · 7 trainers on NDO</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRAINER CALLOUT -->
+    <section class="trainer-cta-banner">
+      <div class="section-label">Also Available</div>
+      <h2>Not a Gym Owner?<br><strong>Individual Trainers Welcome.</strong></h2>
+      <p>You don't need a gym behind you. Individual trainers can join the NDO Partner Program on their own and earn 40% on every client they bring in.</p>
+      <a href="trainers.html" class="btn-primary">See the Trainer Program →</a>
+    </section>
+
+    <!-- APPLICATION FORM -->
+    <div id="apply" class="apply-section">
+      <div style="text-align:center; margin-bottom:56px;">
+        <div class="section-label">Apply Now</div>
+        <h2 class="section-title">Bring Your Gym to NDO</h2>
+        <p class="section-subtitle" style="margin:0 auto;">Fill this out and we'll be in touch within 48 hours to walk through the partner setup.</p>
+      </div>
+
+      <form name="gym-partner-application" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="gym-partner-application" />
+
+        <div class="form-group">
+          <label class="form-label" for="owner-name">Your Name</label>
+          <input type="text" id="owner-name" name="owner_name" placeholder="Your full name" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="you@yourgym.com" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="gym-name">Gym or Studio Name</label>
+          <input type="text" id="gym-name" name="gym_name" placeholder="Your facility's name" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="gym-location">City &amp; State</label>
+          <input type="text" id="gym-location" name="gym_location" placeholder="e.g. Austin, TX" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="gym-website">Gym Website <span style="color:var(--text-dim);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <input type="url" id="gym-website" name="gym_website" placeholder="https://yourgym.com" />
+        </div>
+
+        <div class="form-group">
+          <span class="form-label">How many trainers do you have on staff?</span>
+          <div class="pill-group">
+            <input type="radio" id="staff-small" name="trainer_count" value="1–3 trainers" required />
+            <label for="staff-small">1–3</label>
+
+            <input type="radio" id="staff-mid" name="trainer_count" value="4–8 trainers" />
+            <label for="staff-mid">4–8</label>
+
+            <input type="radio" id="staff-large" name="trainer_count" value="9–15 trainers" />
+            <label for="staff-large">9–15</label>
+
+            <input type="radio" id="staff-xl" name="trainer_count" value="16+ trainers" />
+            <label for="staff-xl">16+</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="form-label">What type of facility is this?</span>
+          <div class="pill-group">
+            <input type="radio" id="type-independent" name="facility_type" value="Independent gym" required />
+            <label for="type-independent">Independent gym</label>
+
+            <input type="radio" id="type-boutique" name="facility_type" value="Boutique fitness studio" />
+            <label for="type-boutique">Boutique studio</label>
+
+            <input type="radio" id="type-crossfit" name="facility_type" value="CrossFit / functional fitness" />
+            <label for="type-crossfit">CrossFit / functional</label>
+
+            <input type="radio" id="type-multi" name="facility_type" value="Multi-location" />
+            <label for="type-multi">Multi-location</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="form-label">How are your trainers currently managing clients?</span>
+          <div class="pill-group">
+            <input type="radio" id="tools-scattered" name="current_tools" value="Scattered — each trainer does their own thing" required />
+            <label for="tools-scattered">Each trainer does their own thing</label>
+
+            <input type="radio" id="tools-one-app" name="current_tools" value="One coaching app for everyone" />
+            <label for="tools-one-app">One coaching app for all</label>
+
+            <input type="radio" id="tools-in-person" name="current_tools" value="Mostly in-person, minimal digital" />
+            <label for="tools-in-person">Mostly in-person</label>
+
+            <input type="radio" id="tools-mix" name="current_tools" value="Mix of tools" />
+            <label for="tools-mix">Mix of tools</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="gym-notes">Anything you want us to know? <span style="color:var(--text-dim);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <textarea id="gym-notes" name="notes" rows="4" placeholder="Your gym's focus, current tech stack, questions about the program, how many clients your trainers have collectively..."></textarea>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="btn-submit">Submit Application</button>
+          <p class="submit-note">We review every gym application personally and follow up within 48 hours.</p>
+        </div>
+      </form>
+    </div>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="logo-bubbles">
+          <div class="bubble b1"></div>
+          <div class="bubble b2"></div>
+          <div class="bubble b3"></div>
+        </div>
+        <p>Email: partners@ndohealth.com</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="app-landing-page.html">Pricing</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="trainers.html">Trainer Partner Program</a></li>
+          <li><a href="reserve.html">Book a Concierge Call</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">X</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Spotify</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
