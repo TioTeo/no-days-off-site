@@ -3,16 +3,191 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NDO Health | Reserve Your Spot</title>
+  <title>NDO Health | Book a Concierge Call</title>
+  <meta name="description" content="Apply for NDO Health Concierge — full coaching with custom nutrition prescription, weekly check-ins, and a dedicated coach. Spots are limited." />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Reserve / Concierge intake page ── */
+
+    .reserve-hero {
+      padding: 80px 24px 56px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .reserve-hero .section-kicker { margin-bottom: 16px; }
+    .reserve-hero h1 {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: clamp(36px, 6vw, 64px);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.05;
+      margin: 0 0 20px;
+    }
+    .reserve-hero h1 strong { color: var(--accent); }
+    .reserve-hero p {
+      color: var(--text-muted);
+      font-size: 17px;
+      max-width: 52ch;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* Process steps */
+    .process {
+      padding: 64px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+    .process-step { text-align: center; }
+    .step-number {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: 48px;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .step-title {
+      font-family: 'Lexend', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .step-body {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    @media (max-width: 640px) {
+      .process { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    /* Divider */
+    .section-divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Form */
+    .intake-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 64px 24px 96px;
+    }
+    .intake-wrap .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .intake-wrap input[type="text"],
+    .intake-wrap input[type="email"],
+    .intake-wrap textarea {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      color: var(--text);
+      font: 400 15px/1.5 'Lexend', sans-serif;
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .intake-wrap input[type="text"]:focus,
+    .intake-wrap input[type="email"]:focus,
+    .intake-wrap textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .intake-wrap input::placeholder,
+    .intake-wrap textarea::placeholder { color: var(--text-dim); }
+
+    .form-group { margin-bottom: 32px; }
+
+    /* Radio pills */
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pill-group input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+    .pill-group label {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 18px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+      user-select: none;
+    }
+    .pill-group label:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+    .pill-group input[type="radio"]:checked + label {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #000;
+      font-weight: 700;
+    }
+
+    /* Submit */
+    .submit-row {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .btn-submit {
+      background: var(--accent);
+      color: #000;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 16px 48px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-submit:hover { opacity: 0.85; }
+    .submit-note {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+  </style>
 </head>
 <body>
+
   <!-- ================= HEADER ================= -->
   <header>
     <div class="container bar">
       <div class="logo">NDO</div>
 
-      <!-- Mobile menu toggle -->
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -28,43 +203,148 @@
             <li><a href="on-demand.html">On-Demand</a></li>
             <li><a href="about.html">About</a></li>
           </ul>
-          <a href="reserve.html" class="cta">Reserve Your Spot</a>
+          <a href="reserve.html" class="cta">Book a Call</a>
         </div>
       </nav>
     </div>
   </header>
+
   <main>
-    <section class="hero container">
-      <h1>Reserve Your Spot</h1>
-      <p>Ready to begin? Fill out the form below to get started today.</p>
+
+    <!-- HERO -->
+    <section class="reserve-hero">
+      <p class="section-kicker">Concierge — $555 / mo</p>
+      <h1>Book Your <strong>Concierge Call</strong></h1>
+      <p>Spots are limited. Fill this out honestly — the more detail you give, the better your coach can prepare. If it's a fit, you'll hear from us within 24 hours to schedule your intake call.</p>
     </section>
-  
-    <section class="form-section container">
-      <form name="reserve-form" method="POST" data-netlify="true">
-        <p>
-          <label>Name<br>
-            <input type="text" name="name" required>
-          </label>
-        </p>
-        <p>
-          <label>Email<br>
-            <input type="email" name="email" required>
-          </label>
-        </p>
-        <p>
-          <label>Message<br>
-            <textarea name="message" rows="4"></textarea>
-          </label>
-        </p>
-        <p>
-          <button type="submit" class="cta">Submit</button>
-        </p>
-      </form>
-      <div class="image">
-        <img src="https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg" alt="Focused athlete preparing for a workout" />
+
+    <!-- PROCESS -->
+    <div class="process">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-title">Submit Your Application</div>
+        <p class="step-body">Answer the questions below. Takes about 3 minutes.</p>
       </div>
-    </section>
-  </main>  
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-title">Coach Reviews Within 24 hrs</div>
+        <p class="step-body">Your application goes directly to our coaching team — not a sales rep.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-title">Intake Call Scheduled</div>
+        <p class="step-body">If it's a fit, you'll book a 30-minute call to map out your plan.</p>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- FORM -->
+    <div class="intake-wrap">
+      <form name="concierge-intake" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="concierge-intake" />
+
+        <!-- Name + Email -->
+        <div class="form-group">
+          <label class="form-label" for="name">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Your full name" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+        </div>
+
+        <!-- Primary goal -->
+        <div class="form-group">
+          <span class="form-label">What is your primary goal?</span>
+          <div class="pill-group">
+            <input type="radio" id="goal-muscle" name="goal" value="Build muscle" required />
+            <label for="goal-muscle">Build muscle</label>
+
+            <input type="radio" id="goal-fat" name="goal" value="Lose body fat" />
+            <label for="goal-fat">Lose body fat</label>
+
+            <input type="radio" id="goal-recomp" name="goal" value="Body recomposition" />
+            <label for="goal-recomp">Body recomposition</label>
+
+            <input type="radio" id="goal-performance" name="goal" value="Athletic performance" />
+            <label for="goal-performance">Athletic performance</label>
+          </div>
+        </div>
+
+        <!-- Training experience -->
+        <div class="form-group">
+          <span class="form-label">How long have you been training consistently?</span>
+          <div class="pill-group">
+            <input type="radio" id="exp-new" name="experience" value="Under 1 year" required />
+            <label for="exp-new">Under 1 year</label>
+
+            <input type="radio" id="exp-mid" name="experience" value="1–3 years" />
+            <label for="exp-mid">1–3 years</label>
+
+            <input type="radio" id="exp-vet" name="experience" value="3+ years" />
+            <label for="exp-vet">3+ years</label>
+          </div>
+        </div>
+
+        <!-- Coach before -->
+        <div class="form-group">
+          <span class="form-label">Have you worked with a coach before?</span>
+          <div class="pill-group">
+            <input type="radio" id="coach-yes" name="coached_before" value="Yes" required />
+            <label for="coach-yes">Yes</label>
+
+            <input type="radio" id="coach-no" name="coached_before" value="No" />
+            <label for="coach-no">No</label>
+          </div>
+        </div>
+
+        <!-- Biggest challenge -->
+        <div class="form-group">
+          <span class="form-label">What is your biggest challenge right now?</span>
+          <div class="pill-group">
+            <input type="radio" id="challenge-nutrition" name="challenge" value="Nutrition & diet" required />
+            <label for="challenge-nutrition">Nutrition &amp; diet</label>
+
+            <input type="radio" id="challenge-consistency" name="challenge" value="Staying consistent" />
+            <label for="challenge-consistency">Staying consistent</label>
+
+            <input type="radio" id="challenge-programming" name="challenge" value="Programming & structure" />
+            <label for="challenge-programming">Programming &amp; structure</label>
+
+            <input type="radio" id="challenge-all" name="challenge" value="All of the above" />
+            <label for="challenge-all">All of the above</label>
+          </div>
+        </div>
+
+        <!-- Commitment -->
+        <div class="form-group">
+          <span class="form-label">Concierge is a minimum 3-month commitment. Are you ready?</span>
+          <div class="pill-group">
+            <input type="radio" id="commit-yes" name="commitment" value="Yes, I'm ready" required />
+            <label for="commit-yes">Yes, I'm ready</label>
+
+            <input type="radio" id="commit-questions" name="commitment" value="I have questions first" />
+            <label for="commit-questions">I have questions first</label>
+          </div>
+        </div>
+
+        <!-- Open field -->
+        <div class="form-group">
+          <label class="form-label" for="notes">Anything you want your coach to know? <span style="color:var(--text-dim);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <textarea id="notes" name="notes" rows="5" placeholder="Current diet, injuries, schedule constraints, what has or hasn't worked before..."></textarea>
+        </div>
+
+        <div class="submit-row">
+          <button type="submit" class="btn-submit">Submit Application</button>
+          <p class="submit-note">We review every application personally. No spam, no sales calls — just a coach.</p>
+        </div>
+      </form>
+    </div>
+
+  </main>
+
   <!-- ================= FOOTER ================= -->
   <footer>
     <div class="container footer-grid">
@@ -75,7 +355,6 @@
           <div class="bubble b3"></div>
         </div>
         <p>Email: info@ndohealth.com</p>
-        <!-- <p>Phone: Coming Soon</p> -->
       </div>
 
       <div class="footer-col">
@@ -87,7 +366,7 @@
       </div>
 
       <div class="footer-col">
-        <h4>NDO Health</h4>
+        <h4>Follow Us</h4>
         <ul>
           <li><a href="#">Instagram</a></li>
           <li><a href="#">X</a></li>
@@ -97,6 +376,7 @@
       </div>
     </div>
   </footer>
+
   <script src="main.js"></script>
 </body>
 </html>
