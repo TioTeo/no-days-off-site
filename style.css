@@ -132,6 +132,16 @@ nav a.active { color: var(--accent); }
   }
   .nav-toggle { display: inline-flex; }
 
+  /* Pull nav out of flex flow — nav-links is position:fixed so it's unaffected */
+  .nav {
+    position: absolute;
+    top: 0; right: 0;
+    width: 0; height: 0;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .nav.is-open { pointer-events: auto; }
+
   /* Full-screen slide-down overlay */
   .nav .nav-links {
     position: fixed; inset: 72px 0 0 0;
