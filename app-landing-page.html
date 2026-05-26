@@ -25,13 +25,14 @@
       text-align: center;
     }
     .app-logo {
-      font-family: 'Lexend', sans-serif;
-      font-weight: 900;
-      font-size: clamp(80px, 14vw, 140px);
-      letter-spacing: 0.08em;
-      color: var(--accent);
       line-height: 1;
       margin-bottom: 12px;
+    }
+    .app-logo img {
+      height: clamp(80px, 14vw, 140px);
+      width: auto;
+      display: block;
+      margin: 0 auto;
     }
     .app-tagline {
       font-size: 12px;
@@ -321,12 +322,13 @@
       border-top: 1px solid var(--border);
     }
     .app-footer-logo {
-      font-family: 'Lexend', sans-serif;
-      font-weight: 900;
-      font-size: 40px;
-      letter-spacing: 0.08em;
-      color: var(--accent);
       margin-bottom: 12px;
+    }
+    .app-footer-logo img {
+      height: 48px;
+      width: auto;
+      display: block;
+      margin: 0 auto;
     }
     .app-footer p {
       color: var(--text-dim);
@@ -359,7 +361,7 @@
   <!-- ================= HEADER ================= -->
   <header>
     <div class="container bar">
-      <div class="logo">NDO</div>
+      <div class="logo"><img src="assets/ndo-logo-infinity.svg" alt="No Days Off" /></div>
 
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -381,7 +383,7 @@
   <!-- HERO -->
   <section class="app-hero">
     <div class="app-hero-content">
-      <div class="app-logo">NDO</div>
+      <div class="app-logo"><img src="assets/ndo-logo-infinity.svg" alt="No Days Off" /></div>
       <div class="app-tagline">Health App</div>
       <h1 class="app-hero-h1">Your Fitness Journey,<br><span>Now Digital</span></h1>
       <p>Track nutrition, log workouts, monitor progress, and stay connected with your coach — all in one platform.</p>
@@ -550,7 +552,7 @@
 
   <!-- FOOTER -->
   <footer class="app-footer">
-    <div class="app-footer-logo">NDO</div>
+    <div class="app-footer-logo"><img src="assets/ndo-logo-infinity.svg" alt="No Days Off" /></div>
     <p>© 2025 NDO Health. All rights reserved.</p>
     <p style="margin-top:10px;">
       <a href="index.html">Home</a>

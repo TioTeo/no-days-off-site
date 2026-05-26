@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 80" fill="none">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#7fff3a"/>
+      <stop offset="50%"  stop-color="#39FF14"/>
+      <stop offset="100%" stop-color="#1a8f00"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#a8ff6b"/>
+      <stop offset="100%" stop-color="#39FF14"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Infinity symbol — two lobes meeting at center (110,40) -->
+  <!-- Stroke-based tube look -->
+  <path
+    d="M 110,40
+       C 110,18 128,8  150,8
+       C 172,8  192,20 192,40
+       C 192,60 172,72 150,72
+       C 128,72 110,62 110,40
+       C 110,18  92,8   70,8
+       C  48,8   28,20  28,40
+       C  28,60  48,72  70,72
+       C  92,72 110,62 110,40 Z"
+    stroke="url(#g1)"
+    stroke-width="14"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+    filter="url(#glow)"
+  />
+
+  <!-- Inner highlight for 3-D gloss -->
+  <path
+    d="M 110,40
+       C 110,22 126,14 148,14
+       C 165,14 182,24 182,40"
+    stroke="url(#g2)"
+    stroke-width="4"
+    stroke-linecap="round"
+    fill="none"
+    opacity="0.7"
+  />
+  <path
+    d="M 110,40
+       C 110,22  94,14  72,14
+       C  55,14  38,24  38,40"
+    stroke="url(#g2)"
+    stroke-width="4"
+    stroke-linecap="round"
+    fill="none"
+    opacity="0.7"
+  />
+</svg>
