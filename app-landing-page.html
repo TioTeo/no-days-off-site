@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NDO Health App — Track, Train, Transform</title>
-  <meta name="description" content="Your complete fitness platform. Track nutrition, log workouts, monitor progress, and stay connected with your trainer — all in one powerful app.">
+  <meta name="description" content="Your complete fitness platform. Track nutrition, log workouts, monitor progress, and stay connected with your coach — all in one powerful app.">
   <link rel="stylesheet" href="style.css" />
   <style>
     /* ── App landing page — extends style.css ── */
@@ -25,9 +25,10 @@
       text-align: center;
     }
     .app-logo {
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 900;
       font-size: clamp(80px, 14vw, 140px);
-      letter-spacing: 8px;
+      letter-spacing: 0.08em;
       color: var(--accent);
       line-height: 1;
       margin-bottom: 12px;
@@ -41,9 +42,10 @@
       margin-bottom: 48px;
     }
     .app-hero h1 {
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
       font-size: clamp(40px, 7vw, 72px);
-      letter-spacing: 2px;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       line-height: 1.05;
       margin: 0 0 20px;
@@ -112,9 +114,10 @@
       margin-bottom: 12px;
     }
     .section-title {
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
       font-size: clamp(36px, 5vw, 56px);
-      letter-spacing: 2px;
+      letter-spacing: 0.05em;
       line-height: 1;
       margin: 0 0 16px;
     }
@@ -154,8 +157,9 @@
     .feature-card:hover::before { transform: scaleX(1); }
     .feature-icon { font-size: 40px; margin-bottom: 20px; display: block; }
     .feature-card h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 24px; letter-spacing: 1px;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: 24px; letter-spacing: 0.05em;
       margin: 0 0 10px;
     }
     .feature-card p { color: var(--text-muted); line-height: 1.7; font-size: 14px; }
@@ -204,14 +208,16 @@
       margin-bottom: 20px;
     }
     .pricing-card h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 28px; letter-spacing: 1px;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
+      font-size: 28px; letter-spacing: 0.05em;
       margin: 0 0 12px;
     }
     .price {
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
       font-size: 64px;
-      letter-spacing: 2px;
+      letter-spacing: 0.02em;
       color: var(--accent);
       line-height: 1;
       margin-bottom: 4px;
@@ -294,9 +300,10 @@
       background: var(--accent);
     }
     .final-cta h2 {
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 800;
       font-size: clamp(40px, 6vw, 72px);
-      letter-spacing: 2px;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       margin: 0 0 16px;
     }
@@ -314,9 +321,10 @@
       border-top: 1px solid var(--border);
     }
     .app-footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
+      font-family: 'Lexend', sans-serif;
+      font-weight: 900;
       font-size: 40px;
-      letter-spacing: 4px;
+      letter-spacing: 0.08em;
       color: var(--accent);
       margin-bottom: 12px;
     }
@@ -380,7 +388,7 @@
       <div class="app-logo">NDO</div>
       <div class="app-tagline">Health App</div>
       <h1 class="app-hero-h1">Your Fitness Journey,<br><span>Now Digital</span></h1>
-      <p>Track nutrition, log workouts, monitor progress, and stay connected with your trainer — all in one platform.</p>
+      <p>Track nutrition, log workouts, monitor progress, and stay connected with your coach — all in one platform.</p>
       <div class="cta-buttons">
         <a href="app.html" class="btn-primary">Launch App →</a>
         <a href="#pricing" class="btn-secondary-outline">View Pricing</a>
@@ -393,7 +401,7 @@
     <div class="app-section-header fade-in">
       <div class="section-label">Everything You Need</div>
       <h2 class="section-title">Built for Results</h2>
-      <p class="section-subtitle">Track every aspect of your fitness journey with tools designed by trainers, for athletes.</p>
+      <p class="section-subtitle">Track every aspect of your fitness journey with tools designed by coaches, for athletes.</p>
     </div>
 
     <div class="features-grid">
@@ -420,7 +428,7 @@
       <div class="feature-card fade-in">
         <span class="feature-icon">💬</span>
         <h3>Direct Messaging</h3>
-        <p>Chat directly with your trainer inside the app. Get guidance when you need it most, without switching platforms.</p>
+        <p>Chat directly with your coach inside the app. Get guidance when you need it most, without switching platforms.</p>
       </div>
       <div class="feature-card fade-in">
         <span class="feature-icon">📚</span>
@@ -433,58 +441,62 @@
   <!-- PRICING -->
   <section class="app-section pricing-section" id="pricing">
     <div class="app-section-header fade-in">
-      <div class="section-label">Flexible Plans</div>
-      <h2 class="section-title">Choose Your Path</h2>
-      <p class="section-subtitle">Whether you're self-guided or want hands-on coaching, we've got you covered.</p>
+      <div class="section-label">Choose Your Level</div>
+      <h2 class="section-title">Built for Every Commitment</h2>
+      <p class="section-subtitle">From self-directed tracking to full concierge coaching with custom nutrition — pick the level that matches where you're going.</p>
     </div>
 
     <div class="pricing-grid">
+      <!-- Self-Guided -->
       <div class="pricing-card fade-in">
         <h3>Self-Guided</h3>
         <div class="price">$19</div>
-        <div class="price-period">per month</div>
+        <div class="price-period">/ mo &nbsp;·&nbsp; $190 / yr</div>
         <ul class="features-list">
           <li>Full nutrition tracking</li>
           <li>Workout logging</li>
           <li>Progress photos &amp; measurements</li>
           <li>Habit tracker</li>
           <li>Exercise library access</li>
-          <li>Mobile-friendly app</li>
+          <li>Mobile app</li>
         </ul>
-        <a href="app.html" class="btn-secondary-outline" style="width:100%;text-align:center;">Get Started</a>
+        <a href="https://app.ndohealth.com/pricing" target="_blank" rel="noopener" class="btn-secondary-outline" style="width:100%;text-align:center;display:block;">Get Started</a>
       </div>
 
+      <!-- 1:1 (featured) -->
       <div class="pricing-card featured fade-in">
         <div class="badge">Most Popular</div>
-        <h3>Coached</h3>
-        <div class="price">$97</div>
-        <div class="price-period">per month</div>
+        <h3>1:1</h3>
+        <div class="price">$197</div>
+        <div class="price-period">/ mo &nbsp;·&nbsp; $1,970 / yr</div>
         <ul class="features-list">
           <li><strong style="color:#fff">Everything in Self-Guided, plus:</strong></li>
-          <li>Direct trainer messaging</li>
-          <li>Custom workout programs</li>
-          <li>Weekly check-ins</li>
-          <li>Form checks &amp; feedback</li>
-          <li>Personalized nutrition plans</li>
-          <li>Priority support</li>
+          <li>Dedicated coach assigned to you</li>
+          <li>Custom workout programming</li>
+          <li>Weekly training check-ins</li>
+          <li>Form checks &amp; video feedback</li>
+          <li>Personalized macro targets</li>
+          <li>Direct coach messaging</li>
         </ul>
-        <a href="app.html" class="btn-primary" style="width:100%;text-align:center;">Start Coaching</a>
+        <a href="https://app.ndohealth.com/pricing" target="_blank" rel="noopener" class="btn-primary" style="width:100%;text-align:center;display:block;">Start 1:1</a>
       </div>
 
+      <!-- Concierge -->
       <div class="pricing-card fade-in">
-        <h3>VIP 1-on-1</h3>
-        <div class="price">$197</div>
-        <div class="price-period">per month</div>
+        <div class="badge" style="background:transparent;border:1px solid var(--accent);color:var(--accent);">Concierge</div>
+        <h3>Concierge</h3>
+        <div class="price">$555</div>
+        <div class="price-period">/ mo &nbsp;·&nbsp; $5,550 / yr</div>
         <ul class="features-list">
-          <li><strong style="color:#fff">Everything in Coached, plus:</strong></li>
-          <li>Weekly video coaching calls</li>
-          <li>In-person training sessions</li>
-          <li>Session booking &amp; scheduling</li>
-          <li>24/7 text support</li>
-          <li>Fully customized programming</li>
-          <li>Quarterly goal setting</li>
+          <li><strong style="color:#fff">Everything in 1:1, plus:</strong></li>
+          <li>Custom macro prescription — adjusted weekly based on your data</li>
+          <li>Dedicated weekly nutrition check-in</li>
+          <li>Food log review &amp; coaching</li>
+          <li>Meal plan adjustments as you progress</li>
+          <li>Monthly nutrition strategy call</li>
+          <li>Priority coach response</li>
         </ul>
-        <a href="reserve.html" class="btn-secondary-outline" style="width:100%;text-align:center;">Go VIP</a>
+        <a href="reserve.html" class="btn-secondary-outline" style="width:100%;text-align:center;display:block;border-color:var(--accent);color:var(--accent);">Book a Concierge Call</a>
       </div>
     </div>
   </section>
@@ -494,7 +506,7 @@
     <div class="app-section-header fade-in">
       <div class="section-label">Success Stories</div>
       <h2 class="section-title">Real Results</h2>
-      <p class="section-subtitle">Hear from clients transforming their lives with NDO.</p>
+      <p class="section-subtitle">Hear from members transforming their lives with NDO.</p>
     </div>
 
     <div class="testimonial-grid">
@@ -504,7 +516,7 @@
           <div class="author-avatar">SJ</div>
           <div class="author-info">
             <h4>Sarah J.</h4>
-            <p>Coached Client · 6 months</p>
+            <p>Coached Member · 6 months</p>
           </div>
         </div>
       </div>
@@ -515,7 +527,7 @@
           <div class="author-avatar">MC</div>
           <div class="author-info">
             <h4>Mike C.</h4>
-            <p>Self-Guided · 4 months</p>
+            <p>1:1 Member · 4 months</p>
           </div>
         </div>
       </div>
@@ -526,7 +538,7 @@
           <div class="author-avatar">ER</div>
           <div class="author-info">
             <h4>Emily R.</h4>
-            <p>VIP Client · 8 months</p>
+            <p>Coached Member · 8 months</p>
           </div>
         </div>
       </div>
