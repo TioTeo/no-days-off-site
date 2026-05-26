@@ -108,7 +108,7 @@ nav a:hover  { color: var(--text); }
 nav a.active { color: var(--accent); }
 
 .cta {
-  margin-left: 28px; padding: 10px 18px;
+  margin-left: 48px; padding: 10px 22px;
   border-radius: 10px;
   background: var(--accent); color: #000;
   font-weight: 800; font-size: 12px;
