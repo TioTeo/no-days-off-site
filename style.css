@@ -3,16 +3,16 @@
    Dark theme, matches NDO Health app
 ------------------------------------------------------- */
 
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Archivo:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap");
 
 /* ----- Design Tokens ----- */
 :root {
-  --bg:           #0a0a0a;
-  --bg-card:      #1c1c1c;
+  --bg:           #0A0A0A;
+  --bg-card:      #1A1A1A;
   --accent:       #39FF14;   /* neon green — primary CTA */
   --accent-blue:  #3D5AFE;
   --accent-rose:  #FF3CAC;
-  --border:       rgba(255, 255, 255, 0.08);
+  --border:       #2A2A2A;
   --border-mid:   rgba(255, 255, 255, 0.15);
   --text:         #ffffff;
   --text-muted:   rgba(255, 255, 255, 0.5);
@@ -28,7 +28,7 @@ body {
   margin: 0;
   color: var(--text);
   background: var(--bg);
-  font: 400 16px/1.5 'Archivo', system-ui, -apple-system, sans-serif;
+  font: 400 16px/1.5 'Lexend', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -60,8 +60,9 @@ header .bar {
   justify-content: space-between;
 }
 .logo {
-  font-family: 'Bebas Neue', sans-serif;
-  letter-spacing: 3px;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.08em;
   font-size: 28px;
   color: var(--accent);
 }
@@ -107,7 +108,7 @@ nav a:hover  { color: var(--text); }
 nav a.active { color: var(--accent); }
 
 .cta {
-  margin-left: 28px; padding: 10px 18px;
+  margin-left: 72px; padding: 10px 22px;
   border-radius: 10px;
   background: var(--accent); color: #000;
   font-weight: 800; font-size: 12px;
@@ -130,6 +131,16 @@ nav a.active { color: var(--accent); }
     transform: translateX(-50%);
   }
   .nav-toggle { display: inline-flex; }
+
+  /* Pull nav out of flex flow — nav-links is position:fixed so it's unaffected */
+  .nav {
+    position: absolute;
+    top: 0; right: 0;
+    width: 0; height: 0;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .nav.is-open { pointer-events: auto; }
 
   /* Full-screen slide-down overlay */
   .nav .nav-links {
@@ -185,21 +196,48 @@ nav a.active { color: var(--accent); }
 .hero { padding-block: 64px 40px; }
 .hero h1 {
   margin: 0 0 20px;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(52px, 9vw, 112px);
+  font-family: 'Lexend', sans-serif;
+  font-weight: 800;
+  font-size: clamp(42px, 9vw, 102px);
   line-height: 1.0;
-  letter-spacing: 2px;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   text-align: center;
   color: var(--text);
 }
 .hero h1 span    { color: var(--text); }
-.hero h1 strong  { color: var(--accent); font-weight: 400; /* Bebas Neue has no weight */ }
+.hero h1 strong  { color: var(--accent); font-weight: 800; }
 .hero p {
   text-align: center;
   color: var(--text-muted);
   font-size: 17px; max-width: 56ch;
-  margin: 0 auto 32px;
+  margin: 0 auto 24px;
+}
+.hero-ctas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.waitlist-form { width: 100%; max-width: 480px; }
+.waitlist-row { display: flex; gap: 8px; }
+.waitlist-row input[type="email"] {
+  flex: 1; min-width: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: var(--text);
+  font: 400 15px/1.5 'Lexend', sans-serif;
+  transition: border-color 0.2s;
+}
+.waitlist-row input[type="email"]::placeholder { color: var(--text-dim); }
+.waitlist-row input[type="email"]:focus { outline: none; border-color: var(--accent); }
+.waitlist-row .cta { margin-left: 0; white-space: nowrap; }
+@media (max-width: 576px) {
+  .waitlist-row { flex-direction: column; }
+  .waitlist-row .cta { width: 100%; }
 }
 .hero .hero-img {
   width: 100%;
@@ -224,9 +262,10 @@ nav a.active { color: var(--accent); }
   color: var(--accent); margin: 0 0 10px;
 }
 .h2 {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 800;
   font-size: 40px; line-height: 1.05;
-  letter-spacing: 1.5px; text-transform: uppercase;
+  letter-spacing: 0.06em; text-transform: uppercase;
   margin: 0 0 14px; color: var(--text);
 }
 .copy {
@@ -288,10 +327,11 @@ nav a.active { color: var(--accent); }
 }
 .stripe h2 {
   margin: 0;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 800;
   font-size: clamp(48px, 8vw, 96px);
   line-height: 1.0; text-transform: uppercase;
-  letter-spacing: 2px; text-align: center;
+  letter-spacing: 0.05em; text-align: center;
 }
 .stripe .highlight { color: var(--accent); }
 
@@ -340,10 +380,11 @@ nav a.active { color: var(--accent); }
 }
 .cta-banner h2 {
   margin: 0 0 24px;
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 800;
   text-transform: uppercase;
   font-size: clamp(32px, 5vw, 52px);
-  letter-spacing: 2px;
+  letter-spacing: 0.05em;
 }
 .cta-banner .cta { background: var(--accent); color: #000; margin-left: 0; }
 
@@ -356,8 +397,9 @@ nav a.active { color: var(--accent); }
   align-items: center;
 }
 .content-split h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 40px; letter-spacing: 1.5px;
+  font-family: 'Lexend', sans-serif;
+  font-weight: 800;
+  font-size: 40px; letter-spacing: 0.06em;
   text-transform: uppercase; margin: 0 0 16px;
 }
 .content-split p { color: var(--text-muted); font-size: 15px; line-height: 1.7; }
@@ -418,7 +460,7 @@ footer {
   border-radius: 10px;
   padding: 12px 16px;
   color: var(--text);
-  font: 400 15px/1.5 'Archivo', sans-serif;
+  font: 400 15px/1.5 'Lexend', sans-serif;
   width: 100%;
   transition: border-color 0.2s;
   resize: vertical;
@@ -462,4 +504,138 @@ footer {
 @media (max-width: 576px) {
   .cta { margin-left: 16px; }
   .hero { padding-top: 32px; }
+}
+
+/* -----------------------------------------------
+   HERO BULLETS
+------------------------------------------------ */
+.hero-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 28px;
+  max-width: 560px;
+  display: grid;
+  gap: 10px;
+  text-align: left;
+}
+.hero-bullets li {
+  color: var(--text-muted);
+  font-size: 15px;
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.5;
+}
+.hero-bullets li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+.hero-ctas {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hero-ctas .cta { margin-left: 0; }
+
+/* -----------------------------------------------
+   HOW IT WORKS
+------------------------------------------------ */
+.how-it-works {
+  padding-block: 64px;
+}
+.how-it-works .section-header,
+.objections .section-header {
+  margin-bottom: 36px;
+}
+.how-it-works .section-header h2,
+.objections .section-header h2 {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 800;
+  font-size: clamp(32px, 5vw, 52px);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 8px 0 0;
+  color: var(--text);
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.step {
+  background: var(--bg-card);
+  padding: 36px 28px;
+}
+.step-num {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 900;
+  font-size: 52px;
+  line-height: 1;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.step h3 {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 800;
+  font-size: 17px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 10px;
+  color: var(--text);
+}
+.step p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .steps { grid-template-columns: 1fr; }
+}
+
+/* -----------------------------------------------
+   OBJECTIONS
+------------------------------------------------ */
+.objections {
+  padding-block: 0 64px;
+}
+.objections .section-header h2 {
+  font-size: clamp(28px, 4vw, 44px);
+}
+.objections-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.objection {
+  background: var(--bg-card);
+  padding: 28px;
+}
+.objection h4 {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin: 0 0 10px;
+}
+.objection p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .objections-grid { grid-template-columns: 1fr; }
 }

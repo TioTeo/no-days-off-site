@@ -4,15 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NDO Health | About</title>
+  <meta name="description" content="NDO Health is a coaching platform built on one belief: no days off. Learn what drives us and how we coach differently." />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <!-- ================= HEADER ================= -->
   <header>
     <div class="container bar">
-      <div class="logo">NDO</div>
+      <div class="logo"><img src="assets/ndo-logo-infinity.png" alt="No Days Off" /></div>
 
-      <!-- Mobile menu toggle -->
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -21,41 +22,82 @@
         <div class="nav-links">
           <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="personal-training.html">Personal Training</a></li>
-            <li><a href="nutrition.html">Nutrition</a></li>
-            <li><a href="transform.html">Transform</a></li>
-            <li><a href="on-demand.html">On-Demand</a></li>
+            <li><a href="app-landing-page.html">Pricing</a></li>
             <li><a href="about.html">About</a></li>
           </ul>
-          <a href="reserve.html" class="cta">Reserve Your Spot</a>
+          <a href="reserve.html" class="cta">Book a Call</a>
         </div>
       </nav>
     </div>
   </header>
+
   <main>
+
+    <!-- HERO -->
     <section class="hero container">
-      <h1>About Us</h1>
-      <p>NoDaysOff is more than fitness — it’s a lifestyle of discipline, growth, and community.</p>
+      <h1><span>Built Around</span> <strong>One Belief.</strong></h1>
+      <p>The name says it. No Days Off isn't a slogan — it's a standard. Health doesn't take weekends. Progress doesn't pause. We built NDO Health for people who already understand that.</p>
     </section>
-  
+
+    <!-- COACHING PHILOSOPHY -->
     <section class="content-split container">
       <div class="text">
-        <h2>Our Mission</h2>
-        <p>We believe in empowering people to achieve their goals through expert coaching, science-backed methods, and a supportive community.</p>
+        <p class="section-kicker">Coaching</p>
+        <h2>A Coach, Not an Algorithm</h2>
+        <p>Two types of fitness products exist: ones that give you tools, and ones that give you a coach. Most apps give you tools. NDO gives you both.</p>
+        <p style="margin-top: 14px; color: var(--text-muted); font-size: 15px; line-height: 1.7;">Our 1:1 and Concierge members get a dedicated coach who adjusts their programming week over week based on what their body is actually doing — not what a formula predicted at signup. Every week is a new data point. Every adjustment is deliberate.</p>
+        <a class="button" href="app-landing-page.html#pricing">See Coaching Tiers</a>
       </div>
       <div class="image">
-        <img src="https://images.pexels.com/photos/7674483/pexels-photo-7674483.jpeg" alt="Group of people celebrating fitness progress together" />
+        <img
+          src="https://images.pexels.com/photos/7674483/pexels-photo-7674483.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          alt="Coach working with a member on form and technique"
+        />
       </div>
     </section>
-  
+
+    <!-- WHAT WE STAND FOR -->
+    <section class="stripe container">
+      <h2>What We <span class="highlight">Stand For</span></h2>
+    </section>
+
+    <section class="container" style="padding-block: 32px 64px; max-width: 760px;">
+      <ul class="list">
+        <li><strong>Daily discipline over motivation.</strong> Motivation fluctuates. Systems don't. We build habits that show up whether you feel like it or not.</li>
+        <li><strong>Data over guesswork.</strong> Adjustments are made on real numbers — weekly weigh-ins, logged food, training performance. Not assumptions.</li>
+        <li><strong>Coaches, not chatbots.</strong> Every coached member works with a real human who knows their history, their goals, and their constraints.</li>
+        <li><strong>Nutrition is training.</strong> You can't out-train a bad diet, and you can't sustain results without understanding food. Our Concierge tier treats nutrition as a first-class coaching discipline — not an afterthought.</li>
+      </ul>
+    </section>
+
+    <!-- NUTRITION PHILOSOPHY -->
+    <section class="content-split container">
+      <div class="image">
+        <img
+          src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1200"
+          alt="Nutrition planning and meal preparation"
+        />
+      </div>
+      <div class="text">
+        <p class="section-kicker">Nutrition</p>
+        <h2>Nutrition Is Half the Work.</h2>
+        <p>Most coaching programs treat nutrition as an afterthought — a set of macros you get once and never revisit. We don't.</p>
+        <p style="margin-top: 14px; color: var(--text-muted); font-size: 15px; line-height: 1.7;">Concierge members get a custom macro prescription that's adjusted every week based on what their body is actually doing — scale trends, energy levels, training output. Their coach reviews all of it and makes the call. That ongoing responsiveness is what separates a prescription from a target.</p>
+        <a class="button" href="reserve.html">Book a Concierge Call</a>
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
     <section class="cta-banner">
       <div class="container">
-        <h2>Join the Movement</h2>
-        <a href="reserve.html" class="cta">Reserve Your Spot</a>
+        <p>Ready to commit</p>
+        <h2>Show Up Every Day.</h2>
+        <a href="reserve.html" class="cta">Book a Concierge Call</a>
       </div>
     </section>
+
   </main>
-    
+
   <!-- ================= FOOTER ================= -->
   <footer>
     <div class="container footer-grid">
@@ -66,19 +108,20 @@
           <div class="bubble b3"></div>
         </div>
         <p>Email: info@ndohealth.com</p>
-        <!-- <p>Phone: Coming Soon</p> -->
       </div>
 
       <div class="footer-col">
-        <h4>Opening Hours</h4>
-        <p>Mon – Fri: 5:00 – 23:00</p>
-        <p>Saturdays: 8:00 – 16:00</p>
-        <p>Sundays: 8:00 – 13:00</p>
-        <p>Holidays: 8:00 – 16:00</p>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="app-landing-page.html">Pricing</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="reserve.html">Book a Concierge Call</a></li>
+        </ul>
       </div>
 
       <div class="footer-col">
-        <h4>NDO Health</h4>
+        <h4>Follow Us</h4>
         <ul>
           <li><a href="#">Instagram</a></li>
           <li><a href="#">X</a></li>
@@ -88,6 +131,7 @@
       </div>
     </div>
   </footer>
+
   <script src="main.js"></script>
 </body>
 </html>
