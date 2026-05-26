@@ -505,3 +505,137 @@ footer {
   .cta { margin-left: 16px; }
   .hero { padding-top: 32px; }
 }
+
+/* -----------------------------------------------
+   HERO BULLETS
+------------------------------------------------ */
+.hero-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 28px;
+  max-width: 560px;
+  display: grid;
+  gap: 10px;
+  text-align: left;
+}
+.hero-bullets li {
+  color: var(--text-muted);
+  font-size: 15px;
+  padding-left: 22px;
+  position: relative;
+  line-height: 1.5;
+}
+.hero-bullets li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+.hero-ctas {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hero-ctas .cta { margin-left: 0; }
+
+/* -----------------------------------------------
+   HOW IT WORKS
+------------------------------------------------ */
+.how-it-works {
+  padding-block: 64px;
+}
+.how-it-works .section-header,
+.objections .section-header {
+  margin-bottom: 36px;
+}
+.how-it-works .section-header h2,
+.objections .section-header h2 {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 800;
+  font-size: clamp(32px, 5vw, 52px);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 8px 0 0;
+  color: var(--text);
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.step {
+  background: var(--bg-card);
+  padding: 36px 28px;
+}
+.step-num {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 900;
+  font-size: 52px;
+  line-height: 1;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.step h3 {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 800;
+  font-size: 17px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 10px;
+  color: var(--text);
+}
+.step p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .steps { grid-template-columns: 1fr; }
+}
+
+/* -----------------------------------------------
+   OBJECTIONS
+------------------------------------------------ */
+.objections {
+  padding-block: 0 64px;
+}
+.objections .section-header h2 {
+  font-size: clamp(28px, 4vw, 44px);
+}
+.objections-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.objection {
+  background: var(--bg-card);
+  padding: 28px;
+}
+.objection h4 {
+  font-family: 'Lexend', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin: 0 0 10px;
+}
+.objection p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .objections-grid { grid-template-columns: 1fr; }
+}
