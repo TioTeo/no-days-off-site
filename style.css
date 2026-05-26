@@ -198,7 +198,7 @@ nav a.active { color: var(--accent); }
   margin: 0 0 20px;
   font-family: 'Lexend', sans-serif;
   font-weight: 800;
-  font-size: clamp(52px, 9vw, 112px);
+  font-size: clamp(42px, 9vw, 102px);
   line-height: 1.0;
   letter-spacing: 0.05em;
   text-transform: uppercase;
