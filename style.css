@@ -539,6 +539,15 @@ footer {
   justify-content: center;
 }
 .hero-ctas .cta { margin-left: 0; }
+.hero-ctas .cta,
+.hero-ctas .button {
+  box-sizing: border-box;
+  min-height: 44px;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  line-height: 1;
+}
 
 /* -----------------------------------------------
    HOW IT WORKS
