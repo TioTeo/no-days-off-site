@@ -1,0 +1,15 @@
+---
+description: Commit and sync workflow for this project
+alwaysApply: true
+---
+
+# Git Workflow
+
+When the user asks for a code or content edit in this repository, treat commit and sync as part of completing the task unless the user explicitly says not to.
+
+- Before editing, check whether the branch is behind `origin` and pull fast-forward or rebase if needed.
+- After editing, review the diff and commit only the files relevant to the requested change.
+- Use a concise commit message that describes the user-facing change.
+- After committing, run `git pull --rebase`, then `git push`.
+- Finish by verifying `git status` is clean and the branch is up to date with `origin`.
+- Do not commit secrets, ignored/private files, or unrelated user changes.
