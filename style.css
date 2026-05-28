@@ -198,7 +198,7 @@ nav a.active { color: var(--accent); }
   margin: 0 0 20px;
   font-family: 'Lexend', sans-serif;
   font-weight: 800;
-  font-size: clamp(42px, 9vw, 102px);
+  font-size: clamp(32px, 6.75vw, 77px);
   line-height: 1.0;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -497,7 +497,7 @@ footer {
   .community { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
-  .hero h1 { font-size: clamp(44px, 10vw, 72px); }
+  .hero h1 { font-size: clamp(33px, 7.5vw, 54px); }
   .stripe h2 { font-size: clamp(44px, 11vw, 80px); }
   .footer-grid { grid-template-columns: 1fr; }
 }
