@@ -542,11 +542,11 @@ footer {
 .hero-ctas .cta,
 .hero-ctas .button {
   box-sizing: border-box;
-  min-height: 44px;
+  height: 48px;
+  min-height: 48px;
   padding-top: 0;
   padding-bottom: 0;
   margin-top: 0;
-  line-height: 1;
 }
 
 /* -----------------------------------------------
