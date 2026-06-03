@@ -2,397 +2,481 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>NDO Health | Book a Concierge Call</title>
-  <meta name="description" content="Apply for NDO Health Concierge — full coaching with custom nutrition prescription, weekly check-ins, and a dedicated coach. Spots are limited." />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Assessment — NDO Health | Open your account</title>
+  <meta name="description" content="Two minutes to your first deposit. Answer a few questions and Coach Teo matches you to the right coaching tier. One coach, a handful of spots." />
+  <link rel="stylesheet" href="ndo-home.css?v=3" />
   <style>
-    /* ── Reserve / Concierge intake page ── */
+    /* =====================================================================
+       reserve.html — the assessment funnel. Page-specific layer on top of
+       ndo-home.css tokens/components. Warm "open your account" flow.
+       ===================================================================== */
 
-    .reserve-hero {
-      padding: 80px 24px 56px;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-    }
-    .reserve-hero .section-kicker { margin-bottom: 16px; }
-    .reserve-hero h1 {
-      font-family: 'Lexend', sans-serif;
-      font-weight: 800;
-      font-size: clamp(36px, 6vw, 64px);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      line-height: 1.05;
-      margin: 0 0 20px;
-    }
-    .reserve-hero h1 strong { color: var(--accent); }
-    .reserve-hero p {
-      color: var(--text-muted);
-      font-size: 17px;
-      max-width: 52ch;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
+    /* ---- slim funnel header ---- */
+    .funnel-header { position: sticky; top: 0; z-index: 1200; background: rgba(239,233,219,.86);
+      backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    .funnel-header .bar { height: 70px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+    .fh-back { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--ink-soft); display: inline-flex; align-items: center; gap: 8px; transition: color .18s ease; }
+    .fh-back:hover { color: var(--green-deep); }
+    .fh-brand { justify-self: center; color: var(--green); }
+    .fh-scarcity { justify-self: end; font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--gold-deep); display: inline-flex; align-items: center; gap: 8px; }
+    .fh-scarcity::before { content:''; width:7px; height:7px; border-radius:50%; background: var(--gold);
+      box-shadow: 0 0 0 4px rgba(214,162,74,.18); animation: pulseGold 2.6s ease-in-out infinite; }
+    @keyframes pulseGold { 0%,100%{ box-shadow:0 0 0 4px rgba(214,162,74,.16);} 50%{ box-shadow:0 0 0 7px rgba(214,162,74,0);} }
 
-    /* Process steps */
-    .process {
-      padding: 64px 24px;
-      max-width: 900px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-    }
-    .process-step { text-align: center; }
-    .step-number {
-      font-family: 'Lexend', sans-serif;
-      font-weight: 800;
-      font-size: 48px;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 12px;
-    }
-    .step-title {
-      font-family: 'Lexend', sans-serif;
-      font-weight: 700;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-    .step-body {
-      color: var(--text-muted);
-      font-size: 14px;
-      line-height: 1.6;
-    }
-    @media (max-width: 640px) {
-      .process { grid-template-columns: 1fr; gap: 32px; }
-    }
+    /* ---- layout ---- */
+    .assess { display: grid; grid-template-columns: minmax(340px, 460px) 1fr; align-items: stretch;
+      max-width: var(--maxw); margin-inline: auto; min-height: calc(100vh - 70px); }
 
-    /* Divider */
-    .section-divider {
-      height: 1px;
-      background: var(--border);
-      max-width: 900px;
-      margin: 0 auto;
-    }
+    /* ---- left rail: the Forest-Ink "account" ---- */
+    .rail { background: var(--d-base); color: var(--d-ink); padding: clamp(40px,5vw,72px) clamp(28px,3.4vw,56px);
+      display: flex; flex-direction: column; position: relative; overflow: hidden; }
+    .rail::after { content:''; position:absolute; top:0; bottom:0; right:0; width:1px;
+      background: linear-gradient(180deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent); opacity:.5; }
+    .rail .eyebrow { color: var(--gold); }
+    .rail .eyebrow::before { background: var(--gold); }
+    .rail h1 { font-family: var(--display); font-weight: 400; font-size: clamp(30px,3.4vw,46px); line-height: 1.04;
+      letter-spacing: -.01em; margin: 22px 0 0; text-wrap: balance; }
+    .rail .lede { color: var(--d-ink-soft); font-size: 15.5px; line-height: 1.6; margin: 18px 0 0; max-width: 36ch; }
 
-    /* Form */
-    .intake-wrap {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 64px 24px 96px;
-    }
-    .intake-wrap .form-label {
-      display: block;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-    .intake-wrap input[type="text"],
-    .intake-wrap input[type="email"],
-    .intake-wrap textarea {
-      width: 100%;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 18px;
-      color: var(--text);
-      font: 400 15px/1.5 'Lexend', sans-serif;
-      transition: border-color 0.2s;
-      resize: vertical;
-    }
-    .intake-wrap input[type="text"]:focus,
-    .intake-wrap input[type="email"]:focus,
-    .intake-wrap textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-    .intake-wrap input::placeholder,
-    .intake-wrap textarea::placeholder { color: var(--text-dim); }
+    .progress { margin-top: clamp(32px,4vw,52px); }
+    .rings { display: flex; gap: 12px; align-items: center; }
+    .ring { width: 30px; height: 30px; flex: none; }
+    .ring circle.track { stroke: var(--d-line); }
+    .ring circle.fill { stroke: var(--green-bright); stroke-linecap: round;
+      transition: stroke-dashoffset .5s cubic-bezier(.4,0,.2,1), stroke .3s ease; }
+    .ring.done circle.fill { stroke: var(--green-bright); }
+    .ring.current circle.fill { stroke: var(--gold); }
+    .ring .dot { fill: transparent; transition: fill .3s ease; }
+    .ring.done .dot { fill: var(--green-bright); }
+    .progress-label { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--d-ink-soft); margin-top: 18px; }
+    .progress-label b { color: var(--gold); font-weight: 700; }
 
-    .form-group { margin-bottom: 32px; }
+    .rail-foot { margin-top: auto; padding-top: 36px; display: grid; gap: 12px; }
+    .reassure { display: flex; align-items: center; gap: 11px; font-size: 13px; color: var(--d-ink-soft); }
+    .reassure .ck { width: 18px; height: 18px; flex: none; border-radius: 50%; background: rgba(143,184,158,.16);
+      display: inline-flex; align-items: center; justify-content: center; color: var(--green-bright); font-size: 10px; }
 
-    /* Radio pills */
-    .pill-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .pill-group input[type="radio"] {
-      position: absolute;
-      opacity: 0;
-      width: 0; height: 0;
-    }
-    .pill-group label {
-      display: inline-flex;
-      align-items: center;
-      padding: 10px 18px;
-      border-radius: 100px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: border-color 0.15s, background 0.15s, color 0.15s;
-      user-select: none;
-    }
-    .pill-group label:hover {
-      border-color: var(--accent);
-      color: var(--text);
-    }
-    .pill-group input[type="radio"]:checked + label {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #000;
-      font-weight: 700;
-    }
+    /* ---- right stage: the questions ---- */
+    .stage { padding: clamp(40px,5vw,72px) clamp(28px,4vw,72px); display: flex; flex-direction: column; }
+    .qstep { display: none; }
+    .qstep.active { display: flex; flex-direction: column; flex: 1; }
+    /* transform-only: a frozen/never-running animation leaves content at its
+       base opacity:1 (visible) — content NEVER depends on the animation clock.
+       (Banked standard from Organism 03 — never gate load-reveal opacity on CSS time.) */
+    @keyframes stepIn { from { transform: translateY(14px); } to { transform: none; } }
 
-    /* Submit */
-    .submit-row {
-      margin-top: 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
+    .q-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold-deep); }
+    .q-head { font-family: var(--display); font-weight: 400; font-size: clamp(26px,3vw,40px); line-height: 1.08;
+      letter-spacing: -.01em; margin: 16px 0 0; color: var(--ink); text-wrap: balance; }
+    .q-help { color: var(--ink-soft); font-size: 15px; line-height: 1.55; margin: 12px 0 0; max-width: 46ch; }
+
+    .options { display: grid; gap: 12px; margin: clamp(26px,3vw,38px) 0 0; }
+    .opt { display: flex; align-items: center; gap: 16px; text-align: left; width: 100%;
+      background: var(--card); border: 1.5px solid var(--line); border-radius: 14px;
+      padding: 18px 20px; transition: border-color .16s ease, background .16s ease, transform .12s ease; }
+    .opt:hover { border-color: rgba(94,148,114,.55); transform: translateX(3px); }
+    .opt .tick { width: 24px; height: 24px; flex: none; border-radius: 50%; border: 2px solid var(--line);
+      display: inline-flex; align-items: center; justify-content: center; transition: all .16s ease; }
+    .opt .tick svg { width: 12px; height: 12px; opacity: 0; transform: scale(.5); transition: all .16s ease; }
+    .opt .ot { display: flex; flex-direction: column; gap: 3px; }
+    .opt .ot b { font-weight: 600; font-size: 16.5px; color: var(--ink); }
+    .opt .ot small { color: var(--ink-soft); font-size: 13px; }
+    .opt.sel { border-color: var(--green); background: rgba(94,148,114,.07); }
+    .opt.sel .tick { border-color: var(--green); background: var(--green); }
+    .opt.sel .tick svg { opacity: 1; transform: scale(1); }
+
+    /* ---- detail fields step ---- */
+    .fields { display: grid; gap: 14px; margin: clamp(26px,3vw,38px) 0 0; max-width: 460px; }
+    .field label { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--ink-soft); margin-bottom: 7px; }
+    .field input, .field textarea { width: 100%; background: var(--card); border: 1.5px solid var(--line);
+      border-radius: 12px; padding: 14px 16px; font: 400 16px/1.4 var(--body); color: var(--ink); transition: border-color .16s ease; }
+    .field input:focus, .field textarea:focus { outline: none; border-color: var(--green); }
+    .field textarea { resize: vertical; min-height: 84px; }
+
+    /* ---- nav row ---- */
+    .nav-row { display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      margin-top: clamp(30px,4vw,48px); padding-top: 26px; border-top: 1px solid var(--line); }
+    .btn-back { font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--ink-soft); display: inline-flex; align-items: center; gap: 8px; transition: color .16s ease; }
+    .btn-back:hover { color: var(--ink); }
+    .btn-back[hidden] { visibility: hidden; }
+    .btn:disabled { opacity: .42; cursor: not-allowed; }
+    .btn:disabled:hover { transform: skewX(-11deg); box-shadow: none; background: var(--green); }
+
+    /* ---- result / match step ---- */
+    .result { display: none; }
+    .result.active { display: block; }
+    .statement { background: var(--d-base); color: var(--d-ink); border: 1.5px solid var(--gold);
+      border-radius: 20px; padding: clamp(30px,3.4vw,46px); position: relative; overflow: hidden;
+      box-shadow: 0 30px 60px -30px rgba(22,48,36,.6); }
+    .statement::before { content:''; position:absolute; inset:0; pointer-events:none;
+      background: radial-gradient(120% 90% at 100% 0%, rgba(214,162,74,.14), transparent 55%); }
+    .st-top { display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding-bottom: 22px; border-bottom: 1px solid var(--d-line); position: relative; }
+    .st-top .lbl { font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); }
+    .st-top .acct { font-family: var(--mono); font-size: 11px; color: var(--d-ink-soft); letter-spacing: .1em; }
+    .st-tier { font-family: var(--display); font-weight: 400; font-size: clamp(30px,3.6vw,46px);
+      line-height: 1.04; margin: 24px 0 0; position: relative; }
+    .st-price { display: flex; align-items: baseline; gap: 8px; margin-top: 12px; position: relative; }
+    .st-price b { font-family: var(--display); font-size: clamp(34px,4vw,52px); font-weight: 400; color: var(--gold); }
+    .st-price small { font-family: var(--mono); font-size: 13px; color: var(--d-ink-soft); letter-spacing: .08em; }
+    .st-basis { color: var(--d-ink-soft); font-size: 14.5px; line-height: 1.6; margin: 18px 0 0; position: relative; max-width: 48ch; }
+    .st-basis em { color: var(--d-ink); font-style: normal; font-weight: 600; }
+    .st-return { display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--d-line); position: relative; }
+    .st-return .k { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--d-ink-soft); }
+    .st-return .v { font-family: var(--display); font-size: 19px; color: var(--d-ink); }
+    .st-scarcity { display: inline-flex; align-items: center; gap: 9px; margin-top: 26px; position: relative;
+      font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-soft); }
+    .st-scarcity::before { content:''; width:7px; height:7px; border-radius:50%; background: var(--gold);
+      box-shadow: 0 0 0 4px rgba(214,162,74,.2); }
+    .st-cta { margin-top: 22px; position: relative; }
+    .result-sub { display: flex; align-items: center; gap: 18px; margin-top: 22px; flex-wrap: wrap; }
+    .result-sub a { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+    .result-sub a:hover { color: var(--green-deep); }
+    .result-head { margin-bottom: clamp(22px,2.6vw,30px); }
+    .result-head .q-kicker { color: var(--gold-deep); }
+
+    /* ---- confirmation ---- */
+    .confirm { display:none; text-align:center; padding: clamp(40px,7vw,90px) 0; }
+    .confirm.active { display:block; }
+
+    /* Entrance motion is a progressive enhancement only — the visible state above
+       is the base, so content never depends on an animation completing. */
+    @media (prefers-reduced-motion: no-preference) {
+      .qstep.active   { animation: stepIn .42s cubic-bezier(.16,1,.3,1) both; }
+      .result.active  { animation: stepIn .5s  cubic-bezier(.16,1,.3,1) both; }
+      .confirm.active { animation: stepIn .5s  cubic-bezier(.16,1,.3,1) both; }
     }
-    .btn-submit {
-      background: var(--accent);
-      color: #000;
-      font-family: 'Lexend', sans-serif;
-      font-weight: 800;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 16px 48px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: opacity 0.2s;
+    .confirm .seal { width: 76px; height: 76px; margin: 0 auto; border-radius: 50%; background: rgba(94,148,114,.12);
+      display: flex; align-items: center; justify-content: center; color: var(--green); }
+    .confirm h2 { font-family: var(--display); font-weight: 400; font-size: clamp(28px,3.4vw,42px); margin: 26px 0 0; color: var(--ink); }
+    .confirm p { color: var(--ink-soft); font-size: 16px; line-height: 1.6; margin: 14px auto 0; max-width: 44ch; }
+
+    /* ---- mobile ---- */
+    @media (max-width: 900px) {
+      .assess { grid-template-columns: 1fr; min-height: 0; }
+      .rail { padding: 30px clamp(22px,6vw,40px) 32px; }
+      .rail::after { display: none; }
+      .rail h1 { font-size: clamp(26px,7vw,34px); }
+      .rail .lede { display: none; }
+      .rail-foot { display: none; }
+      .progress { margin-top: 24px; }
+      .ring { width: 26px; height: 26px; }
+      .stage { padding: 32px clamp(22px,6vw,40px) 48px; }
+      .fh-scarcity span.full { display: none; }
     }
-    .btn-submit:hover { opacity: 0.85; }
-    .submit-note {
-      font-size: 12px;
-      color: var(--text-dim);
-    }
+    @media (max-width: 460px) { .rings { gap: 8px; } .ring { width: 22px; height: 22px; } }
   </style>
 </head>
 <body>
 
-  <!-- ================= HEADER ================= -->
-  <header>
+  <!-- ================= SLIM FUNNEL HEADER ================= -->
+  <header class="funnel-header">
     <div class="container bar">
-      <div class="logo"><img src="assets/ndo-logo-infinity.png" alt="No Days Off" /></div>
-
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-
-      <nav class="nav">
-        <div class="nav-links">
-                    <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="app-landing-page.html">Pricing</a></li>
-            <li><a href="about.html">About</a></li>
-          </ul>
-          <a href="reserve.html" class="cta">Book a Call</a>
-        </div>
-      </nav>
+      <a href="index.html" class="fh-back"><span>←</span> Back to site</a>
+      <a href="index.html" class="fh-brand" aria-label="NDO Health">
+        <img src="assets/NDO%20Logo%20green.png" alt="NDO" style="height:30px;width:auto" />
+      </a>
+      <span class="fh-scarcity"><span class="full">3 of 6 </span>spots open</span>
     </div>
   </header>
 
-  <main>
+  <!-- ================= ASSESSMENT ================= -->
+  <div class="assess">
 
-    <!-- HERO -->
-    <section class="reserve-hero">
-      <p class="section-kicker">Concierge — $555 / mo</p>
-      <h1>Book Your <strong>Concierge Call</strong></h1>
-      <p>Spots are limited. Fill this out honestly — the more detail you give, the better your coach can prepare. If it's a fit, you'll hear from us within 24 hours to schedule your intake call.</p>
-    </section>
+    <!-- LEFT RAIL — the account -->
+    <aside class="rail">
+      <span class="eyebrow">OPEN YOUR ACCOUNT</span>
+      <h1 id="railHead">Two minutes to your first deposit.</h1>
+      <p class="lede">A few honest answers and Coach Teo matches you to the tier that fits your goal, your history, and your real schedule — not someone else's.</p>
 
-    <!-- PROCESS -->
-    <div class="process">
-      <div class="process-step">
-        <div class="step-number">01</div>
-        <div class="step-title">Submit Your Application</div>
-        <p class="step-body">Answer the questions below. Takes about 3 minutes.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-number">02</div>
-        <div class="step-title">Coach Reviews Within 24 hrs</div>
-        <p class="step-body">Your application goes directly to our coaching team — not a sales rep.</p>
-      </div>
-      <div class="process-step">
-        <div class="step-number">03</div>
-        <div class="step-title">Intake Call Scheduled</div>
-        <p class="step-body">If it's a fit, you'll book a 30-minute call to map out your plan.</p>
-      </div>
-    </div>
-
-    <div class="section-divider"></div>
-
-    <!-- FORM -->
-    <div class="intake-wrap">
-      <form name="concierge-intake" method="POST" data-netlify="true">
-        <input type="hidden" name="form-name" value="concierge-intake" />
-
-        <!-- Name + Email -->
-        <div class="form-group">
-          <label class="form-label" for="name">Full Name</label>
-          <input type="text" id="name" name="name" placeholder="Your full name" required />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="you@example.com" required />
-        </div>
-
-        <!-- Primary goal -->
-        <div class="form-group">
-          <span class="form-label">What is your primary goal?</span>
-          <div class="pill-group">
-            <input type="radio" id="goal-muscle" name="goal" value="Build muscle" required />
-            <label for="goal-muscle">Build muscle</label>
-
-            <input type="radio" id="goal-fat" name="goal" value="Lose body fat" />
-            <label for="goal-fat">Lose body fat</label>
-
-            <input type="radio" id="goal-recomp" name="goal" value="Body recomposition" />
-            <label for="goal-recomp">Body recomposition</label>
-
-            <input type="radio" id="goal-performance" name="goal" value="Athletic performance" />
-            <label for="goal-performance">Athletic performance</label>
-          </div>
-        </div>
-
-        <!-- Training experience -->
-        <div class="form-group">
-          <span class="form-label">How long have you been training consistently?</span>
-          <div class="pill-group">
-            <input type="radio" id="exp-new" name="experience" value="Under 1 year" required />
-            <label for="exp-new">Under 1 year</label>
-
-            <input type="radio" id="exp-mid" name="experience" value="1–3 years" />
-            <label for="exp-mid">1–3 years</label>
-
-            <input type="radio" id="exp-vet" name="experience" value="3+ years" />
-            <label for="exp-vet">3+ years</label>
-          </div>
-        </div>
-
-        <!-- Coach before -->
-        <div class="form-group">
-          <span class="form-label">Have you worked with a coach before?</span>
-          <div class="pill-group">
-            <input type="radio" id="coach-yes" name="coached_before" value="Yes" required />
-            <label for="coach-yes">Yes</label>
-
-            <input type="radio" id="coach-no" name="coached_before" value="No" />
-            <label for="coach-no">No</label>
-          </div>
-        </div>
-
-        <!-- Biggest challenge -->
-        <div class="form-group">
-          <span class="form-label">What is your biggest challenge right now?</span>
-          <div class="pill-group">
-            <input type="radio" id="challenge-nutrition" name="challenge" value="Nutrition & diet" required />
-            <label for="challenge-nutrition">Nutrition &amp; diet</label>
-
-            <input type="radio" id="challenge-consistency" name="challenge" value="Staying consistent" />
-            <label for="challenge-consistency">Staying consistent</label>
-
-            <input type="radio" id="challenge-programming" name="challenge" value="Programming & structure" />
-            <label for="challenge-programming">Programming &amp; structure</label>
-
-            <input type="radio" id="challenge-all" name="challenge" value="All of the above" />
-            <label for="challenge-all">All of the above</label>
-          </div>
-        </div>
-
-        <!-- Nutrition habits -->
-        <div class="form-group">
-          <span class="form-label">How would you describe your current nutrition habits?</span>
-          <div class="pill-group">
-            <input type="radio" id="nutrition-tracking" name="nutrition_habits" value="I track macros consistently" required />
-            <label for="nutrition-tracking">I track macros consistently</label>
-
-            <input type="radio" id="nutrition-intuitive" name="nutrition_habits" value="I eat intuitively, no tracking" />
-            <label for="nutrition-intuitive">I eat intuitively, no tracking</label>
-
-            <input type="radio" id="nutrition-know" name="nutrition_habits" value="I know what to do but struggle with consistency" />
-            <label for="nutrition-know">I know what to do, struggle with consistency</label>
-
-            <input type="radio" id="nutrition-none" name="nutrition_habits" value="No system in place" />
-            <label for="nutrition-none">No system in place</label>
-          </div>
-        </div>
-
-        <!-- Commitment -->
-        <div class="form-group">
-          <span class="form-label">Concierge is a minimum 3-month commitment. Are you ready?</span>
-          <div class="pill-group">
-            <input type="radio" id="commit-yes" name="commitment" value="Yes, I'm ready" required />
-            <label for="commit-yes">Yes, I'm ready</label>
-
-            <input type="radio" id="commit-questions" name="commitment" value="I have questions first" />
-            <label for="commit-questions">I have questions first</label>
-          </div>
-        </div>
-
-        <!-- Open field -->
-        <div class="form-group">
-          <label class="form-label" for="notes">Anything you want your coach to know? <span style="color:var(--text-dim);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
-          <textarea id="notes" name="notes" rows="5" placeholder="Current diet, injuries, schedule constraints, what has or hasn't worked before..."></textarea>
-        </div>
-
-        <div class="submit-row">
-          <button type="submit" class="btn-submit">Submit Application</button>
-          <p class="submit-note">We review every application personally. No spam, no sales calls — just a coach.</p>
-        </div>
-      </form>
-    </div>
-
-  </main>
-
-  <!-- ================= FOOTER ================= -->
-  <footer>
-    <div class="container footer-grid">
-      <div class="footer-col">
-        <div class="logo-bubbles">
-          <div class="bubble b1"></div>
-          <div class="bubble b2"></div>
-          <div class="bubble b3"></div>
-        </div>
-        <p>Email: info@ndohealth.com</p>
+      <div class="progress">
+        <div class="rings" id="rings" aria-hidden="true"></div>
+        <div class="progress-label">STEP <b id="stepNum">1</b> OF <span id="stepTotal">5</span></div>
       </div>
 
-            <div class="footer-col">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="app-landing-page.html">Pricing</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="reserve.html">Book a Concierge Call</a></li>
-        </ul>
+      <div class="rail-foot">
+        <div class="reassure"><span class="ck">✓</span> No card required to get matched</div>
+        <div class="reassure"><span class="ck">✓</span> Built by one coach — reviewed by Teo himself</div>
+        <div class="reassure"><span class="ck">✓</span> Scarcity is real: a handful of 1:1 spots</div>
+      </div>
+    </aside>
+
+    <!-- RIGHT STAGE — the questions -->
+    <main class="stage" id="stage">
+
+      <!-- STEP 1 · GOAL -->
+      <section class="qstep active" data-step="goal">
+        <span class="q-kicker">01 · THE GOAL</span>
+        <h2 class="q-head">What are you investing in?</h2>
+        <p class="q-help">Pick the one that pulls hardest right now. It anchors how Coach Teo builds your plan.</p>
+        <div class="options">
+          <button class="opt" data-value="Longevity &amp; healthspan"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.6 9 10 2.6" stroke="#F3EEE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ot"><b>Longevity &amp; healthspan</b><small>Move well and stay strong for decades, not weeks.</small></span></button>
+          <button class="opt" data-value="Strength &amp; muscle"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.6 9 10 2.6" stroke="#F3EEE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ot"><b>Strength &amp; muscle</b><small>Build real, visible strength on a structured plan.</small></span></button>
+          <button class="opt" data-value="Get lean"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.6 9 10 2.6" stroke="#F3EEE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ot"><b>Get lean</b><small>Lose fat in a way that actually holds this time.</small></span></button>
+          <button class="opt" data-value="Energy &amp; general health"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.6 9 10 2.6" stroke="#F3EEE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ot"><b>Energy &amp; general health</b><small>Feel better day to day and build the habit.</small></span></button>
+        </div>
+      </section>
+
+      <!-- STEP 2 · STATUS -->
+      <section class="qstep" data-step="status">
+        <span class="q-kicker">02 · YOUR STARTING BALANCE</span>
+        <h2 class="q-head">Where are you starting from?</h2>
+        <p class="q-help">No wrong answer — it just tells Teo how much structure you need from day one.</p>
+        <div class="options">
+          <button class="opt" data-value="New to training"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.6 9 10 2.6" stroke="#F3EEE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ot"><b>New to training</b><small>Starting fresh, or close to it.</small></span></button>
+          <button class="opt" data-value="On-and-off for years"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.6 9 10 2.6" stroke="#F3EEE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ot"><b>On-and-off for years</b><small>I know the moves — I just keep starting over.</small></span></button>
+          <button class="opt" data-value="Currently consistent"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.6 9 10 2.6" stroke="#F3EEE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ot"><b>Currently consistent</b><small>Training already — I want to train smarter.</small></span></button>
+        </div>
+      </section>
+
+      <!-- STEP 3 · DAYS -->
+      <section class="qstep" data-step="days">
+        <span class="q-kicker">03 · YOUR DEPOSIT RATE</span>
+        <h2 class="q-head">Realistically, how many days a week?</h2>
+        <p class="q-help">Be honest, not aspirational. The plan is built around the days you'll actually keep.</p>
+        <div class="options">
+          <button class="opt" data-value="2–3 days"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.6 9 10 2.6" stroke="#F3EEE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ot"><b>2–3 days</b><small>Busy life — I want every session to count.</small></span></button>
+          <button class="opt" data-value="4–5 days"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.6 9 10 2.6" stroke="#F3EEE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ot"><b>4–5 days</b><small>I can commit to a real weekly rhythm.</small></span></button>
+          <button class="opt" data-value="6+ days"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.6 9 10 2.6" stroke="#F3EEE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ot"><b>6+ days</b><small>No days off — I want to be pushed.</small></span></button>
+        </div>
+      </section>
+
+      <!-- STEP 4 · SUPPORT -->
+      <section class="qstep" data-step="support">
+        <span class="q-kicker">04 · COACH IN YOUR CORNER</span>
+        <h2 class="q-head">How much coach do you want?</h2>
+        <p class="q-help">This is the big one — it's mostly what separates the tiers.</p>
+        <div class="options">
+          <button class="opt" data-value="Just the system &amp; app"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.6 9 10 2.6" stroke="#F3EEE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ot"><b>Just the system &amp; app</b><small>Give me the plan and the rings — I'll run it.</small></span></button>
+          <button class="opt" data-value="A coach checking in weekly"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.6 9 10 2.6" stroke="#F3EEE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ot"><b>A coach checking in weekly</b><small>A custom plan and Teo in my corner every week.</small></span></button>
+          <button class="opt" data-value="Hands-on, priority access"><span class="tick"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.6 9 10 2.6" stroke="#F3EEE0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ot"><b>Hands-on, priority access</b><small>Bespoke programming and Teo on call.</small></span></button>
+        </div>
+      </section>
+
+      <!-- STEP 5 · DETAILS -->
+      <section class="qstep" data-step="details">
+        <span class="q-kicker">05 · OPEN THE ACCOUNT</span>
+        <h2 class="q-head">Where should Teo send your match?</h2>
+        <p class="q-help">No spam, no card. Just your match and a note from Coach Teo on where you'd start.</p>
+        <div class="fields">
+          <div class="field"><label for="fName">First name</label><input id="fName" type="text" autocomplete="given-name" placeholder="Jordan" /></div>
+          <div class="field"><label for="fEmail">Email</label><input id="fEmail" type="email" autocomplete="email" placeholder="you@email.com" /></div>
+          <div class="field"><label for="fNote">Anything Teo should know? <span style="text-transform:none;letter-spacing:0">(optional)</span></label><textarea id="fNote" placeholder="Injuries, schedule quirks, what's stopped you before…"></textarea></div>
+        </div>
+      </section>
+
+      <!-- RESULT -->
+      <section class="result" id="result">
+        <div class="result-head">
+          <span class="q-kicker">YOUR MATCH</span>
+          <h2 class="q-head" id="resultHead">Here's where you'd start.</h2>
+        </div>
+        <div class="statement">
+          <div class="st-top"><span class="lbl">NDO · RECOMMENDED TIER</span><span class="acct">ACCT&nbsp;·&nbsp;NEW</span></div>
+          <div class="st-tier" id="stTier">1:1 Coaching</div>
+          <div class="st-price"><b id="stPrice">$197</b><small id="stPer">/ MONTH · YOUR MONTHLY DEPOSIT</small></div>
+          <p class="st-basis" id="stBasis"></p>
+          <div class="st-return"><span class="k">EXPECTED RETURN</span><span class="v" id="stReturn">A body you keep</span></div>
+          <div class="st-scarcity" id="stScarcity">3 of 6 coaching spots open this month</div>
+          <div class="st-cta"><button class="btn btn--accent btn--block" id="claimBtn"><span id="claimLabel">Claim your spot <span class="arrow">→</span></span></button></div>
+        </div>
+        <div class="result-sub">
+          <a href="index.html#pricing">Compare all three tiers</a>
+          <a href="#" id="retake">↻ Retake the assessment</a>
+        </div>
+      </section>
+
+      <!-- CONFIRMATION -->
+      <section class="confirm" id="confirm">
+        <div class="seal"><svg viewBox="0 0 24 24" width="34" height="34" fill="none"><path d="M5 12.5 10 17.5 19 6.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h2 id="confirmHead">Your first deposit is in.</h2>
+        <p id="confirmBody">Coach Teo has your assessment. You'll hear back within one business day with your match and your starting plan. Check your inbox — and your spam, just in case.</p>
+        <div class="result-sub" style="justify-content:center">
+          <a href="index.html">← Back to site</a>
+          <a href="index.html#how">How it works</a>
+        </div>
+      </section>
+
+      <!-- NAV ROW -->
+      <div class="nav-row" id="navRow">
+        <a href="#" class="btn-back" id="backBtn" hidden>← Back</a>
+        <button class="btn btn--primary" id="nextBtn" disabled><span id="nextLabel">Continue <span class="arrow">→</span></span></button>
       </div>
 
-      <div class="footer-col">
-        <h4>Follow Us</h4>
-        <ul>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">X</a></li>
-          <li><a href="#">LinkedIn</a></li>
-          <li><a href="#">Spotify</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
+    </main>
+  </div>
 
-  <script src="main.js"></script>
+  <script>
+  (function () {
+    "use strict";
+    var steps = ["goal","status","days","support","details"];
+    var labels = { goal:null, status:null, days:null, support:null, details:null };
+    var idx = 0;
+    var stageEl = document.getElementById("stage");
+    var qsteps = [].slice.call(document.querySelectorAll(".qstep"));
+    var ringsEl = document.getElementById("rings");
+    var stepNum = document.getElementById("stepNum");
+    var nextBtn = document.getElementById("nextBtn");
+    var nextLabel = document.getElementById("nextLabel");
+    var backBtn = document.getElementById("backBtn");
+    var navRow = document.getElementById("navRow");
+    var resultEl = document.getElementById("result");
+    var confirmEl = document.getElementById("confirm");
+    document.getElementById("stepTotal").textContent = steps.length;
+
+    /* ---- build progress rings ---- */
+    var C = 2 * Math.PI * 12;
+    steps.forEach(function () {
+      var ns = "http://www.w3.org/2000/svg";
+      var svg = document.createElementNS(ns, "svg");
+      svg.setAttribute("class", "ring"); svg.setAttribute("viewBox", "0 0 30 30");
+      svg.innerHTML =
+        '<circle class="track" cx="15" cy="15" r="12" fill="none" stroke-width="2.4"></circle>' +
+        '<circle class="fill" cx="15" cy="15" r="12" fill="none" stroke-width="2.4" ' +
+        'transform="rotate(-90 15 15)" stroke-dasharray="' + C + '" stroke-dashoffset="' + C + '"></circle>' +
+        '<circle class="dot" cx="15" cy="15" r="3.4"></circle>';
+      ringsEl.appendChild(svg);
+    });
+    var ringEls = [].slice.call(ringsEl.querySelectorAll(".ring"));
+
+    function paintRings() {
+      ringEls.forEach(function (r, i) {
+        var fill = r.querySelector(".fill");
+        r.classList.remove("done", "current");
+        if (i < idx) { r.classList.add("done"); fill.setAttribute("stroke-dashoffset", 0); }
+        else if (i === idx) { r.classList.add("current"); fill.setAttribute("stroke-dashoffset", C * 0.25); }
+        else { fill.setAttribute("stroke-dashoffset", C); }
+      });
+    }
+
+    /* ---- option selection ---- */
+    qsteps.forEach(function (sec) {
+      var key = sec.getAttribute("data-step");
+      sec.querySelectorAll(".opt").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          sec.querySelectorAll(".opt").forEach(function (b) { b.classList.remove("sel"); });
+          btn.classList.add("sel");
+          labels[key] = btn.getAttribute("data-value");
+          syncNext();
+        });
+      });
+    });
+
+    /* ---- details validation ---- */
+    var nameEl = document.getElementById("fName");
+    var emailEl = document.getElementById("fEmail");
+    [nameEl, emailEl].forEach(function (el) { el.addEventListener("input", syncNext); });
+    function detailsValid() {
+      return nameEl.value.trim().length > 0 && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailEl.value.trim());
+    }
+    function currentValid() {
+      return steps[idx] === "details" ? detailsValid() : !!labels[steps[idx]];
+    }
+    function syncNext() { nextBtn.disabled = !currentValid(); }
+
+    function showStep(n) {
+      idx = n;
+      qsteps.forEach(function (s, i) { s.classList.toggle("active", i === idx); });
+      stepNum.textContent = idx + 1;
+      backBtn.hidden = idx === 0;
+      nextLabel.innerHTML = idx === steps.length - 1
+        ? 'See my match <span class="arrow">→</span>'
+        : 'Continue <span class="arrow">→</span>';
+      paintRings();
+      syncNext();
+    }
+
+    nextBtn.addEventListener("click", function () {
+      if (!currentValid()) return;
+      if (idx < steps.length - 1) { showStep(idx + 1); }
+      else { showResult(); }
+    });
+    backBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      if (resultEl.classList.contains("active")) { hideResult(); showStep(steps.length - 1); return; }
+      if (idx > 0) showStep(idx - 1);
+    });
+
+    /* ---- matching logic (steers honestly toward 1:1) ---- */
+    function matchTier() {
+      var s = labels.support;
+      if (s === "Just the system &amp; app" && labels.status !== "New to training")
+        return { name:"Self-Guided", price:"$19", per:"/ MONTH · YOUR MONTHLY DEPOSIT",
+                 ret:"The habit, on autopilot", scarce:false, label:'Start self-guided',
+                 href:"app-landing-page.html" };
+      if (s === "Hands-on, priority access")
+        return { name:"Concierge", price:"$555", per:"/ MONTH · YOUR MONTHLY DEPOSIT",
+                 ret:"Bespoke, no detail missed", scarce:true, label:'Talk to Teo', href:null };
+      return { name:"1:1 Coaching", price:"$197", per:"/ MONTH · YOUR MONTHLY DEPOSIT",
+               ret:"A body you keep", scarce:true, label:'Claim your spot', href:null };
+    }
+    function decode(s){ var t=document.createElement("textarea"); t.innerHTML=s; return t.value; }
+
+    var match = null;
+    function showResult() {
+      match = matchTier();
+      var goal = decode(labels.goal || "your goal");
+      var days = labels.days || "your schedule";
+      var support = decode(labels.support || "");
+      document.getElementById("stTier").textContent = match.name;
+      document.getElementById("stPrice").textContent = match.price;
+      document.getElementById("stPer").textContent = match.per;
+      document.getElementById("stReturn").textContent = match.ret;
+      document.getElementById("stBasis").innerHTML =
+        'Based on your answers — <em>' + goal.toLowerCase() + '</em>, training <em>' + days +
+        '</em> a week, wanting <em>' + support.toLowerCase() + '</em> — this is the tier Coach Teo would put you in.';
+      var sc = document.getElementById("stScarcity");
+      sc.style.display = match.scarce ? "inline-flex" : "none";
+      document.getElementById("claimLabel").innerHTML = match.label + ' <span class="arrow">→</span>';
+
+      qsteps.forEach(function (s) { s.classList.remove("active"); });
+      navRow.style.display = "none";
+      resultEl.classList.add("active");
+      stageEl.scrollTop = 0;
+    }
+    function hideResult() {
+      resultEl.classList.remove("active");
+      navRow.style.display = "flex";
+    }
+
+    document.getElementById("retake").addEventListener("click", function (e) {
+      e.preventDefault();
+      hideResult(); showStep(0);
+    });
+
+    /* ---- claim → mailto to Teo (one-man-show friendly), then confirm ---- */
+    document.getElementById("claimBtn").addEventListener("click", function () {
+      var name = nameEl.value.trim(), email = emailEl.value.trim();
+      var note = document.getElementById("fNote").value.trim();
+      var body =
+        "Name: " + name + "\nEmail: " + email +
+        "\n\n— Assessment —\nGoal: " + decode(labels.goal || "") +
+        "\nStarting from: " + decode(labels.status || "") +
+        "\nDays/week: " + (labels.days || "") +
+        "\nWants: " + decode(labels.support || "") +
+        "\nMatched tier: " + match.name + " (" + match.price + "/mo)" +
+        (note ? "\n\nNote: " + note : "");
+      var mail = "mailto:coach@ndohealth.com" +
+        "?subject=" + encodeURIComponent("New assessment — " + name + " → " + match.name) +
+        "&body=" + encodeURIComponent(body);
+      // open the user's mail client with everything pre-filled
+      window.location.href = mail;
+      // show confirmation state regardless
+      resultEl.classList.remove("active");
+      confirmEl.classList.add("active");
+      stageEl.scrollTop = 0;
+    });
+
+    showStep(0);
+  })();
+  </script>
 </body>
 </html>

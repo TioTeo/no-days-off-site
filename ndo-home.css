@@ -287,8 +287,8 @@ button { font: inherit; cursor: pointer; }
 /* =====================================================================
    PRICING
    ===================================================================== */
-.tiers { display: flex; align-items: flex-start; justify-content: center; gap: 20px; flex-wrap: wrap; padding-top: clamp(28px,4vw,48px); }
-.tier { position: relative; width: 360px; background: var(--card); border-radius: 20px; padding: 30px; display: flex; flex-direction: column; gap: 16px;
+.tiers { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); align-items: start; gap: clamp(14px,1.5vw,22px); padding-top: clamp(28px,4vw,48px); }
+.tier { position: relative; min-width: 0; background: var(--card); border-radius: 20px; padding: clamp(22px,2vw,30px); display: flex; flex-direction: column; gap: 16px;
   border: 1.5px solid var(--line); box-shadow: 0 18px 44px -26px rgba(30,32,25,.2); }
 .tier.featured { background: var(--d-base); border: 1.5px solid var(--gold); margin-top: -16px; box-shadow: 0 30px 70px -22px rgba(0,0,0,.45); color: var(--d-ink); }
 .tier .badge { position: absolute; top: -13px; left: 30px; font-family: var(--mono); font-size: 9.5px; font-weight: 700; letter-spacing: .16em;
@@ -304,7 +304,7 @@ button { font: inherit; cursor: pointer; }
 .tier .rows { display: flex; flex-direction: column; }
 .tier .rows .row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 10px 0; border-top: 1px solid var(--line); }
 .tier.featured .rows .row { border-top: 1px solid var(--d-line); }
-.tier .rows .k { font-family: var(--body); font-size: 13.5px; white-space: nowrap; }
+.tier .rows .k { font-family: var(--body); font-size: 13.5px; white-space: normal; text-wrap: balance; }
 .tier .rows .v { font-family: var(--mono); font-size: 12px; letter-spacing: .03em; color: var(--green-deep); white-space: nowrap; }
 .tier.featured .rows .v { color: var(--green-bright); }
 .tier .return { display: flex; align-items: center; justify-content: space-between; background: var(--d-raised); border-radius: 11px; padding: 12px 15px; }
@@ -363,9 +363,10 @@ button { font: inherit; cursor: pointer; }
   .beat { grid-template-columns: 1fr; }
   .section-header .inner { flex-direction: column; align-items: flex-start; gap: 24px; }
   .tier.featured { margin-top: 0; }
+  .tiers { grid-template-columns: 1fr; max-width: 440px; margin-inline: auto; }
 }
 @media (min-width: 861px) { .door-mobile-cta { display: none; } }
-@media (max-width: 1024px) { .tier { width: 320px; } }
+@media (max-width: 1024px) { .tiers { gap: 14px; } }
 @media (prefers-reduced-motion: reduce) {
   .rise { transition: none; opacity: 1; transform: none; }
 }
