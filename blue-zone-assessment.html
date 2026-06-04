@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NDO — Blue Zone Self-Assessment (Free)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --base:       #EFE9DB;
+    --card:       #FBF7EE;
+    --ink:        #1E2019;
+    --ink-soft:   #74786B;
+    --line:       rgba(30,32,25,.12);
+    --header-bg:  rgba(239,233,219,.92);
+    --green:      #5E9472;
+    --gold:       #A9792B;
+    --ivory:      #F3EEE0;
+    --forest:     #2F4A3A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--base);
+    color: var(--ink);
+    font-family: 'Figtree', system-ui, sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 14px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-logo img { height: 26px; display: block; }
+  .nav-logo-text {
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: 22px;
+    letter-spacing: -.01em;
+    color: var(--forest);
+    text-decoration: none;
+  }
+
+  .nav-back {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color .2s;
+  }
+
+  .nav-back:hover { color: var(--green); }
+
+  /* ── BUTTON ── */
+  .btn {
+    display: inline-block;
+    font-family: 'Figtree', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    text-decoration: none;
+    border-radius: 12px;
+    transform: skewX(-11deg);
+    transition: filter .2s, transform .15s;
+    cursor: pointer;
+    border: none;
+    line-height: 1;
+  }
+
+  .btn span { display: inline-block; transform: skewX(11deg); }
+  .btn:hover { filter: brightness(.91); }
+  .btn:active { transform: skewX(-11deg) translateY(1px); }
+  .btn-primary { background: var(--green); color: var(--ivory); }
+  .btn-full { display: block; text-align: center; width: 100%; font-size: 14px; padding: 17px 24px; }
+
+  /* ── HERO SPLIT ── */
+  .hero {
+    min-height: 100vh;
+    padding: 100px 40px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--forest);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--forest);
+    flex-shrink: 0;
+  }
+
+  .hero-headline {
+    font-family: 'Hedvig Letters Serif', Georgia, serif;
+    font-size: clamp(36px, 5vw, 62px);
+    line-height: 1.04;
+    letter-spacing: -.015em;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+
+  .hero-sub {
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: clamp(17px, 2.2vw, 22px);
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-bottom: 24px;
+    line-height: 1.35;
+  }
+
+  .hero-body {
+    font-size: 15px;
+    line-height: 1.78;
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+  }
+
+  .hero-body strong { color: var(--ink); font-weight: 600; }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .feature-list li {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.5;
+  }
+
+  .feat-check { color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+  /* ── FORM CARD ── */
+  .form-card {
+    background: var(--card);
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    padding: 40px 36px;
+    box-shadow: 0 20px 48px -20px rgba(30,32,25,.22);
+  }
+
+  .form-card-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 10px;
+  }
+
+  .form-card-title {
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: 26px;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  .form-card-sub {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+    line-height: 1.6;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .form-field { margin-bottom: 14px; }
+
+  .form-field label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 7px;
+  }
+
+  .form-field input {
+    width: 100%;
+    padding: 13px 16px;
+    background: var(--base);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    font-family: 'Figtree', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+
+  .form-field input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(94,148,114,.14);
+  }
+
+  .form-field input::placeholder { color: rgba(30,32,25,.3); }
+
+  .form-submit-wrap { margin-top: 20px; }
+
+  .form-disclaimer {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: 14px;
+    opacity: .65;
+  }
+
+  /* ── PILLARS ── */
+  .pillars-section {
+    padding: 80px 40px;
+    background: var(--forest);
+  }
+
+  .pillars-inner { max-width: 1100px; margin: 0 auto; }
+
+  .pillars-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(243,238,224,.42);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .pillars-label::before,
+  .pillars-label::after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: rgba(243,238,224,.3);
+  }
+
+  .pillars-title {
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: clamp(26px, 3.5vw, 40px);
+    letter-spacing: -.01em;
+    color: var(--ivory);
+    line-height: 1.1;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3px;
+  }
+
+  .pillar {
+    background: rgba(243,238,224,.07);
+    border: 1px solid rgba(243,238,224,.1);
+    border-radius: 14px;
+    padding: 28px 18px;
+    text-align: center;
+    transition: background .25s;
+  }
+
+  .pillar:hover { background: rgba(243,238,224,.11); }
+
+  .pillar-num {
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: 30px;
+    color: rgba(243,238,224,.13);
+    display: block;
+    margin-bottom: 10px;
+    line-height: 1;
+  }
+
+  .pillar-name {
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: 18px;
+    color: var(--ivory);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .pillar-desc {
+    font-size: 12px;
+    color: rgba(243,238,224,.48);
+    line-height: 1.65;
+  }
+
+  /* ── SCORE INTERPRETATION ── */
+  .score-section {
+    padding: 80px 40px;
+    background: var(--card);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .score-inner { max-width: 1100px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--green);
+  }
+
+  .section-title {
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: clamp(26px, 3.5vw, 42px);
+    letter-spacing: -.01em;
+    color: var(--ink);
+    margin-bottom: 36px;
+    line-height: 1.1;
+  }
+
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .score-card {
+    background: var(--base);
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .score-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--green);
+    border-radius: 16px 16px 0 0;
+    opacity: .35;
+  }
+
+  .score-card.mid::before { opacity: .65; }
+  .score-card.top::before { opacity: 1; }
+
+  .score-range {
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: 38px;
+    letter-spacing: -.02em;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .score-tier {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+
+  .score-desc {
+    font-size: 13px;
+    line-height: 1.72;
+    color: var(--ink-soft);
+  }
+
+  .score-desc strong { color: var(--ink); font-weight: 600; }
+
+  /* ── CREDENTIALS ── */
+  .cred-strip {
+    padding: 48px 40px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--line);
+  }
+
+  .cred-item { display: flex; align-items: center; gap: 12px; }
+  .cred-dot { color: var(--green); font-size: 14px; }
+
+  .cred-text { font-size: 13px; color: var(--ink-soft); }
+  .cred-text strong { color: var(--ink); font-weight: 600; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 32px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-logo img { height: 20px; display: block; }
+  .footer-logo-text {
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: 20px;
+    color: var(--ivory);
+  }
+
+  .footer-copy {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(243,238,224,.3);
+  }
+
+  .footer-links { display: flex; gap: 20px; }
+
+  .footer-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(243,238,224,.3);
+    text-decoration: none;
+    transition: color .2s;
+  }
+
+  .footer-links a:hover { color: var(--green); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 12px 20px; }
+    .hero { grid-template-columns: 1fr; gap: 48px; padding: 92px 20px 56px; min-height: auto; }
+    .pillars-section { padding: 60px 20px; }
+    .pillars-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .pillars-grid .pillar:last-child { grid-column: 1 / -1; }
+    .score-section { padding: 60px 20px; }
+    .score-grid { grid-template-columns: 1fr; gap: 12px; }
+    .cred-strip { padding: 36px 20px; gap: 24px; flex-direction: column; align-items: flex-start; }
+    footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="assets/NDO Logo green.png" alt="NDO"
+         onerror="this.style.display='none';document.getElementById('nav-fb').style.display='block'">
+    <span id="nav-fb" class="nav-logo-text" style="display:none">NDO</span>
+  </a>
+  <a href="blue-zone-builder.html" class="nav-back">← Back to Membership</a>
+</nav>
+
+<!-- HERO + FORM -->
+<div class="hero">
+
+  <!-- LEFT: PITCH -->
+  <div>
+    <div class="eyebrow">Free Resource · NDO Wellness Intelligence</div>
+    <h1 class="hero-headline">Find out where you stand.</h1>
+    <p class="hero-sub">The NDO Blue Zone Self-Assessment</p>
+    <p class="hero-body">
+      10 questions. 5 pillars. 2 minutes.<br><br>
+      Most people who care about their health are <strong>strong in one or two pillars and completely blind to the others.</strong> This diagnostic shows you exactly where your longevity is compounding — and where the gaps are costing you.
+    </p>
+    <ul class="feature-list">
+      <li><span class="feat-check">✓</span> Scored across all 5 Blue Zone pillars: Movement, Nutrition, Downshift, Belonging, Purpose</li>
+      <li><span class="feat-check">✓</span> See which NDO membership tier maps to your current stage</li>
+      <li><span class="feat-check">✓</span> Plain-language interpretation of your total score</li>
+      <li><span class="feat-check">✓</span> Instant PDF delivery — no waiting</li>
+    </ul>
+  </div>
+
+  <!-- RIGHT: FORM -->
+  <div>
+    <div class="form-card">
+      <div class="form-card-eyebrow">Free · Instant Delivery</div>
+      <div class="form-card-title">Get your Blue Zone Score</div>
+      <p class="form-card-sub">Enter your details below. Your assessment arrives in your inbox immediately.</p>
+
+      <!--
+        MAILCHIMP EMBED FORM
+        To connect this form to your Mailchimp list:
+        1. Go to Mailchimp → Audience → Signup forms → Embedded forms
+        2. Copy the form action URL (starts with https://[yourlist].us[X].list-manage.com/subscribe/post)
+        3. Replace MAILCHIMP_ACTION_URL_HERE below with that URL
+        4. Replace the hidden input name (b_XXXX) with your actual anti-bot field name from the embed code
+        5. This form should trigger your 5-email welcome sequence automatically via your Mailchimp automation
+      -->
+      <form action="MAILCHIMP_ACTION_URL_HERE" method="post"
+            id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
+            target="_blank" novalidate>
+
+        <div class="form-field">
+          <label for="mce-FNAME">First Name</label>
+          <input type="text" id="mce-FNAME" name="FNAME" placeholder="Your first name" required autocomplete="given-name">
+        </div>
+        <div class="form-field">
+          <label for="mce-EMAIL">Email Address</label>
+          <input type="email" id="mce-EMAIL" name="EMAIL" placeholder="your@email.com" required autocomplete="email">
+        </div>
+
+        <!-- Mailchimp bot-protection field — do not remove or display -->
+        <div style="position:absolute;left:-5000px" aria-hidden="true">
+          <input type="text" name="b_REPLACE_WITH_MAILCHIMP_HIDDEN_FIELD" tabindex="-1" value="">
+        </div>
+
+        <div class="form-submit-wrap">
+          <button type="submit" name="subscribe" class="btn btn-primary btn-full">
+            <span>Send me the assessment →</span>
+          </button>
+        </div>
+      </form>
+
+      <p class="form-disclaimer">Instant delivery · No spam · Unsubscribe anytime</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- 5 PILLARS PREVIEW -->
+<section class="pillars-section">
+  <div class="pillars-inner">
+    <div class="pillars-label">What You'll Be Scored On</div>
+    <h2 class="pillars-title">The 5 Blue Zone Pillars</h2>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <span class="pillar-num">01</span>
+        <div class="pillar-name">Movement</div>
+        <div class="pillar-desc">How intentionally does physical activity run through your day — not just your workouts?</div>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">02</span>
+        <div class="pillar-name">Nutrition</div>
+        <div class="pillar-desc">Does your daily fuel support long-term performance, or just short-term energy?</div>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">03</span>
+        <div class="pillar-name">Downshift</div>
+        <div class="pillar-desc">Do you have deliberate, daily practices for stress management and recovery?</div>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">04</span>
+        <div class="pillar-name">Belonging</div>
+        <div class="pillar-desc">Are you surrounded by people who reinforce your health standards — or quietly erode them?</div>
+      </div>
+      <div class="pillar">
+        <span class="pillar-num">05</span>
+        <div class="pillar-name">Purpose</div>
+        <div class="pillar-desc">Do you have a clear reason for maintaining your health beyond aesthetics or short-term goals?</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCORE INTERPRETATION -->
+<section class="score-section">
+  <div class="score-inner">
+    <div class="section-label">Your Score, Interpreted</div>
+    <h2 class="section-title">Three stages. One trajectory.</h2>
+    <div class="score-grid">
+
+      <div class="score-card">
+        <div class="score-range">10–25</div>
+        <div class="score-tier">Foundation Stage → NDO Ignite</div>
+        <div class="score-desc">You have the desire, but the systems aren't locked in yet. <strong>This is exactly where Ignite starts.</strong> We build the habits and routines that make everything else compound.</div>
+      </div>
+
+      <div class="score-card mid">
+        <div class="score-range">26–40</div>
+        <div class="score-tier">Build Stage → NDO Build</div>
+        <div class="score-desc">You're consistent but not yet optimized. <strong>NDO Build introduces the personal audit.</strong> We identify your exact gaps, design your Blueprint, and turn effort into results that last.</div>
+      </div>
+
+      <div class="score-card top">
+        <div class="score-range">41–50</div>
+        <div class="score-tier">Architect Stage → NDO Architect</div>
+        <div class="score-desc">Your foundation is strong. <strong>NDO Architect is your next level.</strong> Bi-weekly 1:1 coaching, a custom Blue Zone plan, and direct access to push your performance into the top percentile.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<div class="cred-strip">
+  <div class="cred-item">
+    <span class="cred-dot">✦</span>
+    <div class="cred-text"><strong>CPT</strong> — Certified Personal Trainer (NASM-accredited)</div>
+  </div>
+  <div class="cred-item">
+    <span class="cred-dot">✦</span>
+    <div class="cred-text"><strong>CNC</strong> — Certified Nutrition Coach</div>
+  </div>
+  <div class="cred-item">
+    <span class="cred-dot">✦</span>
+    <div class="cred-text"><strong>NDO</strong> — Audit-first. Blueprint-driven. Built for high performers.</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="assets/NDO Logo green.png" alt="NDO"
+         onerror="this.style.display='none';document.getElementById('ft-fb').style.display='block'">
+    <span id="ft-fb" class="footer-logo-text" style="display:none">NDO</span>
+  </div>
+  <div class="footer-copy">© 2026 NDO Wellness Intelligence · All Rights Reserved</div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+  </div>
+</footer>
+
+</body>
+</html>
