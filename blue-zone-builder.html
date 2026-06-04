@@ -4,43 +4,34 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NDO — Design Your Own Blue Zone</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&family=Figtree:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #0D1B2A;
-    --navy-mid: #152335;
-    --navy-light: #1E3248;
-    --gold: #C9A84C;
-    --gold-light: #E8C96A;
-    --gold-dim: #8A6A28;
-    --cream: #F7F2EA;
-    --cream-dark: #EDE5D5;
-    --white: #FFFFFF;
-    --text-light: #B8C4D0;
-    --text-mid: #7A8E9E;
+    --base:       #EFE9DB;
+    --card:       #FBF7EE;
+    --ink:        #1E2019;
+    --ink-soft:   #74786B;
+    --line:       rgba(30,32,25,.12);
+    --track:      rgba(30,32,25,.10);
+    --header-bg:  rgba(239,233,219,.92);
+    --green:      #5E9472;
+    --gold:       #A9792B;
+    --ivory:      #F3EEE0;
+    --forest:     #2F4A3A;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--navy);
-    color: var(--cream);
-    font-family: 'Outfit', sans-serif;
-    font-weight: 300;
+    background: var(--base);
+    color: var(--ink);
+    font-family: 'Figtree', system-ui, sans-serif;
+    font-weight: 400;
     overflow-x: hidden;
-  }
-
-  /* ── NOISE TEXTURE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
+    -webkit-font-smoothing: antialiased;
   }
 
   /* ── NAV ── */
@@ -48,57 +39,69 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
-    padding: 20px 48px;
+    padding: 14px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    backdrop-filter: blur(20px);
-    background: rgba(13, 27, 42, 0.8);
-    border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    background: var(--header-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
   }
 
-  .nav-logo {
-    font-family: 'DM Mono', monospace;
+  .nav-logo img { height: 26px; display: block; }
+  .nav-logo-text {
+    font-family: 'Hedvig Letters Serif', serif;
     font-size: 22px;
-    letter-spacing: 0.35em;
-    color: var(--gold);
-    font-weight: 500;
+    letter-spacing: -.01em;
+    color: var(--forest);
+    text-decoration: none;
   }
 
   .nav-links {
     display: flex;
-    gap: 40px;
+    gap: 32px;
     list-style: none;
   }
 
   .nav-links a {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .14em;
     text-transform: uppercase;
-    color: var(--text-light);
+    color: var(--ink-soft);
     text-decoration: none;
-    transition: color 0.3s;
+    transition: color .2s;
   }
 
-  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover { color: var(--green); }
 
-  .nav-cta {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.15em;
+  /* ── BUTTONS (skewed motif) ── */
+  .btn {
+    display: inline-block;
+    font-family: 'Figtree', sans-serif;
+    font-weight: 700;
+    font-size: 11.5px;
     text-transform: uppercase;
-    color: var(--navy);
-    background: var(--gold);
-    padding: 10px 24px;
+    letter-spacing: .03em;
     text-decoration: none;
-    transition: background 0.3s, transform 0.2s;
+    border-radius: 12px;
+    transform: skewX(-11deg);
+    transition: filter .2s, transform .15s;
+    cursor: pointer;
+    border: none;
+    line-height: 1;
   }
 
-  .nav-cta:hover {
-    background: var(--gold-light);
-    transform: translateY(-1px);
-  }
+  .btn span { display: inline-block; transform: skewX(11deg); }
+  .btn:hover { filter: brightness(.91); }
+  .btn:active { transform: skewX(-11deg) translateY(1px); }
+
+  .btn-primary { background: var(--green); color: var(--ivory); padding: 13px 22px; }
+  .btn-outline  { background: transparent; border: 1.5px solid var(--green); color: var(--green); padding: 12px 22px; }
+  .btn-ghost    { background: transparent; border: 1px solid var(--line); color: var(--ink-soft); padding: 12px 22px; font-weight: 500; font-size: 12px; }
+  .btn-lg       { font-size: 13px; padding: 16px 32px; }
+  .btn-block    { display: block; text-align: center; }
 
   /* ── HERO ── */
   .hero {
@@ -106,817 +109,712 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 120px 48px 80px;
+    padding: 120px 40px 80px;
     position: relative;
     overflow: hidden;
   }
 
-  .hero-bg {
+  .hero-bg-mark {
     position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(201, 168, 76, 0.06) 0%, transparent 70%),
-      radial-gradient(ellipse 50% 80% at 10% 80%, rgba(21, 35, 53, 0.8) 0%, transparent 60%);
+    right: -80px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: clamp(180px, 22vw, 340px);
+    color: rgba(30,32,25,.04);
+    letter-spacing: -.02em;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    line-height: 1;
   }
 
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
-    background-size: 80px 80px;
-    mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.3) 70%, transparent);
-  }
+  .hero-content { max-width: 780px; position: relative; z-index: 1; }
 
-  .hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 820px;
-  }
-
-  .hero-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.3em;
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .16em;
     text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 32px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
+    color: var(--forest);
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp .7s .1s forwards;
   }
 
-  .hero-eyebrow::before {
+  .eyebrow::before {
     content: '';
-    display: inline-block;
-    width: 40px;
+    display: block;
+    width: 28px;
     height: 1px;
-    background: var(--gold);
+    background: var(--forest);
+    flex-shrink: 0;
   }
 
   .hero-headline {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(52px, 8vw, 96px);
-    line-height: 1.0;
-    font-weight: 300;
-    color: var(--cream);
+    font-family: 'Hedvig Letters Serif', Georgia, serif;
+    font-size: clamp(46px, 7vw, 82px);
+    line-height: 1.04;
+    letter-spacing: -.015em;
+    color: var(--ink);
+    margin-bottom: 18px;
     opacity: 0;
-    animation: fadeUp 0.8s 0.35s forwards;
-    margin-bottom: 12px;
+    animation: fadeUp .7s .2s forwards;
   }
 
-  .hero-headline em {
-    font-style: italic;
+  .hero-delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: .08em;
     color: var(--gold);
-  }
-
-  .hero-subhead {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(28px, 4vw, 48px);
-    font-weight: 300;
-    font-style: italic;
-    color: var(--text-light);
+    margin-bottom: 32px;
     opacity: 0;
-    animation: fadeUp 0.8s 0.5s forwards;
-    margin-bottom: 48px;
+    animation: fadeUp .7s .3s forwards;
   }
 
   .hero-body {
-    font-size: 17px;
-    line-height: 1.8;
-    color: var(--text-light);
-    max-width: 600px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    max-width: 580px;
+    margin-bottom: 48px;
     opacity: 0;
-    animation: fadeUp 0.8s 0.65s forwards;
-    margin-bottom: 56px;
+    animation: fadeUp .7s .4s forwards;
   }
 
-  .hero-body strong {
-    color: var(--cream);
-    font-weight: 500;
-  }
+  .hero-body strong { color: var(--ink); font-weight: 600; }
 
   .hero-actions {
     display: flex;
-    gap: 20px;
+    gap: 16px;
     align-items: center;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.8s forwards;
     flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--navy);
-    background: var(--gold);
-    padding: 18px 48px;
-    text-decoration: none;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .btn-primary::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--gold-light);
-    transform: translateX(-100%);
-    transition: transform 0.3s;
-  }
-
-  .btn-primary:hover::after { transform: translateX(0); }
-  .btn-primary span { position: relative; z-index: 1; }
-
-  .btn-ghost {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-light);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: color 0.3s;
-    border-bottom: 1px solid transparent;
-    padding-bottom: 2px;
-  }
-
-  .btn-ghost:hover {
-    color: var(--gold);
-    border-bottom-color: var(--gold);
-  }
-
-  .hero-stat-bar {
-    position: absolute;
-    bottom: 48px;
-    right: 48px;
-    display: flex;
-    gap: 48px;
     opacity: 0;
-    animation: fadeUp 0.8s 1s forwards;
+    animation: fadeUp .7s .5s forwards;
   }
 
-  .hero-stat {
-    text-align: right;
+  .hero-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 64px;
+    padding-top: 28px;
+    border-top: 1px solid var(--line);
+    opacity: 0;
+    animation: fadeUp .7s .65s forwards;
   }
 
-  .hero-stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 36px;
-    font-weight: 600;
-    color: var(--gold);
+  .hero-stat-val {
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: 28px;
+    letter-spacing: -.01em;
+    color: var(--forest);
     line-height: 1;
     display: block;
+    margin-bottom: 4px;
   }
 
   .hero-stat-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: .14em;
     text-transform: uppercase;
-    color: var(--text-mid);
-    display: block;
-    margin-top: 4px;
+    color: var(--ink-soft);
   }
 
   /* ── MARQUEE ── */
   .marquee-wrap {
-    border-top: 1px solid rgba(201, 168, 76, 0.2);
-    border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
     overflow: hidden;
-    background: rgba(201, 168, 76, 0.04);
-    padding: 16px 0;
+    background: var(--card);
+    padding: 14px 0;
   }
 
   .marquee-track {
     display: flex;
-    gap: 0;
-    animation: marquee 30s linear infinite;
+    animation: marquee 32s linear infinite;
     white-space: nowrap;
   }
 
   .marquee-item {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.25em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .18em;
     text-transform: uppercase;
-    color: var(--gold-dim);
-    padding: 0 48px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .marquee-item::after {
-    content: '◆';
-    color: var(--gold);
-    font-size: 8px;
-  }
-
-  /* ── PHILOSOPHY ── */
-  .philosophy {
-    padding: 120px 48px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .philosophy-left {}
-
-  .section-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 24px;
+    color: var(--ink-soft);
+    padding: 0 36px;
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .m-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--green);
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  /* ── SHARED ── */
+  .wrap       { max-width: 1160px; margin: 0 auto; }
+  .section    { padding: 100px 40px; max-width: 1160px; margin: 0 auto; }
+  .section-bg { padding: 100px 40px; }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   .section-label::before {
     content: '';
-    display: inline-block;
-    width: 24px;
+    display: block;
+    width: 20px;
     height: 1px;
-    background: var(--gold);
+    background: var(--green);
+    flex-shrink: 0;
   }
+
+  .section-label.center { justify-content: center; }
 
   .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(36px, 4vw, 56px);
-    font-weight: 300;
-    line-height: 1.15;
-    color: var(--cream);
-    margin-bottom: 32px;
-  }
-
-  .section-title em {
-    font-style: italic;
-    color: var(--gold);
+    font-family: 'Hedvig Letters Serif', Georgia, serif;
+    font-size: clamp(30px, 4vw, 50px);
+    line-height: 1.1;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    margin-bottom: 22px;
   }
 
   .section-body {
-    font-size: 16px;
-    line-height: 1.9;
-    color: var(--text-light);
-    margin-bottom: 24px;
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+    max-width: 540px;
   }
 
-  .section-body strong { color: var(--cream); font-weight: 500; }
+  .section-body strong { color: var(--ink); font-weight: 600; }
 
-  .philosophy-right {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+  /* ── PHILOSOPHY ── */
+  .philosophy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: start;
   }
 
   .principle {
-    padding: 28px 0;
-    border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
     display: grid;
-    grid-template-columns: 48px 1fr;
-    gap: 20px;
+    grid-template-columns: 38px 1fr;
+    gap: 14px;
     align-items: start;
-    transition: background 0.3s;
-    cursor: default;
   }
 
-  .principle:first-child { border-top: 1px solid rgba(201, 168, 76, 0.12); }
-
-  .principle:hover .principle-num { color: var(--gold-light); }
+  .principle:first-child { border-top: 1px solid var(--line); }
 
   .principle-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 300;
-    color: var(--gold-dim);
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: 22px;
+    letter-spacing: -.01em;
+    color: rgba(30,32,25,.16);
     line-height: 1.2;
-    transition: color 0.3s;
   }
 
-  .principle-text {}
-
   .principle-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.15em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .12em;
     text-transform: uppercase;
-    color: var(--cream);
-    margin-bottom: 6px;
+    color: var(--ink);
+    margin-bottom: 5px;
+    font-weight: 500;
   }
 
   .principle-desc {
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--text-mid);
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--ink-soft);
   }
 
-  /* ── AUDIT PROCESS ── */
-  .audit-section {
-    padding: 120px 48px;
-    background: rgba(21, 35, 53, 0.5);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .audit-section::before {
-    content: 'AUDIT';
-    position: absolute;
-    right: -40px;
-    top: 50%;
-    transform: translateY(-50%) rotate(90deg);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 160px;
-    font-weight: 700;
-    color: rgba(201, 168, 76, 0.04);
-    letter-spacing: 0.1em;
-    pointer-events: none;
-    white-space: nowrap;
-  }
-
-  .audit-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+  /* ── AUDIT ── */
+  .audit-bg { background: var(--card); }
 
   .audit-header {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    margin-bottom: 80px;
+    gap: 72px;
     align-items: end;
+    margin-bottom: 48px;
   }
 
-  .audit-steps {
+  .steps-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 2px;
+    gap: 3px;
   }
 
   .step {
-    background: var(--navy-mid);
-    padding: 32px 24px;
+    background: var(--base);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px 20px;
     position: relative;
     overflow: hidden;
-    transition: background 0.3s;
-    cursor: default;
+    transition: box-shadow .25s;
   }
 
-  .step:hover { background: var(--navy-light); }
+  .step:hover { box-shadow: 0 14px 30px -16px rgba(30,32,25,.2); }
 
-  .step::before {
-    content: '';
+  .step-bar {
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--gold);
+    height: 3px;
+    background: var(--green);
+    border-radius: 16px 16px 0 0;
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.4s;
+    transition: transform .35s ease;
   }
 
-  .step:hover::before { transform: scaleX(1); }
+  .step:hover .step-bar { transform: scaleX(1); }
 
   .step-num {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--gold-dim);
-    margin-bottom: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
     display: block;
   }
 
   .step-name {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Hedvig Letters Serif', serif;
     font-size: 22px;
-    font-weight: 600;
-    color: var(--cream);
-    margin-bottom: 12px;
-    line-height: 1.2;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.1;
   }
 
   .step-desc {
-    font-size: 13px;
-    line-height: 1.7;
-    color: var(--text-mid);
+    font-size: 12.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
   }
 
   /* ── PRICING ── */
-  .pricing-section {
-    padding: 120px 48px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .pricing-header {
-    text-align: center;
-    margin-bottom: 72px;
-  }
-
   .pricing-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
+    gap: 16px;
+    margin-top: 52px;
   }
 
   .pricing-card {
-    background: var(--navy-mid);
-    padding: 48px 36px;
+    background: var(--card);
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    padding: 36px 28px;
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s;
+    box-shadow: 0 14px 30px -20px rgba(30,32,25,.15);
+    transition: transform .25s, box-shadow .25s;
   }
 
-  .pricing-card:hover { transform: translateY(-4px); }
+  .pricing-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 22px 44px -20px rgba(30,32,25,.2);
+  }
 
   .pricing-card.featured {
-    background: var(--navy-light);
-    border: 1px solid rgba(201, 168, 76, 0.3);
+    border-color: var(--green);
+    border-width: 1.5px;
   }
 
-  .pricing-card.featured::after {
-    content: 'MOST POPULAR';
+  .pricing-card.featured::before {
+    content: '';
     position: absolute;
-    top: 20px; right: -30px;
-    background: var(--gold);
-    color: var(--navy);
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    padding: 6px 48px;
-    transform: rotate(45deg);
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--green);
+    border-radius: 18px 18px 0 0;
   }
 
-  .tier-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.3em;
+  .tier-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .16em;
     text-transform: uppercase;
-    color: var(--gold-dim);
-    margin-bottom: 16px;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
   }
+
+  .pricing-card.featured .tier-badge { color: var(--green); }
 
   .tier-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 40px;
-    font-weight: 300;
-    color: var(--cream);
-    margin-bottom: 8px;
-    line-height: 1;
-  }
-
-  .tier-price {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 64px;
-    font-weight: 600;
-    color: var(--gold);
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: 30px;
+    letter-spacing: -.01em;
+    color: var(--ink);
     line-height: 1;
     margin-bottom: 4px;
   }
 
-  .tier-price span {
-    font-family: 'Outfit', sans-serif;
-    font-size: 16px;
-    font-weight: 300;
-    color: var(--text-mid);
+  .tier-price {
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: 50px;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+
+  .tier-price sub {
+    font-family: 'Figtree', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink-soft);
+    vertical-align: baseline;
+    letter-spacing: 0;
   }
 
   .tier-desc {
-    font-size: 14px;
-    color: var(--text-mid);
-    margin-bottom: 32px;
+    font-size: 13px;
+    color: var(--ink-soft);
     line-height: 1.6;
-    padding-bottom: 32px;
-    border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 18px;
   }
 
   .tier-features {
     list-style: none;
-    margin-bottom: 40px;
+    margin-bottom: 26px;
   }
 
   .tier-features li {
-    font-size: 14px;
-    color: var(--text-light);
-    padding: 9px 0;
+    font-size: 13px;
+    color: var(--ink-soft);
+    padding: 8px 0;
     display: flex;
+    gap: 10px;
     align-items: flex-start;
-    gap: 12px;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid var(--line);
     line-height: 1.5;
   }
 
-  .tier-features li::before {
-    content: '→';
-    color: var(--gold);
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
+  .tier-features li:last-child { border-bottom: none; }
 
-  .btn-tier {
-    display: block;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    text-align: center;
-    padding: 16px;
-    text-decoration: none;
-    transition: all 0.3s;
-  }
+  .check { color: var(--green); font-size: 13px; flex-shrink: 0; font-weight: 700; margin-top: 1px; }
 
-  .btn-tier-outline {
-    border: 1px solid rgba(201, 168, 76, 0.4);
-    color: var(--gold);
-  }
-
-  .btn-tier-outline:hover {
-    background: rgba(201, 168, 76, 0.1);
-    border-color: var(--gold);
-  }
-
-  .btn-tier-filled {
-    background: var(--gold);
-    color: var(--navy);
-  }
-
-  .btn-tier-filled:hover { background: var(--gold-light); }
-
-  /* ── FOUNDER SECTION ── */
-  .founder-section {
-    padding: 120px 48px;
-    background: rgba(21, 35, 53, 0.4);
-  }
-
-  .founder-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-
-  .founder-credentials {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 40px;
-  }
-
-  .credential {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px 20px;
-    background: rgba(201, 168, 76, 0.06);
-    border-left: 2px solid var(--gold);
-  }
-
-  .credential-icon {
-    font-family: 'DM Mono', monospace;
-    font-size: 18px;
-    color: var(--gold);
-    width: 32px;
-    text-align: center;
-  }
-
-  .credential-text {
-    font-size: 14px;
-    color: var(--text-light);
-    line-height: 1.5;
-  }
-
-  .credential-text strong {
-    display: block;
-    color: var(--cream);
-    font-weight: 500;
-    margin-bottom: 2px;
-  }
-
-  .founder-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(28px, 3vw, 42px);
-    font-weight: 300;
-    font-style: italic;
-    line-height: 1.4;
-    color: var(--cream);
-    margin-bottom: 24px;
-  }
-
-  .founder-quote em { color: var(--gold); }
-
-  /* ── PAYMENT SECTION ── */
-  .payment-section {
-    padding: 80px 48px;
-    border-top: 1px solid rgba(201, 168, 76, 0.1);
-    border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+  /* ── PAYMENT ── */
+  .payment-wrap {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--card);
+    padding: 56px 40px;
   }
 
   .payment-inner {
-    max-width: 1200px;
+    max-width: 1160px;
     margin: 0 auto;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    gap: 40px;
+    gap: 32px;
     flex-wrap: wrap;
   }
 
   .payment-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.3em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: .16em;
     text-transform: uppercase;
-    color: var(--text-mid);
-    margin-bottom: 16px;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
   }
 
-  .payment-methods {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
+  .payment-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .pay-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .08em;
+    color: var(--ink-soft);
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--base);
+  }
+
+  /* ── FOUNDER ── */
+  .founder-bg { background: var(--forest); }
+
+  .founder-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
     align-items: center;
   }
 
-  .pay-badge {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--text-light);
-    padding: 8px 16px;
-    border: 1px solid rgba(201, 168, 76, 0.2);
-    background: rgba(201, 168, 76, 0.04);
+  .founder-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(243,238,224,.45);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .founder-label::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: rgba(243,238,224,.35);
+    flex-shrink: 0;
+  }
+
+  .founder-quote {
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: clamp(24px, 3vw, 36px);
+    line-height: 1.35;
+    letter-spacing: -.01em;
+    color: var(--ivory);
+    margin-bottom: 18px;
+    font-style: italic;
+  }
+
+  .founder-sub {
+    font-size: 14px;
+    line-height: 1.75;
+    color: rgba(243,238,224,.6);
+  }
+
+  .credentials { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+
+  .credential {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 16px;
+    background: rgba(243,238,224,.07);
+    border-left: 2px solid var(--green);
+    border-radius: 0 10px 10px 0;
+  }
+
+  .cred-icon { color: var(--green); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  .cred-title {
+    font-family: 'Figtree', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ivory);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .cred-sub { font-size: 12px; color: rgba(243,238,224,.5); line-height: 1.5; }
+
+  .diff-box {
+    background: rgba(243,238,224,.06);
+    border: 1px solid rgba(243,238,224,.12);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .diff-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 14px;
+    margin-bottom: 18px;
+  }
+
+  .diff-col { padding: 14px; border-radius: 10px; background: rgba(243,238,224,.05); }
+
+  .diff-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  .diff-lbl.others { color: rgba(243,238,224,.28); }
+  .diff-lbl.ndo    { color: var(--green); }
+
+  .diff-copy        { font-size: 12.5px; color: rgba(243,238,224,.55); line-height: 1.6; }
+  .diff-copy.ndo    { color: rgba(243,238,224,.85); }
+
+  .diff-footer {
+    font-size: 12.5px;
+    color: rgba(243,238,224,.45);
+    line-height: 1.75;
+    border-top: 1px solid rgba(243,238,224,.1);
+    padding-top: 16px;
   }
 
   /* ── FAQ ── */
-  .faq-section {
-    padding: 120px 48px;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .faq-item {
-    border-bottom: 1px solid rgba(201, 168, 76, 0.12);
-  }
+  .faq-item { border-bottom: 1px solid var(--line); }
 
   .faq-q {
-    font-family: 'Outfit', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--cream);
-    padding: 28px 0;
+    font-family: 'Figtree', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 22px 0;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
     user-select: none;
-    transition: color 0.3s;
+    transition: color .2s;
   }
 
-  .faq-q:hover { color: var(--gold); }
+  .faq-q:hover { color: var(--green); }
 
-  .faq-q .toggle {
-    font-family: 'DM Mono', monospace;
-    font-size: 20px;
-    color: var(--gold);
+  .faq-toggle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    color: var(--green);
     flex-shrink: 0;
-    transition: transform 0.3s;
+    transition: transform .25s;
+    line-height: 1;
   }
 
   .faq-a {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.8;
-    color: var(--text-light);
+    color: var(--ink-soft);
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.3s;
+    transition: max-height .35s ease, padding .25s;
     padding-bottom: 0;
   }
 
-  .faq-a.open {
-    max-height: 300px;
-    padding-bottom: 28px;
-  }
-
-  .faq-q.active .toggle { transform: rotate(45deg); }
+  .faq-a.open     { max-height: 300px; padding-bottom: 22px; }
+  .faq-q.active .faq-toggle { transform: rotate(45deg); }
 
   /* ── CTA BANNER ── */
   .cta-banner {
-    padding: 120px 48px;
+    background: var(--forest);
+    padding: 100px 40px;
     text-align: center;
-    position: relative;
-    overflow: hidden;
   }
 
-  .cta-banner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(201, 168, 76, 0.08) 0%, transparent 70%);
+  .cta-title {
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: clamp(38px, 6vw, 70px);
+    line-height: 1.08;
+    letter-spacing: -.015em;
+    color: var(--ivory);
+    margin-bottom: 18px;
   }
 
-  .cta-banner-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(42px, 6vw, 80px);
-    font-weight: 300;
-    line-height: 1.1;
-    color: var(--cream);
-    margin-bottom: 24px;
-    position: relative;
-  }
-
-  .cta-banner-title em { font-style: italic; color: var(--gold); }
-
-  .cta-banner-sub {
+  .cta-sub {
     font-size: 16px;
-    color: var(--text-light);
-    margin-bottom: 48px;
-    position: relative;
-    max-width: 560px;
+    color: rgba(243,238,224,.6);
+    margin-bottom: 44px;
+    max-width: 500px;
     margin-left: auto;
     margin-right: auto;
     line-height: 1.7;
   }
 
-  .cta-banner .btn-primary {
-    position: relative;
-    font-size: 13px;
-    padding: 20px 60px;
-  }
-
   /* ── FOOTER ── */
   footer {
-    padding: 48px;
-    border-top: 1px solid rgba(201, 168, 76, 0.1);
+    background: var(--ink);
+    padding: 36px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 24px;
+    gap: 20px;
     flex-wrap: wrap;
   }
 
-  .footer-logo {
-    font-family: 'DM Mono', monospace;
-    font-size: 18px;
-    letter-spacing: 0.3em;
-    color: var(--gold);
+  .footer-logo img { height: 22px; display: block; }
+  .footer-logo-text {
+    font-family: 'Hedvig Letters Serif', serif;
+    font-size: 20px;
+    letter-spacing: -.01em;
+    color: var(--ivory);
   }
 
-  .footer-text {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--text-mid);
+  .footer-copy {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: .12em;
     text-transform: uppercase;
+    color: rgba(243,238,224,.3);
   }
+
+  .footer-links { display: flex; gap: 20px; }
+
+  .footer-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(243,238,224,.3);
+    text-decoration: none;
+    transition: color .2s;
+  }
+
+  .footer-links a:hover { color: var(--green); }
 
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   @keyframes marquee {
     from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    to   { transform: translateX(-50%); }
   }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    nav { padding: 16px 24px; }
+    nav { padding: 12px 20px; }
     .nav-links { display: none; }
-    .hero { padding: 100px 24px 80px; }
-    .hero-stat-bar { position: static; margin-top: 48px; justify-content: flex-start; }
-    .philosophy { grid-template-columns: 1fr; gap: 60px; padding: 80px 24px; }
-    .audit-section { padding: 80px 24px; }
-    .audit-header { grid-template-columns: 1fr; gap: 40px; }
-    .audit-steps { grid-template-columns: 1fr 1fr; gap: 2px; }
-    .pricing-section { padding: 80px 24px; }
-    .pricing-grid { grid-template-columns: 1fr; }
-    .founder-inner { grid-template-columns: 1fr; gap: 40px; padding: 80px 24px; }
-    .founder-section { padding: 0; }
-    .faq-section { padding: 80px 24px; }
-    .cta-banner { padding: 80px 24px; }
-    footer { padding: 32px 24px; }
-    .payment-inner { flex-direction: column; align-items: flex-start; }
-    .payment-section { padding: 60px 24px; }
+    .hero { padding: 96px 20px 56px; }
+    .hero-stats { gap: 24px; }
+    .section { padding: 72px 20px; }
+    .section-bg { padding: 72px 20px; }
+    .philosophy-grid { grid-template-columns: 1fr; gap: 48px; }
+    .audit-header { grid-template-columns: 1fr; gap: 28px; }
+    .steps-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .steps-grid .step:last-child { grid-column: 1 / -1; }
+    .pricing-grid { grid-template-columns: 1fr; gap: 14px; }
+    .founder-grid { grid-template-columns: 1fr; gap: 48px; }
+    .payment-wrap { padding: 44px 20px; }
+    .payment-inner { flex-direction: column; }
+    .cta-banner { padding: 72px 20px; }
+    footer { padding: 28px 20px; flex-direction: column; align-items: flex-start; gap: 14px; }
   }
 </style>
 </head>
@@ -924,46 +822,47 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">NDO</div>
+  <a href="/" class="nav-logo">
+    <img src="assets/NDO Logo green.png" alt="NDO"
+         onerror="this.style.display='none';document.getElementById('nav-logo-fb').style.display='block'">
+    <span id="nav-logo-fb" class="nav-logo-text" style="display:none">NDO</span>
+  </a>
   <ul class="nav-links">
     <li><a href="#methodology">Methodology</a></li>
     <li><a href="#audit">The Audit</a></li>
     <li><a href="#pricing">Membership</a></li>
     <li><a href="#founder">About</a></li>
   </ul>
-  <a href="#pricing" class="nav-cta"><span>Join NDO</span></a>
+  <a href="#pricing" class="btn btn-primary"><span>Join NDO</span></a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
+  <div class="hero-bg-mark">NDO</div>
   <div class="hero-content">
-    <div class="hero-eyebrow">NDO Wellness Intelligence</div>
-    <h1 class="hero-headline">
-      Don't go to<br>a <em>Blue Zone</em>.<br>Design your own.
-    </h1>
-    <p class="hero-subhead">Your health is the highest-returning asset you own.</p>
+    <div class="eyebrow">NDO Wellness Intelligence · Membership</div>
+    <h1 class="hero-headline">Don't go to a Blue Zone.<br>Design your own.</h1>
+    <div class="hero-delta">▲ Every action is a deposit into longevity</div>
     <p class="hero-body">
-      High performers obsess over business strategy, investment returns, and compounding growth — yet most never <strong>audit the single asset that makes everything else possible</strong>. NDO is the membership for people who treat their health the way they treat their portfolio: with data, intention, and a long-term architecture.
+      High performers obsess over business strategy, investment returns, and compounding growth — yet most never <strong>audit the single asset that makes everything else possible.</strong> NDO is the membership for people who treat their health the way they treat their portfolio: with data, intention, and a long-term architecture.
     </p>
     <div class="hero-actions">
-      <a href="#pricing" class="btn-primary"><span>Apply for Membership →</span></a>
-      <a href="#audit" class="btn-ghost">See how the audit works ↓</a>
+      <a href="#pricing" class="btn btn-primary btn-lg"><span>Apply for Membership →</span></a>
+      <a href="#audit"   class="btn btn-ghost   btn-lg"><span>See how the audit works ↓</span></a>
     </div>
-  </div>
-  <div class="hero-stat-bar">
-    <div class="hero-stat">
-      <span class="hero-stat-num">CPT</span>
-      <span class="hero-stat-label">Certified Personal Trainer</span>
-    </div>
-    <div class="hero-stat">
-      <span class="hero-stat-num">CNC</span>
-      <span class="hero-stat-label">Certified Nutrition Coach</span>
-    </div>
-    <div class="hero-stat">
-      <span class="hero-stat-num">5</span>
-      <span class="hero-stat-label">Blue Zone Principles</span>
+    <div class="hero-stats">
+      <div>
+        <span class="hero-stat-val">CPT</span>
+        <span class="hero-stat-label">Certified Personal Trainer</span>
+      </div>
+      <div>
+        <span class="hero-stat-val">CNC</span>
+        <span class="hero-stat-label">Certified Nutrition Coach</span>
+      </div>
+      <div>
+        <span class="hero-stat-val">5</span>
+        <span class="hero-stat-label">Blue Zone Pillars</span>
+      </div>
     </div>
   </div>
 </section>
@@ -971,108 +870,113 @@
 <!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track">
-    <span class="marquee-item">Fitness Audit</span>
-    <span class="marquee-item">Nutritional Blueprint</span>
-    <span class="marquee-item">Recovery Architecture</span>
-    <span class="marquee-item">Blue Zone Design</span>
-    <span class="marquee-item">Longevity as ROI</span>
-    <span class="marquee-item">Rest Days are Recovery Days</span>
-    <span class="marquee-item">Health is Wealth</span>
-    <span class="marquee-item">Fitness Audit</span>
-    <span class="marquee-item">Nutritional Blueprint</span>
-    <span class="marquee-item">Recovery Architecture</span>
-    <span class="marquee-item">Blue Zone Design</span>
-    <span class="marquee-item">Longevity as ROI</span>
-    <span class="marquee-item">Rest Days are Recovery Days</span>
-    <span class="marquee-item">Health is Wealth</span>
+    <span class="marquee-item"><span class="m-dot"></span>Fitness Audit</span>
+    <span class="marquee-item"><span class="m-dot"></span>Nutritional Blueprint</span>
+    <span class="marquee-item"><span class="m-dot"></span>Recovery Architecture</span>
+    <span class="marquee-item"><span class="m-dot"></span>Blue Zone Design</span>
+    <span class="marquee-item"><span class="m-dot"></span>Longevity as ROI</span>
+    <span class="marquee-item"><span class="m-dot"></span>Rest Days are Recovery Days</span>
+    <span class="marquee-item"><span class="m-dot"></span>Health is Wealth</span>
+    <span class="marquee-item"><span class="m-dot"></span>Fitness Audit</span>
+    <span class="marquee-item"><span class="m-dot"></span>Nutritional Blueprint</span>
+    <span class="marquee-item"><span class="m-dot"></span>Recovery Architecture</span>
+    <span class="marquee-item"><span class="m-dot"></span>Blue Zone Design</span>
+    <span class="marquee-item"><span class="m-dot"></span>Longevity as ROI</span>
+    <span class="marquee-item"><span class="m-dot"></span>Rest Days are Recovery Days</span>
+    <span class="marquee-item"><span class="m-dot"></span>Health is Wealth</span>
   </div>
 </div>
 
 <!-- PHILOSOPHY -->
-<section class="philosophy" id="methodology">
-  <div class="philosophy-left">
-    <div class="section-label">The NDO Mindset</div>
-    <h2 class="section-title">Every action toward your health is a <em>deposit into longevity.</em></h2>
-    <p class="section-body">
-      Most health programs are transactional. You follow the plan, you stop, the results disappear. NDO is different — it's an <strong>architecture practice</strong>. We audit where you are, design where you're going, and build the daily systems that compound over decades.
-    </p>
-    <p class="section-body">
-      Wherever you live, you can design the conditions for a longer, stronger life. You don't need Sardinia. You need a Blueprint.
-    </p>
-  </div>
-  <div class="philosophy-right">
-    <div class="principle">
-      <div class="principle-num">01</div>
-      <div class="principle-text">
-        <div class="principle-title">Audit Before Prescription</div>
-        <div class="principle-desc">We don't guess. Your fitness and nutrition data tell us exactly where the inefficiencies are — and precisely where to invest.</div>
+<section id="methodology">
+  <div class="section">
+    <div class="philosophy-grid">
+      <div>
+        <div class="section-label">The NDO Mindset</div>
+        <h2 class="section-title">Every action toward your health is a deposit into longevity.</h2>
+        <p class="section-body">Most health programs are transactional. You follow the plan, you stop, the results disappear. NDO is different — it's an <strong>architecture practice</strong>. We audit where you are, design where you're going, and build the daily systems that compound over decades.</p>
+        <p class="section-body">Wherever you live, you can design the conditions for a longer, stronger life. You don't need Sardinia. You need a Blueprint.</p>
       </div>
-    </div>
-    <div class="principle">
-      <div class="principle-num">02</div>
-      <div class="principle-text">
-        <div class="principle-title">Recovery Days Are Not Off Days</div>
-        <div class="principle-desc">Rest requires the same intentionality as training. Sleep, nutrition, mobility, and mental reset are active deposits — not pauses.</div>
-      </div>
-    </div>
-    <div class="principle">
-      <div class="principle-num">03</div>
-      <div class="principle-text">
-        <div class="principle-title">Health Is Compounding Wealth</div>
-        <div class="principle-desc">Every disciplined choice compounds biologically. The return on a 20-year health investment dwarfs any financial instrument.</div>
-      </div>
-    </div>
-    <div class="principle">
-      <div class="principle-num">04</div>
-      <div class="principle-text">
-        <div class="principle-title">Design, Don't React</div>
-        <div class="principle-desc">Blue Zones don't happen by accident. We architect the conditions for longevity into your daily environment — wherever you are.</div>
-      </div>
-    </div>
-    <div class="principle">
-      <div class="principle-num">05</div>
-      <div class="principle-text">
-        <div class="principle-title">Consistency Over Perfection</div>
-        <div class="principle-desc">80% consistency over years outperforms 100% intensity for weeks. We build systems built to last decades, not sprints.</div>
+      <div>
+        <div class="principle">
+          <div class="principle-num">01</div>
+          <div>
+            <div class="principle-title">Audit Before Prescription</div>
+            <div class="principle-desc">We don't guess. Your fitness and nutrition data tell us exactly where the inefficiencies are — and precisely where to invest.</div>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">02</div>
+          <div>
+            <div class="principle-title">Recovery Days Are Not Off Days</div>
+            <div class="principle-desc">Rest requires the same intentionality as training. Sleep, nutrition, mobility, and mental reset are active deposits — not pauses.</div>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">03</div>
+          <div>
+            <div class="principle-title">Health Is Compounding Wealth</div>
+            <div class="principle-desc">Every disciplined choice compounds biologically. The return on a 20-year health investment dwarfs any financial instrument.</div>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">04</div>
+          <div>
+            <div class="principle-title">Design, Don't React</div>
+            <div class="principle-desc">Blue Zones don't happen by accident. We architect the conditions for longevity into your daily environment — wherever you are.</div>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">05</div>
+          <div>
+            <div class="principle-title">Consistency Over Perfection</div>
+            <div class="principle-desc">80% consistency over years outperforms 100% intensity for weeks. We build systems built to last decades, not sprints.</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- AUDIT PROCESS -->
-<section class="audit-section" id="audit">
-  <div class="audit-inner">
+<section id="audit" class="audit-bg">
+  <div class="section">
     <div class="audit-header">
       <div>
         <div class="section-label">The NDO Blueprint Process</div>
-        <h2 class="section-title">A <em>diagnostic-first</em> approach to designing your longevity.</h2>
+        <h2 class="section-title">A diagnostic-first approach to designing your longevity.</h2>
       </div>
       <div>
         <p class="section-body">Most coaches start with a plan. We start with data. The NDO Audit establishes your exact baseline across fitness, nutrition, recovery, and lifestyle — then builds your personal Blueprint from there.</p>
       </div>
     </div>
-    <div class="audit-steps">
+    <div class="steps-grid">
       <div class="step">
+        <div class="step-bar"></div>
         <span class="step-num">01 ——</span>
         <div class="step-name">Audit</div>
         <div class="step-desc">Physical fitness assessment and nutritional analysis. Where are you today, precisely?</div>
       </div>
       <div class="step">
+        <div class="step-bar"></div>
         <span class="step-num">02 ——</span>
         <div class="step-name">Map</div>
-        <div class="step-desc">Identify your current environment's Blue Zone gaps across movement, nutrition, stress, community, and purpose.</div>
+        <div class="step-desc">Identify your environment's Blue Zone gaps across movement, nutrition, stress, community, and purpose.</div>
       </div>
       <div class="step">
+        <div class="step-bar"></div>
         <span class="step-num">03 ——</span>
         <div class="step-name">Design</div>
         <div class="step-desc">Build your personal NDO Blueprint — a longevity architecture document unique to your life and goals.</div>
       </div>
       <div class="step">
+        <div class="step-bar"></div>
         <span class="step-num">04 ——</span>
         <div class="step-name">Build</div>
         <div class="step-desc">Execute with NDO community accountability, weekly protocols, and expert guidance every step.</div>
       </div>
       <div class="step">
+        <div class="step-bar"></div>
         <span class="step-num">05 ——</span>
         <div class="step-name">Refine</div>
         <div class="step-desc">Monthly re-audit measures biological progress against your longevity markers. The Blueprint evolves with you.</div>
@@ -1082,71 +986,73 @@
 </section>
 
 <!-- PRICING -->
-<section class="pricing-section" id="pricing">
-  <div class="pricing-header">
-    <div class="section-label" style="justify-content:center">Membership</div>
-    <h2 class="section-title" style="text-align:center">Choose your <em>architecture level.</em></h2>
+<section id="pricing">
+  <div class="section">
+    <div style="text-align:center">
+      <div class="section-label center">Membership</div>
+      <h2 class="section-title" style="text-align:center">Choose your architecture level.</h2>
+    </div>
+    <div class="pricing-grid">
+
+      <div class="pricing-card">
+        <div class="tier-badge">Tier 01</div>
+        <div class="tier-name">Ignite</div>
+        <div class="tier-price">$97<sub>/mo</sub></div>
+        <div class="tier-desc">Begin the practice. Build the foundation.</div>
+        <ul class="tier-features">
+          <li><span class="check">✓</span> Full NDO community access on Skool</li>
+          <li><span class="check">✓</span> Weekly group coaching call</li>
+          <li><span class="check">✓</span> NDO methodology content library</li>
+          <li><span class="check">✓</span> Recovery day protocols + guides</li>
+          <li><span class="check">✓</span> Blue Zone principles curriculum</li>
+          <li><span class="check">✓</span> NDO app access (fitness + nutrition)</li>
+        </ul>
+        <a href="#" class="btn btn-outline btn-block"><span>Join Ignite</span></a>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="tier-badge">Tier 02 · Most Popular</div>
+        <div class="tier-name">Build</div>
+        <div class="tier-price">$197<sub>/mo</sub></div>
+        <div class="tier-desc">Personalized audits. Your Blueprint begins.</div>
+        <ul class="tier-features">
+          <li><span class="check">✓</span> Everything in Ignite</li>
+          <li><span class="check">✓</span> 1 personal fitness audit per month</li>
+          <li><span class="check">✓</span> Monthly nutritional check-in + analysis</li>
+          <li><span class="check">✓</span> Blue Zone Design blueprint session</li>
+          <li><span class="check">✓</span> Priority community support</li>
+          <li><span class="check">✓</span> NDO app — full unlock</li>
+        </ul>
+        <a href="#" class="btn btn-primary btn-block"><span>Join Build</span></a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="tier-badge">Tier 03</div>
+        <div class="tier-name">Architect</div>
+        <div class="tier-price">$497<sub>/mo</sub></div>
+        <div class="tier-desc">For those who leave nothing to chance.</div>
+        <ul class="tier-features">
+          <li><span class="check">✓</span> Everything in Build</li>
+          <li><span class="check">✓</span> Bi-weekly 1:1 coaching sessions</li>
+          <li><span class="check">✓</span> Custom Blue Zone Design plan</li>
+          <li><span class="check">✓</span> Direct access (text/voice)</li>
+          <li><span class="check">✓</span> Founding Member status + recognition</li>
+          <li><span class="check">✓</span> Early access to retreats + cohorts</li>
+        </ul>
+        <a href="#" class="btn btn-outline btn-block"><span>Join Architect</span></a>
+      </div>
+
+    </div>
+    <p style="text-align:center;margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)">Annual plans available — 2 months free · All memberships cancel anytime</p>
   </div>
-  <div class="pricing-grid">
-
-    <div class="pricing-card">
-      <div class="tier-label">Tier 01</div>
-      <div class="tier-name">Ignite</div>
-      <div class="tier-price">$97<span>/mo</span></div>
-      <div class="tier-desc">Begin the practice. Build the foundation.</div>
-      <ul class="tier-features">
-        <li>Full NDO community access on Skool</li>
-        <li>Weekly group coaching call</li>
-        <li>NDO methodology content library</li>
-        <li>Recovery day protocols + guides</li>
-        <li>Blue Zone principles curriculum</li>
-        <li>NDO app access (fitness + nutrition)</li>
-      </ul>
-      <a href="#" class="btn-tier btn-tier-outline">Join Ignite</a>
-    </div>
-
-    <div class="pricing-card featured">
-      <div class="tier-label">Tier 02</div>
-      <div class="tier-name">Build</div>
-      <div class="tier-price">$197<span>/mo</span></div>
-      <div class="tier-desc">Personalized audits. Your Blueprint begins.</div>
-      <ul class="tier-features">
-        <li>Everything in Ignite</li>
-        <li>1 personal fitness audit per month</li>
-        <li>Monthly nutritional check-in + analysis</li>
-        <li>Blue Zone Design blueprint session</li>
-        <li>Priority community support</li>
-        <li>NDO app — full unlock</li>
-      </ul>
-      <a href="#" class="btn-tier btn-tier-filled">Join Build</a>
-    </div>
-
-    <div class="pricing-card">
-      <div class="tier-label">Tier 03</div>
-      <div class="tier-name">Architect</div>
-      <div class="tier-price">$497<span>/mo</span></div>
-      <div class="tier-desc">For those who leave nothing to chance.</div>
-      <ul class="tier-features">
-        <li>Everything in Build</li>
-        <li>Bi-weekly 1:1 coaching sessions</li>
-        <li>Custom Blue Zone Design plan</li>
-        <li>Direct access (text/voice)</li>
-        <li>Founding Member status + recognition</li>
-        <li>Early access to retreats + cohorts</li>
-      </ul>
-      <a href="#" class="btn-tier btn-tier-outline">Join Architect</a>
-    </div>
-
-  </div>
-  <p style="text-align:center; margin-top:32px; font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.15em; color:var(--text-mid);">Annual plans available — 2 months free. All memberships cancel anytime.</p>
 </section>
 
 <!-- PAYMENT -->
-<div class="payment-section">
+<div class="payment-wrap">
   <div class="payment-inner">
     <div>
       <div class="payment-label">Accepted Payment Methods</div>
-      <div class="payment-methods">
+      <div class="payment-badges">
         <span class="pay-badge">Visa / Mastercard</span>
         <span class="pay-badge">Apple Pay</span>
         <span class="pay-badge">Google Pay</span>
@@ -1157,9 +1063,9 @@
         <span class="pay-badge">PayPal</span>
       </div>
     </div>
-    <div style="text-align:right">
-      <div class="payment-label">Security & Trust</div>
-      <div class="payment-methods" style="justify-content:flex-end">
+    <div>
+      <div class="payment-label">Security &amp; Trust</div>
+      <div class="payment-badges">
         <span class="pay-badge">SSL Encrypted</span>
         <span class="pay-badge">Cancel Anytime</span>
         <span class="pay-badge">Stripe Secured</span>
@@ -1169,53 +1075,51 @@
 </div>
 
 <!-- FOUNDER -->
-<section class="founder-section" id="founder">
-  <div class="founder-inner">
-    <div>
-      <div class="section-label">About the Founder</div>
-      <div class="founder-quote">
-        "I built NDO because I needed it. <em>The audit I couldn't find anywhere else</em> — so I became certified to build it."
+<section id="founder" class="founder-bg">
+  <div class="section">
+    <div class="founder-grid">
+      <div>
+        <div class="founder-label">About the Founder</div>
+        <div class="founder-quote">"I built NDO because I needed it. The audit I couldn't find anywhere else — so I became certified to build it."</div>
+        <p class="founder-sub">NDO was born from a simple belief: that high performers who apply rigorous systems thinking to their businesses should apply the same discipline to the body that runs the whole operation.</p>
       </div>
-      <p class="section-body">NDO was born from a simple belief: that high performers who apply rigorous systems thinking to their businesses should apply the same discipline to the body that runs the whole operation.</p>
-      <div class="founder-credentials">
-        <div class="credential">
-          <div class="credential-icon">✦</div>
-          <div class="credential-text">
-            <strong>Certified Personal Trainer (CPT)</strong>
-            NASM-accredited certification in exercise science and programming
-          </div>
-        </div>
-        <div class="credential">
-          <div class="credential-icon">✦</div>
-          <div class="credential-text">
-            <strong>Certified Nutrition Coach (CNC)</strong>
-            Precision Nutrition-level certification in nutritional science and behavior
-          </div>
-        </div>
-        <div class="credential">
-          <div class="credential-icon">✦</div>
-          <div class="credential-text">
-            <strong>NDO App Creator</strong>
-            Founder of the NDO fitness and nutrition tracking platform
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div style="background: var(--navy-mid); padding: 48px; border: 1px solid rgba(201,168,76,0.15);">
-        <div class="section-label">The NDO Difference</div>
-        <div style="display:flex; flex-direction:column; gap:24px; margin-top:8px;">
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
-            <div style="padding:20px; background:rgba(201,168,76,0.06); border-top:2px solid var(--gold);">
-              <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.2em; color:var(--gold-dim); margin-bottom:8px;">OTHERS</div>
-              <div style="font-size:14px; color:var(--text-mid); line-height:1.6;">Generic programs. One-size templates. No data. No follow-through.</div>
-            </div>
-            <div style="padding:20px; background:rgba(201,168,76,0.06); border-top:2px solid var(--gold);">
-              <div style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.2em; color:var(--gold); margin-bottom:8px;">NDO</div>
-              <div style="font-size:14px; color:var(--text-light); line-height:1.6;">Audit-first. Blueprint-driven. Built around your life, not a template.</div>
+      <div>
+        <div class="credentials">
+          <div class="credential">
+            <span class="cred-icon">✦</span>
+            <div>
+              <span class="cred-title">Certified Personal Trainer (CPT)</span>
+              <span class="cred-sub">NASM-accredited certification in exercise science and programming</span>
             </div>
           </div>
-          <p style="font-size:14px; color:var(--text-mid); line-height:1.8; border-top:1px solid rgba(201,168,76,0.1); padding-top:24px;">The NDO community is limited in size by design. Every Architect-tier member receives direct access. Every Build member receives a personal audit. Quality over volume — always.</p>
+          <div class="credential">
+            <span class="cred-icon">✦</span>
+            <div>
+              <span class="cred-title">Certified Nutrition Coach (CNC)</span>
+              <span class="cred-sub">Precision Nutrition-level certification in nutritional science and behavior</span>
+            </div>
+          </div>
+          <div class="credential">
+            <span class="cred-icon">✦</span>
+            <div>
+              <span class="cred-title">NDO App Creator</span>
+              <span class="cred-sub">Founder of the NDO fitness and nutrition tracking platform</span>
+            </div>
+          </div>
+        </div>
+        <div class="diff-box">
+          <div class="founder-label" style="margin-bottom:0">The NDO Difference</div>
+          <div class="diff-row">
+            <div class="diff-col">
+              <div class="diff-lbl others">Others</div>
+              <div class="diff-copy">Generic programs. One-size templates. No data. No follow-through.</div>
+            </div>
+            <div class="diff-col">
+              <div class="diff-lbl ndo">NDO</div>
+              <div class="diff-copy ndo">Audit-first. Blueprint-driven. Built around your life, not a template.</div>
+            </div>
+          </div>
+          <div class="diff-footer">The NDO community is limited in size by design. Every Architect-tier member receives direct access. Quality over volume — always.</div>
         </div>
       </div>
     </div>
@@ -1223,50 +1127,58 @@
 </section>
 
 <!-- FAQ -->
-<section class="faq-section">
-  <div style="text-align:center; margin-bottom:64px;">
-    <div class="section-label" style="justify-content:center">Common Questions</div>
-    <h2 class="section-title" style="text-align:center">What you need to <em>know.</em></h2>
-  </div>
-
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">What exactly is a fitness and nutrition audit? <span class="toggle">+</span></div>
-    <div class="faq-a">The NDO audit is a structured diagnostic of your current physical performance and nutritional habits. For fitness, we assess your movement quality, training history, recovery patterns, and output metrics. For nutrition, we analyze your current intake, macro distribution, meal timing, and any gaps relative to your goals. You receive a written NDO Blueprint — a personalized document mapping exactly what to adjust, optimize, and build on.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">How is NDO different from hiring a personal trainer? <span class="toggle">+</span></div>
-    <div class="faq-a">A personal trainer typically programs workouts. NDO audits your entire health architecture — fitness, nutrition, recovery, and lifestyle design — and connects them all within the Blue Zone longevity framework. You also get a community of peers operating at the same level, and the NDO app as your daily implementation tool. It's the difference between a single service and a complete operating system.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">Do I need to be already fit to join? <span class="toggle">+</span></div>
-    <div class="faq-a">No. The audit meets you exactly where you are. Whether you're a seasoned athlete or someone rebuilding from scratch, the Blueprint is built around your current state. Many of our most motivated members are high performers who are successful in every area of life but have neglected their health systematically — and are ready to change that.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">What is the NDO app, and is it included? <span class="toggle">+</span></div>
-    <div class="faq-a">The NDO app is a fitness and nutrition tracking platform built specifically to support the NDO methodology. It's your daily home base between coaching calls and audits. All membership tiers include app access — full unlock is available on Build and Architect tiers.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">Can I pay with Bitcoin or crypto? <span class="toggle">+</span></div>
-    <div class="faq-a">Yes. NDO accepts Bitcoin, Ethereum, USDC, USDT, and most major cryptocurrencies in addition to all major credit cards, Apple Pay, Google Pay, and ACH bank transfers. Select your preferred method at checkout.</div>
-  </div>
-  <div class="faq-item">
-    <div class="faq-q" onclick="toggleFaq(this)">Is there a Spanish-language version? <span class="toggle">+</span></div>
-    <div class="faq-a">Not yet — but it's coming. NDO V2 will launch a fully Spanish-language membership community, with the Nicoya Peninsula Blue Zone as a central pillar of the program. If you're interested in early access, join the waitlist.</div>
+<section>
+  <div class="section" style="max-width:860px">
+    <div style="text-align:center;margin-bottom:52px">
+      <div class="section-label center">Common Questions</div>
+      <h2 class="section-title" style="text-align:center">What you need to know.</h2>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What exactly is a fitness and nutrition audit? <span class="faq-toggle">+</span></div>
+      <div class="faq-a">The NDO audit is a structured diagnostic of your current physical performance and nutritional habits. For fitness, we assess your movement quality, training history, recovery patterns, and output metrics. For nutrition, we analyze your current intake, macro distribution, meal timing, and any gaps relative to your goals. You receive a written NDO Blueprint — a personalized document mapping exactly what to adjust, optimize, and build on.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How is NDO different from hiring a personal trainer? <span class="faq-toggle">+</span></div>
+      <div class="faq-a">A personal trainer typically programs workouts. NDO audits your entire health architecture — fitness, nutrition, recovery, and lifestyle design — and connects them all within the Blue Zone longevity framework. You also get a community of peers operating at the same level, and the NDO app as your daily implementation tool. It's the difference between a single service and a complete operating system.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Do I need to be already fit to join? <span class="faq-toggle">+</span></div>
+      <div class="faq-a">No. The audit meets you exactly where you are. Whether you're a seasoned athlete or someone rebuilding from scratch, the Blueprint is built around your current state. Many of our most motivated members are high performers who are successful in every area of life but have neglected their health systematically — and are ready to change that.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What is the NDO app, and is it included? <span class="faq-toggle">+</span></div>
+      <div class="faq-a">The NDO app is a fitness and nutrition tracking platform built specifically to support the NDO methodology. It's your daily home base between coaching calls and audits. All membership tiers include app access — full unlock is available on Build and Architect tiers.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I pay with Bitcoin or crypto? <span class="faq-toggle">+</span></div>
+      <div class="faq-a">Yes. NDO accepts Bitcoin, Ethereum, USDC, USDT, and most major cryptocurrencies in addition to all major credit cards, Apple Pay, Google Pay, and ACH bank transfers. Select your preferred method at checkout.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is there a Spanish-language version? <span class="faq-toggle">+</span></div>
+      <div class="faq-a">Not yet — but it's coming. NDO V2 will launch a fully Spanish-language membership community, with the Nicoya Peninsula Blue Zone as a central pillar of the program. If you're interested in early access, join the waitlist.</div>
+    </div>
   </div>
 </section>
 
 <!-- CTA BANNER -->
 <section class="cta-banner">
-  <h2 class="cta-banner-title">Your longevity<br>starts <em>by design.</em></h2>
-  <p class="cta-banner-sub">The most successful people in the world don't leave their health to chance. They architect it. Your Blueprint is waiting.</p>
-  <a href="#pricing" class="btn-primary"><span>Design Your Blue Zone →</span></a>
+  <h2 class="cta-title">Your longevity starts by design.</h2>
+  <p class="cta-sub">The most successful people in the world don't leave their health to chance. They architect it. Your Blueprint is waiting.</p>
+  <a href="#pricing" class="btn btn-primary btn-lg"><span>Design Your Blue Zone →</span></a>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">NDO</div>
-  <div class="footer-text">© 2026 NDO Wellness Intelligence · All Rights Reserved</div>
-  <div class="footer-text">Powered by NDO · <a href="#" style="color:var(--text-mid); text-decoration:none;">Privacy</a> · <a href="#" style="color:var(--text-mid); text-decoration:none;">Terms</a></div>
+  <div class="footer-logo">
+    <img src="assets/NDO Logo green.png" alt="NDO"
+         onerror="this.style.display='none';document.getElementById('ft-logo-fb').style.display='block'">
+    <span id="ft-logo-fb" class="footer-logo-text" style="display:none">NDO</span>
+  </div>
+  <div class="footer-copy">© 2026 NDO Wellness Intelligence · All Rights Reserved</div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+  </div>
 </footer>
 
 <script>
@@ -1281,7 +1193,6 @@
     }
   }
 
-  // Scroll-triggered fade-in
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1293,8 +1204,8 @@
 
   document.querySelectorAll('.step, .pricing-card, .principle, .credential').forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(16px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    el.style.transform = 'translateY(14px)';
+    el.style.transition = 'opacity .55s ease, transform .55s ease';
     observer.observe(el);
   });
 </script>
