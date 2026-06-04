@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blue Zone Builder — NDO Health | Design Your Own Longevity</title>
+  <meta name="description" content="Blue Zones are the world's longevity blueprints. NDO takes the five pillars — movement, nutrition, downshift, belonging, purpose — and builds them into your life." />
+  <link rel="stylesheet" href="ndo-home.css?v=3" />
+  <style>
+    /* =====================================================================
+       blue-zone-builder.html — page-specific layer on top of ndo-home.css
+       ===================================================================== */
+
+    /* ---- shared layout ---- */
+    .container { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: clamp(20px, 5vw, 48px); }
+
+    /* ---- header (funnel pattern from reserve.html) ---- */
+    .funnel-header { position: sticky; top: 0; z-index: 1200; background: rgba(239,233,219,.9);
+      backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    .funnel-header .bar { height: 70px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+    .fh-back { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--ink-soft); display: inline-flex; align-items: center; gap: 8px; transition: color .18s ease; }
+    .fh-back:hover { color: var(--green-deep); }
+    .fh-brand { justify-self: center; }
+    .fh-cta { justify-self: end; font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--gold-deep); display: inline-flex; align-items: center; gap: 8px; }
+    .fh-cta::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--gold);
+      box-shadow: 0 0 0 4px rgba(214,162,74,.18); animation: pulseGold 2.6s ease-in-out infinite; }
+    @keyframes pulseGold { 0%,100% { box-shadow: 0 0 0 4px rgba(214,162,74,.16); } 50% { box-shadow: 0 0 0 7px rgba(214,162,74,0); } }
+
+    /* ---- eyebrow ---- */
+    .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--green-deep); display: inline-flex; align-items: center; gap: 10px; }
+    .eyebrow::before { content: ''; width: 28px; height: 1.5px; background: var(--green); flex: none; }
+
+    /* ---- buttons ---- */
+    .btn { display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--body); font-weight: 700; font-size: 14px; letter-spacing: .06em; text-transform: uppercase;
+      border: none; border-radius: 10px; padding: 0; cursor: pointer;
+      transform: skewX(-11deg); transition: transform .15s ease, box-shadow .15s ease; }
+    .btn span { display: inline-flex; align-items: center; gap: 6px;
+      transform: skewX(11deg); padding: 14px 26px; }
+    .btn--primary { background: var(--green); color: var(--ivory); }
+    .btn--primary:hover { transform: skewX(-11deg) translateY(-2px); box-shadow: 0 8px 24px -6px rgba(94,148,114,.55); }
+    .btn--lg span { padding: 17px 34px; font-size: 15px; }
+    .btn--block { width: 100%; }
+    .btn--block span { width: 100%; justify-content: center; }
+
+    /* ---- arrow ---- */
+    .arrow { display: inline-block; transition: transform .15s ease; }
+    .btn:hover .arrow { transform: translateX(3px); }
+
+    /* ===== HERO ===== */
+    .hero { padding: clamp(72px, 10vw, 120px) 0 clamp(64px, 9vw, 104px); text-align: center; }
+    .hero .eyebrow { justify-content: center; margin-bottom: 28px; }
+    .hero h1 { font-family: var(--display); font-weight: 400; font-size: clamp(52px, 8vw, 96px);
+      line-height: 1; letter-spacing: -.02em; margin: 0 0 8px; color: var(--ink); text-wrap: balance; }
+    .hero .subhead { font-family: var(--display); font-style: italic; font-weight: 400;
+      font-size: clamp(32px, 5vw, 60px); line-height: 1.1; letter-spacing: -.01em;
+      color: var(--green-deep); margin: 0 0 30px; }
+    .hero .lede { font-family: var(--body); font-size: clamp(16px, 2vw, 19px); line-height: 1.65;
+      color: var(--ink-soft); max-width: 52ch; margin: 0 auto 40px; }
+    .hero-cta { display: flex; justify-content: center; }
+
+    /* ===== WHAT IS A BLUE ZONE ===== */
+    .what { background: var(--d-base); color: var(--d-ink); padding: clamp(72px, 10vw, 112px) 0; }
+    .what .eyebrow { color: var(--gold); }
+    .what .eyebrow::before { background: var(--gold); }
+    .what h2 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 4vw, 52px);
+      line-height: 1.06; letter-spacing: -.015em; margin: 20px 0 0; color: var(--d-ink); text-wrap: balance; }
+    .what .body { font-size: clamp(16px, 1.8vw, 18.5px); line-height: 1.7; color: var(--d-ink-soft);
+      margin: 22px 0 0; max-width: 62ch; }
+    .what-inner { max-width: 720px; }
+
+    /* ===== THE 5 PILLARS ===== */
+    .pillars { padding: clamp(72px, 10vw, 112px) 0; }
+    .pillars .eyebrow { margin-bottom: 20px; }
+    .pillars h2 { font-family: var(--display); font-weight: 400; font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.08; letter-spacing: -.015em; margin: 0 0 clamp(36px, 5vw, 56px); color: var(--ink); }
+    .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .pillar-card { background: var(--card); border: 1.5px solid var(--line); border-radius: 16px;
+      padding: clamp(24px, 3vw, 32px); transition: border-color .18s ease, transform .18s ease; }
+    .pillar-card:hover { border-color: rgba(94,148,114,.5); transform: translateY(-3px); }
+    .pillar-num { font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 12px; }
+    .pillar-name { font-family: var(--display); font-weight: 400; font-size: 22px; line-height: 1.1;
+      color: var(--ink); margin: 0 0 10px; }
+    .pillar-desc { font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); margin: 0; }
+
+    /* ===== NDO SERVICES ===== */
+    .services { background: var(--raised); padding: clamp(72px, 10vw, 112px) 0; }
+    .services .eyebrow { margin-bottom: 20px; }
+    .services h2 { font-family: var(--display); font-weight: 400; font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.08; letter-spacing: -.015em; margin: 0 0 clamp(36px, 5vw, 56px); color: var(--ink); }
+    .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .service-card { background: var(--card); border: 1.5px solid var(--line); border-radius: 16px;
+      padding: clamp(24px, 3vw, 32px); display: flex; flex-direction: column; gap: 8px;
+      transition: border-color .18s ease, transform .18s ease; }
+    .service-card:not(.current):hover { border-color: rgba(94,148,114,.5); transform: translateY(-3px); }
+    .service-card.current { border-color: var(--green); background: rgba(94,148,114,.06); }
+    .service-name { font-family: var(--display); font-weight: 400; font-size: 20px; color: var(--ink);
+      display: flex; align-items: center; gap: 8px; }
+    .service-name .tag { font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--green-deep); background: rgba(94,148,114,.12); border-radius: 6px; padding: 3px 8px; }
+    .service-desc { font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0; }
+    .service-link { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--green-deep); margin-top: auto; padding-top: 12px; display: inline-flex; align-items: center; gap: 6px;
+      transition: gap .15s ease; }
+    .service-card:not(.current):hover .service-link { gap: 10px; }
+
+    /* ===== CLOSING CTA ===== */
+    .closing { background: var(--d-base); color: var(--d-ink); padding: clamp(80px, 12vw, 128px) 0;
+      text-align: center; position: relative; overflow: hidden; }
+    .closing::before { content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(80% 70% at 50% 0%, rgba(94,148,114,.12), transparent 60%); }
+    .closing h2 { font-family: var(--display); font-weight: 400; font-size: clamp(34px, 5vw, 64px);
+      line-height: 1.04; letter-spacing: -.02em; margin: 0 0 20px; position: relative; text-wrap: balance; }
+    .closing .body { font-size: clamp(16px, 2vw, 18.5px); line-height: 1.7; color: var(--d-ink-soft);
+      max-width: 50ch; margin: 0 auto 40px; position: relative; }
+    .closing-cta { display: flex; justify-content: center; position: relative; }
+    .closing .btn--primary { background: var(--green); color: var(--ivory); }
+    .closing .btn--primary:hover { box-shadow: 0 10px 30px -8px rgba(94,148,114,.6); }
+
+    /* ===== FOOTER ===== */
+    .site-footer { background: var(--base); border-top: 1px solid var(--line);
+      padding: clamp(36px, 5vw, 56px) 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .footer-brand { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--ink-soft); }
+    .footer-links { display: flex; gap: clamp(16px, 3vw, 32px); flex-wrap: wrap; }
+    .footer-links a { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--ink-soft); transition: color .16s ease; }
+    .footer-links a:hover { color: var(--green-deep); }
+    .footer-legal { width: 100%; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--ink-soft); opacity: .6; padding-top: 16px; border-top: 1px solid var(--line); margin-top: 8px; }
+
+    /* ===== MOBILE NAV (hamburger) ===== */
+    .nav-toggle { display: none; background: none; border: 1.5px solid var(--line); border-radius: 9px;
+      width: 40px; height: 34px; flex-direction: column; align-items: center; justify-content: center;
+      gap: 5px; cursor: pointer; padding: 0; }
+    .nav-toggle span { display: block; width: 18px; height: 1.5px; background: var(--ink); border-radius: 2px;
+      transition: transform .2s ease, opacity .2s ease; }
+    .mobile-menu { display: none; flex-direction: column; padding: 20px clamp(20px, 5vw, 48px) 24px;
+      border-top: 1px solid var(--line); gap: 4px; }
+    .mobile-menu a { font-family: var(--body); font-size: 16px; font-weight: 500; color: var(--ink);
+      padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu .btn { margin-top: 8px; align-self: flex-start; }
+
+    @media (max-width: 760px) {
+      .nav-toggle { display: flex; }
+      .mobile-menu.open { display: flex; }
+      .fh-cta .full { display: none; }
+      .pillar-grid { grid-template-columns: 1fr 1fr; }
+      .service-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 480px) {
+      .pillar-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="funnel-header">
+    <div class="container bar">
+      <a href="index.html" class="fh-back"><span>←</span> Back to site</a>
+      <a href="index.html" class="fh-brand" aria-label="NDO Health — No Days Off">
+        <img src="assets/NDO%20Logo%20green.png" alt="NDO" style="height:30px;width:auto" />
+      </a>
+      <span class="fh-cta"><span class="full">3 of 6 </span>spots open</span>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">NDO Health · Blue Zone Builder</span>
+      <h1>Don't go to a Blue Zone.</h1>
+      <p class="subhead">Design your own.</p>
+      <p class="lede">High performers audit their portfolios, their businesses, their teams. NDO applies the same rigor to the one asset that makes everything else possible — your health.</p>
+      <div class="hero-cta">
+        <a href="reserve.html" class="btn btn--primary btn--lg"><span>Build my blueprint <span class="arrow">→</span></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHAT IS A BLUE ZONE ================= -->
+  <section class="what">
+    <div class="container">
+      <div class="what-inner">
+        <span class="eyebrow">The Framework</span>
+        <h2>Blue Zones are the world's longevity blueprints.</h2>
+        <p class="body">Five places on earth where people routinely live past 100. Not by accident — by design. Movement built into daily life. Food grown close to home. Community as medicine. Purpose that doesn't retire. NDO takes these principles and makes them portable — applicable to your life, wherever you are.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= THE 5 PILLARS ================= -->
+  <section class="pillars">
+    <div class="container">
+      <span class="eyebrow">Your Blueprint Pillars</span>
+      <h2>Five deposits. One architecture.</h2>
+      <div class="pillar-grid">
+
+        <div class="pillar-card">
+          <div class="pillar-num">01</div>
+          <h3 class="pillar-name">Movement</h3>
+          <p class="pillar-desc">Natural, consistent physical activity built into your day</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-num">02</div>
+          <h3 class="pillar-name">Nutrition</h3>
+          <p class="pillar-desc">Whole, unprocessed food as your primary fuel source</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-num">03</div>
+          <h3 class="pillar-name">Downshift</h3>
+          <p class="pillar-desc">Active stress management and intentional recovery</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-num">04</div>
+          <h3 class="pillar-name">Belonging</h3>
+          <p class="pillar-desc">Community and connection as a health practice</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-num">05</div>
+          <h3 class="pillar-name">Purpose</h3>
+          <p class="pillar-desc">A clear reason to get up that extends beyond work</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NDO SERVICES ================= -->
+  <section class="services">
+    <div class="container">
+      <span class="eyebrow">How We Build It</span>
+      <h2>Five ways NDO invests in your longevity.</h2>
+      <div class="service-grid">
+
+        <a href="personal-training.html" class="service-card">
+          <div class="service-name">Personal Training</div>
+          <p class="service-desc">In-person coaching built around your body</p>
+          <span class="service-link">Learn more <span class="arrow">→</span></span>
+        </a>
+
+        <a href="on-demand.html" class="service-card">
+          <div class="service-name">Online Coaching</div>
+          <p class="service-desc">Remote programming and accountability</p>
+          <span class="service-link">Learn more <span class="arrow">→</span></span>
+        </a>
+
+        <a href="nutrition.html" class="service-card">
+          <div class="service-name">Nutritional Coaching</div>
+          <p class="service-desc">Food architecture for performance and longevity</p>
+          <span class="service-link">Learn more <span class="arrow">→</span></span>
+        </a>
+
+        <a href="reserve.html" class="service-card">
+          <div class="service-name">Health &amp; Wellness Audit</div>
+          <p class="service-desc">A full diagnostic of where you are today</p>
+          <span class="service-link">Learn more <span class="arrow">→</span></span>
+        </a>
+
+        <div class="service-card current">
+          <div class="service-name">Blue Zone Builder <span class="tag">You are here</span></div>
+          <p class="service-desc">Lifestyle design and long-term architecture</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CLOSING CTA ================= -->
+  <section class="closing">
+    <div class="container">
+      <h2>Your longevity starts by design.</h2>
+      <p class="body">Every action toward your health is a deposit into your account. The balance compounds. Start today.</p>
+      <div class="closing-cta">
+        <a href="reserve.html" class="btn btn--primary btn--lg"><span>Start my audit <span class="arrow">→</span></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-brand">NDO Health · No Days Off</span>
+        <nav class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">Coach Teo</a>
+          <a href="personal-training.html">Training</a>
+          <a href="nutrition.html">Nutrition</a>
+          <a href="reserve.html">Take the assessment</a>
+        </nav>
+      </div>
+      <div class="footer-legal">© NDO Health. Built on the belief that no days off compounds.</div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.mobile-menu');
+    if (toggle && menu) {
+      toggle.addEventListener('click', function () {
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open);
+      });
+    }
+  })();
+  </script>
+
+</body>
+</html>
