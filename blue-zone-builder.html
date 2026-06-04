@@ -424,7 +424,7 @@
   /* ── PRICING ── */
   .pricing-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
     margin-top: 52px;
   }
@@ -458,6 +458,24 @@
     background: var(--green);
     border-radius: 18px 18px 0 0;
   }
+
+  .pricing-card.premium {
+    background: var(--forest);
+    border-color: var(--forest);
+  }
+
+  .pricing-card.premium .tier-badge { color: rgba(243,238,224,.5); }
+  .pricing-card.premium .tier-name  { color: var(--ivory); }
+  .pricing-card.premium .tier-price { color: var(--ivory); }
+  .pricing-card.premium .tier-price sub { color: rgba(243,238,224,.5); }
+  .pricing-card.premium .tier-desc  { color: rgba(243,238,224,.55); border-bottom-color: rgba(243,238,224,.12); }
+  .pricing-card.premium .tier-features li { color: rgba(243,238,224,.7); border-bottom-color: rgba(243,238,224,.1); }
+  .pricing-card.premium .check      { color: var(--green); }
+  .pricing-card.premium .btn-outline {
+    border-color: rgba(243,238,224,.4);
+    color: var(--ivory);
+  }
+  .pricing-card.premium .btn-outline:hover { background: rgba(243,238,224,.1); }
 
   .tier-badge {
     font-family: 'JetBrains Mono', monospace;
@@ -809,7 +827,8 @@
     .audit-header { grid-template-columns: 1fr; gap: 28px; }
     .steps-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
     .steps-grid .step:last-child { grid-column: 1 / -1; }
-    .pricing-grid { grid-template-columns: 1fr; gap: 14px; }
+    .pricing-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .pricing-grid .pricing-card:last-child { grid-column: 1 / -1; }
     .founder-grid { grid-template-columns: 1fr; gap: 48px; }
     .payment-wrap { padding: 44px 20px; }
     .payment-inner { flex-direction: column; }
@@ -996,32 +1015,31 @@
 
       <div class="pricing-card">
         <div class="tier-badge">Tier 01</div>
-        <div class="tier-name">Ignite</div>
-        <div class="tier-price">$97<sub>/mo</sub></div>
-        <div class="tier-desc">Begin the practice. Build the foundation.</div>
+        <div class="tier-name">App Only</div>
+        <div class="tier-price">$9<sub>/mo</sub></div>
+        <div class="tier-desc">Track your health. Enter the system.</div>
         <ul class="tier-features">
-          <li><span class="check">✓</span> Full NDO community access on Skool</li>
-          <li><span class="check">✓</span> Weekly group coaching call</li>
-          <li><span class="check">✓</span> NDO methodology content library</li>
-          <li><span class="check">✓</span> Recovery day protocols + guides</li>
+          <li><span class="check">✓</span> NDO app — fitness + nutrition tracking</li>
+          <li><span class="check">✓</span> Training log + progress monitoring</li>
+          <li><span class="check">✓</span> Nutrition tracking + macro targets</li>
           <li><span class="check">✓</span> Blue Zone principles curriculum</li>
-          <li><span class="check">✓</span> NDO app access (fitness + nutrition)</li>
+          <li><span class="check">✓</span> Community access (read)</li>
         </ul>
-        <a href="#" class="btn btn-outline btn-block"><span>Join Ignite</span></a>
+        <a href="#" class="btn btn-outline btn-block"><span>Get the App</span></a>
       </div>
 
       <div class="pricing-card featured">
         <div class="tier-badge">Tier 02 · Most Popular</div>
         <div class="tier-name">Build</div>
         <div class="tier-price">$197<sub>/mo</sub></div>
-        <div class="tier-desc">Personalized audits. Your Blueprint begins.</div>
+        <div class="tier-desc">Your Blueprint begins. The audit starts here.</div>
         <ul class="tier-features">
-          <li><span class="check">✓</span> Everything in Ignite</li>
-          <li><span class="check">✓</span> 1 personal fitness audit per month</li>
+          <li><span class="check">✓</span> Everything in App</li>
+          <li><span class="check">✓</span> Full community access on Skool</li>
+          <li><span class="check">✓</span> Weekly group coaching call</li>
+          <li><span class="check">✓</span> Monthly personal fitness audit</li>
           <li><span class="check">✓</span> Monthly nutritional check-in + analysis</li>
-          <li><span class="check">✓</span> Blue Zone Design blueprint session</li>
-          <li><span class="check">✓</span> Priority community support</li>
-          <li><span class="check">✓</span> NDO app — full unlock</li>
+          <li><span class="check">✓</span> NDO Blueprint session</li>
         </ul>
         <a href="#" class="btn btn-primary btn-block"><span>Join Build</span></a>
       </div>
@@ -1029,7 +1047,7 @@
       <div class="pricing-card">
         <div class="tier-badge">Tier 03</div>
         <div class="tier-name">Architect</div>
-        <div class="tier-price">$497<sub>/mo</sub></div>
+        <div class="tier-price">$697<sub>/mo</sub></div>
         <div class="tier-desc">For those who leave nothing to chance.</div>
         <ul class="tier-features">
           <li><span class="check">✓</span> Everything in Build</li>
@@ -1042,8 +1060,24 @@
         <a href="#" class="btn btn-outline btn-block"><span>Join Architect</span></a>
       </div>
 
+      <div class="pricing-card premium">
+        <div class="tier-badge">Tier 04 · Upgrade Path</div>
+        <div class="tier-name">Blue Zone Builder</div>
+        <div class="tier-price">$1,750<sub>/mo</sub></div>
+        <div class="tier-desc">A full life redesign. Available to Architect members after 3–6 months.</div>
+        <ul class="tier-features">
+          <li><span class="check">✓</span> Everything in Architect</li>
+          <li><span class="check">✓</span> Full 5-pillar lifestyle architecture</li>
+          <li><span class="check">✓</span> Environment + purpose design sessions</li>
+          <li><span class="check">✓</span> Social circle + belonging audit</li>
+          <li><span class="check">✓</span> Quarterly intensive (in-person or virtual)</li>
+          <li><span class="check">✓</span> Exclusive BZB cohort access</li>
+        </ul>
+        <a href="#" class="btn btn-outline btn-block"><span>Apply for BZB</span></a>
+      </div>
+
     </div>
-    <p style="text-align:center;margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)">Annual plans available — 2 months free · All memberships cancel anytime</p>
+    <p style="text-align:center;margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)">Annual plans available — 2 months free · Blue Zone Builder by invitation · All memberships cancel anytime</p>
   </div>
 </section>
 
